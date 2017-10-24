@@ -12,9 +12,8 @@ From 2 to 6 of April, 2018.
 
 ## Venue
 
-The 2018 edition will take place in Liège, Belgium.
-
-### [How to get there?](howtogetthere.md)
+The 2018 edition will take place in Liège, Belgium.      
+[How to get there?](howtogetthere.md)
 
 
 
