@@ -6,7 +6,7 @@ This page provide the relevant information about the Diva user workshops organis
 
 ### Participants
 
-Participants are expected to be partners of SeaDataCloud or EMODnet [Chemistry](http://www.emodnet-chemistry.eu/) or [Biology](http://www.emodnet-biology.eu/). Other scientists or data managers may request an invitation by contacting the organisers. Priority will be given to the those partners responsible for the Product preparation.
+Participants are expected to be partners of SeaDataCloud or EMODnet [Chemistry](http://www.emodnet-chemistry.eu/) or [Biology](http://www.emodnet-biology.eu/). Other scientists or data managers may request an invitation by contacting the organisers. Priority will be given to those partners responsible for the Product preparation.
 
 ### Dates
 
