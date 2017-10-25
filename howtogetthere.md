@@ -8,4 +8,4 @@ By plane:
 
 By train:
 
-Liège-Guillemins station has frequent connexions with Brussels, from where you can reach at high speed Amsterdam, Rotterdam, London, Lille, Paris, Strasbourg, Lyon, Nice, Marseille and Frankfürt. There are also direct high speed connexions from Liège to Paris, Brussels, Köln and Frankfürt.
+Liège-Guillemins station has frequent [connexions](http://www.belgianrail.be/jp/sncb-nmbs-routeplanner/query.exe/en?S=Bruxelles-Midi+%2f+Brussel-Zuid&Z=Liege-Guillemins&date=25/10/2017&time=14:19&start=1&timesel=depart&&REQ0JourneyStopsSID=A=1@O=Bruxelles-Midi%20/%20Brussel-Zuid@X=4336531@Y=50835707@U=80@L=008814001@B=1@p=1508891459@n=ac.1=GA@&REQ0JourneyStopsZID=A=1@O=Liege-Guillemins@X=5566696@Y=50624551@U=80@L=008841004@B=1@p=1508891459@n=ac.1=GA@&REQ0JourneyProduct_prod_list=3:0111111111111111&OK#focus) with Brussels, from where you can reach at high speed Amsterdam, Rotterdam, London, Lille, Paris, Strasbourg, Lyon, Nice, Marseille and Frankfürt. There are also direct [high speed connexions](https://www.b-europe.com/EN) from Liège to Paris, Brussels, Köln and Frankfürt.
