@@ -7,9 +7,9 @@ The organisational details will be made available at https://gher-ulg.github.io/
 
 ## What should be here
 
-Code     
-Notebooks     
-Presentations    
+- [x] Code     
+- [x] Notebooks     
+- [x] Presentations    
 
 ## What should not be here
 
