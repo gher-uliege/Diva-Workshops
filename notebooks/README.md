@@ -33,6 +33,11 @@ Pkg.update("divand")
 
 If `divand` is already up-to-date, this command will not make any change.
 
+To update all Julia package, use the following command:
+
+```julia
+Pkg.update()
+```
 
 ## Need help?
 
