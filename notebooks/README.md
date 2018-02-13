@@ -5,7 +5,7 @@ Simple 2D surface analysis (Black Sea), Black Sea data in ODV format:
 * Manual calibration (JMB)
 * Calibration tools (JMB)
 
-2D per levels or 3D (lon,lat,profondeur) for Black Sea (Alex)
+2D per levels or 3D (lon,lat,depth) for Black Sea (Alex)
 
 Full 4D analysis on user data (Alex)
 
@@ -44,7 +44,7 @@ Pkg.update()
 
 ## Need help?
 
-If you have a problem when running these notebooks, please sure that you are using the latest version of `divand` (see section Upgrade divand) and include a sufficient amont of information that would allow somebody else to reproduce the issue, in particular:
+If you have a problem when running these notebooks, please sure that you are using the latest version of `divand` (see section Upgrade divand) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
 
 * The full error message that you are seeing (in particular file names and line numbers of the stack-trace).
 * Which version of Julia are you using? Please include the output of:
@@ -59,3 +59,14 @@ print(join(["$p: $v\n" for (p,v) in Pkg.installed()]))
 ```
 * Your .ipynb file that produces the issue.
 * An subset of you data to reproduce the problem.
+
+* From which directory are you running the script and do you have permission to write to this directory (and enough disk space)? Please include the output of:
+
+```julia
+pwd()
+```
+
+<!--  LocalWords:  ODV JMB lon ipynb GitHub ctrl jupyter
+ -->
+<!--  LocalWords:  divand julia versioninfo pwd
+ -->
