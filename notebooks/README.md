@@ -22,10 +22,21 @@ Generation of XML for sextant (Alex)
 4. Go to location where you saved .ipynb file
 5. Open file, you will see the code
 
+## Upgrade divand
+
+
+In a julia terminal, type:
+
+```julia
+Pkg.update("divand")
+```
+
+If `divand` is already up-to-date, this command will not make any change.
+
 
 ## Need help?
 
-If you have a problem when running these notebooks, please include a sufficient amont of information that would allow somebody else to reproduce the issue, in particular:
+If you have a problem when running these notebooks, please sure that you are using the latest version of `divand` (see section Upgrade divand) and include a sufficient amont of information that would allow somebody else to reproduce the issue, in particular:
 
 * The full error message that you are seeing (in particular file names and line numbers of the stack-trace).
 * Which version of Julia are you using? Please include the output of:
