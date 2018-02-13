@@ -57,8 +57,8 @@ versioninfo()
 ```julia
 print(join(["$p: $v\n" for (p,v) in Pkg.installed()]))
 ```
-* Your .ipynb file that produces the issue.
-* An subset of you data to reproduce the problem.
+* Your .ipynb file that produces the issue (unless it is an unmodified version of the sample notebooks).
+* An subset of you data to reproduce the problem (unless it is an example data set).
 
 * From which directory are you running the script and do you have permission to write to this directory (and enough disk space)? Please include the output of:
 
