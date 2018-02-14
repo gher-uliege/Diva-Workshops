@@ -25,7 +25,7 @@ Generation of XML for sextant (Alex)
 ## Upgrade divand
 
 
-In a julia terminal, type:
+In a julia terminal or in a Jupyter notebook cell, type:
 
 ```julia
 Pkg.update("divand")
