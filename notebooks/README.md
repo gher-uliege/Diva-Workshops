@@ -31,8 +31,8 @@ In a julia terminal, type:
 Pkg.update("divand")
 ```
 
-If `divand` is already up-to-date, this command will not make any change. 
-It is usually necessary to restart julia if `divand` was updated, unless:
+If `divand` is already up-to-date, this command will not make any change.
+It is usually necessary to restart julia (in jupter notebook you select Kernel -> Restart) if `divand` was updated, unless:
   * you did not yet import divand
   * or if you use `import divand` (as opposed to `using divand`), it is sufficient to reload divand with the command `reload("divand")`.
 
