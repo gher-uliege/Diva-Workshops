@@ -4,8 +4,8 @@
 
 * **Julia**: high-level, high-performance dynamic programming language for numerical computing
 * **Jupyter notebook**: interactive computational environment, in which you can combine code execution, rich text, mathematics, plots and rich media in a web-browser.
-    * Jupyter notebook supports various programming language: <b>Ju</b>lia, <b>Pyt</b>hon, <b>R</b> (and many more)
-    * In this context, a **kernel** is running instance of the different programming language.
+    * Jupyter notebook supports various programming languages: <b>Ju</b>lia, <b>Pyt</b>hon, <b>R</b> (and many more)
+    * In this context, a **kernel** is a running instance of the different programming languages.
     * Jupyter notebook allows you to send commands to this kernel (like `1+2`) and display the response in the web-browser (you guessed it: `3`!).
 * **IJulia**: a packages that integrates Julia with Jupyter notebook
 
