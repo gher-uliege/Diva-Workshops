@@ -1,1 +1,1 @@
-This directory contains the presentation made during the course.
+This directory will store the presentations made during the course.

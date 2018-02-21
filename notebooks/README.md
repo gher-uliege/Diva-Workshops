@@ -16,14 +16,13 @@ Generation of XML for sextant (Alex)
 
 ## How to download .ipynb files from GitHub
 
-1. Click on the .ipynb file you want to download, then click on Raw
-2. Then, press ctrl+s to save it as .ipynb
+1. Click on the .ipynb file you want to download, then click on *Raw*
+2. Then, press `ctrl+s` to save it as .ipynb
 3. Open jupyter notebook
-4. Go to location where you saved .ipynb file
+4. Go to thr location where you saved .ipynb file
 5. Open file, you will see the code
 
 ## Upgrade divand
-
 
 In a julia terminal or in a Jupyter notebook cell, type:
 
@@ -32,7 +31,7 @@ Pkg.update("divand")
 ```
 
 If `divand` is already up-to-date, this command will not make any change.
-It is usually necessary to restart julia (in jupter notebook you select Kernel -> Restart) if `divand` was updated, unless:
+It is usually necessary to restart julia (in jupyter notebook you select `Kernel -> Restart`) if `divand` was updated, unless:
   * you did not yet import divand
   * or if you use `import divand` (as opposed to `using divand`), it is sufficient to reload divand with the command `reload("divand")`.
 

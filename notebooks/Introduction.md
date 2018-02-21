@@ -16,5 +16,5 @@ An overview of Julia (upto *The file system*):
 
 https://github.com/Alexander-Barth/JuliaTutorial/blob/master/Julia%20Tutorial%20of%20Data%20Analysis%20in%20Oceanography.ipynb
 
-More techincal information for interested people (but not necessary for the workshop)
+More technical information for interested people (but not necessary for the workshop)
 https://github.com/Alexander-Barth/JuliaTutorial/blob/master/Julia%2C%20a%20fresh%20approach%20to%20technical%20computing.ipynb
