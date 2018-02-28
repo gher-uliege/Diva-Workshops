@@ -9,18 +9,29 @@ Simple 2D surface analysis (Black Sea), Black Sea data in ODV format:
 
 Full 4D analysis on user data (Alex)
 
-Visualization (Charles)
+[Visualization and post-processing](./postprocessing/README.md) (Charles)
 
 Generation of XML for sextant (Alex)
 
-
 ## How to download .ipynb files from GitHub
 
+### Download individual files
 1. Click on the .ipynb file you want to download, then click on *Raw*
 2. Then, press `ctrl+s` to save it as .ipynb
 3. Open jupyter notebook
-4. Go to thr location where you saved .ipynb file
-5. Open file, you will see the code
+4. Go to the location where you saved .ipynb file
+5. Click on the file, you will see the code in your browser
+
+![github_download](https://user-images.githubusercontent.com/11868914/36780897-9db97b3a-1c74-11e8-8278-42b61fa0b57f.png)
+
+
+### For GitHub users
+
+You can directly clone the whole project:
+```bash
+git clone git@github.com:gher-ulg/Diva-Workshops.git
+```
+and then navigate into the notebooks directory.
 
 ## Upgrade divand
 
