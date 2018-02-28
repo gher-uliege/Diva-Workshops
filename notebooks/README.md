@@ -56,21 +56,21 @@ Pkg.update()
 
 If you have a problem when running these notebooks, please sure that you are using the latest version of `divand` (see section Upgrade divand) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
 
-* The full error message that you are seeing (in particular file names and line numbers of the stack-trace).
-* Which version of Julia are you using? Please include the output of:
+- [x] The full error message that you are seeing (in particular file names and line numbers of the stack-trace).
+- [x] Which version of Julia are you using? Please include the output of:
 
 ```julia
 versioninfo()
 ```
-* Which package are installed and in which version? Please include the output of:
+- [x] Which package are installed and in which version? Please include the output of:
 
 ```julia
 print(join(["$p: $v\n" for (p,v) in Pkg.installed()]))
 ```
-* Your .ipynb file that produces the issue (unless it is an unmodified version of the sample notebooks).
-* An subset of you data to reproduce the problem (unless it is an example data set).
+- [x] Your .ipynb file that produces the issue (unless it is an unmodified version of the sample notebooks).
+- [x] An subset of you data to reproduce the problem (unless it is an example data set).
 
-* From which directory are you running the script and do you have permission to write to this directory (and enough disk space)? Please include the output of:
+- [x] From which directory are you running the script and do you have permission to write to this directory (and enough disk space)? Please include the output of:
 
 ```julia
 pwd()
