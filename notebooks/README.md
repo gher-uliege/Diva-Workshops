@@ -33,7 +33,6 @@ git clone git@github.com:gher-ulg/Diva-Workshops.git
 ```
 and then navigate into the notebooks directory.
 
-[upgrade](#upgrade)
 ## Upgrade divand
 
 In a julia terminal or in a Jupyter notebook cell, type:
@@ -55,7 +54,7 @@ Pkg.update()
 
 ## Need help?
 
-If you have a problem when running these notebooks, please make sure that you are using the latest version of `divand` (see section [Upgrade divand](upgrade)) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
+If you have a problem when running these notebooks, please make sure that you are using the latest version of `divand` (see section [Upgrade divand](#upgrade-divand)) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
 
 - [x] The full error message that you are seeing (in particular file names and line numbers of the stack-trace).
 - [x] Which version of Julia are you using? Please include the output of:
