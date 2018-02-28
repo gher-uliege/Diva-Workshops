@@ -33,6 +33,7 @@ git clone git@github.com:gher-ulg/Diva-Workshops.git
 ```
 and then navigate into the notebooks directory.
 
+[upgrade](#upgrade)
 ## Upgrade divand
 
 In a julia terminal or in a Jupyter notebook cell, type:
@@ -42,7 +43,7 @@ Pkg.update("divand")
 ```
 
 If `divand` is already up-to-date, this command will not make any change.
-It is usually necessary to restart julia (in jupyter notebook you select `Kernel -> Restart`) if `divand` was updated, unless:
+It is usually necessary to restart julia (in Jupyter notebook you select `Kernel -> Restart`) if `divand` was updated, unless:
   * you did not yet import divand
   * or if you use `import divand` (as opposed to `using divand`), it is sufficient to reload divand with the command `reload("divand")`.
 
@@ -54,7 +55,7 @@ Pkg.update()
 
 ## Need help?
 
-If you have a problem when running these notebooks, please sure that you are using the latest version of `divand` (see section Upgrade divand) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
+If you have a problem when running these notebooks, please make sure that you are using the latest version of `divand` (see section [Upgrade divand](upgrade)) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
 
 - [x] The full error message that you are seeing (in particular file names and line numbers of the stack-trace).
 - [x] Which version of Julia are you using? Please include the output of:
@@ -75,6 +76,10 @@ print(join(["$p: $v\n" for (p,v) in Pkg.installed()]))
 ```julia
 pwd()
 ```
+
+### GitHub users
+
+Submit an issue with the details mentioned in the previous sections.
 
 <!--  LocalWords:  ODV JMB lon ipynb GitHub ctrl jupyter
  -->
