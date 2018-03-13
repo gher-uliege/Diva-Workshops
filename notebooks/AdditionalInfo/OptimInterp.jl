@@ -77,12 +77,12 @@ end
 
 function select_nearest!(x,ox,param,m,index,distance,d)
 
-#     Select the m observations from ox(1:nd,1:on) closest to point x(1:nd).
+    #     Select the m observations from ox(1:nd,1:on) closest to point x(1:nd).
 
-#     Arguments:
+    #     Arguments:
 
 
-#     Calculate a measure of (squared) distance to each observation:
+    #     Calculate a measure of (squared) distance to each observation:
     #d = zeros(size(ox,2))
     nd = size(ox,1)
     
@@ -92,13 +92,9 @@ function select_nearest!(x,ox,param,m,index,distance,d)
         for j = 1:nd
             d[i] += ((x[j] - ox[j,i]) * param[j])^2
         end
-            
-        #d[i] = sum(((x - ox[:,i]) .* param).^2)
     end
 
-    #index[:] = sortperm(d)[1:m]
     mysort!(d,m,index)
-
     distance[:] = d[index]
 end
 
@@ -107,15 +103,15 @@ end
 
 function mysort!(d,m,pannier)
 
-#     Return the indices of the m smallest elements in d(:).
-#     The algorithm is succinctly coded, but would a heap sort be faster?
+    #     Return the indices of the m smallest elements in d(:).
+    #     The algorithm is succinctly coded, but would a heap sort be faster?
 
 
-#      integer :: i,max_pannier(1)
+    #      integer :: i,max_pannier(1)
 
-      for i=1:m
+    for i=1:m
         pannier[i] = i
-      end 
+    end 
 
     dummy,max_pannier = findmax(d[pannier])
 
@@ -180,27 +176,27 @@ end
 
 function mypinv!(A, tolerance, work, D)
 
-#     Compute pseudo-inverse A+ of symmetric A in factored form U D+ U', where
-#     U overwrites A and D is diagonal matrix D+.
+    #     Compute pseudo-inverse A+ of symmetric A in factored form U D+ U', where
+    #     U overwrites A and D is diagonal matrix D+.
 
-#     Saunders notes: Working with the factors of the pseudo-inverse is
-#                     preferable to multiplying them together (more stable,
-#                     less arithmetic).  Also, the choice of tolerance is
-#                     not straightforward.  If A is noisy, try 1.e-2 * || A ||,
-#                     else machine-eps. * || A ||  (1 norms).
-#     Arguments:
+    #     Saunders notes: Working with the factors of the pseudo-inverse is
+    #                     preferable to multiplying them together (more stable,
+    #                     less arithmetic).  Also, the choice of tolerance is
+    #                     not straightforward.  If A is noisy, try 1.e-2 * || A ||,
+    #                     else machine-eps. * || A ||  (1 norms).
+    #     Arguments:
 
-#      real(wp), intent (inout) :: A(:,:)  # Upper triangle input; orthogonal U out
-#      real(wp), intent (in)    :: tolerance
-#      real(wp), intent (out)   :: work(:), D(:)
+    #      real(wp), intent (inout) :: A(:,:)  # Upper triangle input; orthogonal U out
+    #      real(wp), intent (in)    :: tolerance
+    #      real(wp), intent (out)   :: work(:), D(:)
 
-#     Local variables:
+    #     Local variables:
 
-#      integer :: i, info, N
+    #      integer :: i, info, N
 
-#     Execution:
+    #     Execution:
 
-      N = size(A,1)
+    N = size(A,1)
 
     # Eigendecomposition/SVD of symmetric A:
     #D[:],A[:,:] = LAPACK.syev!('V', 'U', A)
@@ -213,7 +209,7 @@ function mypinv!(A, tolerance, work, D)
     
     #call dsyev ('V', 'U', N, A, N, D, work, size (work), info)
 
-#     Diagonal factor D+ of pseudo-inverse:
+    #     Diagonal factor D+ of pseudo-inverse:
     for j = 1:N
         if D[j] > tolerance
             D[j] = 1/D[j]
@@ -247,22 +243,15 @@ ng: number of grid cells on target grid
 
 ox: array n x nobs
 gx: array n x ng
+ox, of    : Observations (size(of,2) is the number of different parameters to analyse)
+ovar      : Observation error variances
+param     : inverse of correlation lengths
+m         : number of nearest observations used
+gx        : Target grid coords.
+gf, gvar  : Interpolated fields and error variances
 """
 
 function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
-
-
-      # real(wp), intent(in)  :: ox(:,:), of(:,:)  # Observations (size(of,2) is the number of different parameters to analyse)
-      # real(wp), intent(in)  :: ovar(:)           # Observation error variances
-      # real(wp), intent(in)  :: param(:)          # inverse of correlation lengths
-      # integer,  intent(in)  :: m                 # # nearest observations used
-      # real(wp), intent(in)  :: gx(:,:)           # Target grid coords.
-      # real(wp), intent(out) :: gf(:,:), gvar(:)  # Interpolated fields.
-      #                                            # and error variances
-# #     Local variables:
-
-    #       real(wp) :: PH(m)
-
     gn = size(gx,2)
     nf = size(of,1)  # parameters at each observation point
     
@@ -270,30 +259,7 @@ function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     PHiA = Array{T,1}(m)
     D = Array{T,1}(m)
     
-    #,A(m,m),D(m)
-
-# #ifdef DIAG_OBS_COVAR
-#       real(wp) :: R(m)
-# #else
-#       real(wp) :: R(m,m)
-# #endif
-
-#       integer  :: gn,nf,index(m)
-#       real(wp) :: distance(m)
-
-#       integer  :: i,j1,j2,j,lwork
     tolerance = 1e-5
-
-# #     ifdef VERBOSE
-#       integer  :: percentage_done
-# #     endif
-# #     ifdef STATIC_WORKSPACE
-#       real(wp) :: work((m+2)*m)
-# #     else
-#       real(wp), allocatable :: work(:)
-# #     endif
-
-# #     Execution:
 
     index = Array{Int,1}(m)
     distance = Array{T,1}(m)
@@ -302,103 +268,61 @@ function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     R = Array{T,1}(m)
     workd = Vector{T}(size(ox,2))
 
-    #$omp parallel  default(none) private(work,i,PH,PHiA,index,distance,j1,j2,R,D,A) &
-#$omp shared(gf,gn,gvar,gx,lwork,m,of,ovar,ox,param,tolerance)
-
-#     ifndef STATIC_WORKSPACE
-#      allocate(work(lwork))
-#     endif
-      
-#     ifdef VERBOSE
-      percentage_done = 0
-#     endif
+    percentage_done = 0
 
     lwork = syev_work('V','U',A)
     work = Vector{eltype(A)}(lwork)
     
+    for i = 1:gn
+        # get the indexes of the nearest observations
 
-    
-#$omp do 
-#      @inbounds for i = 1:gn
-      for i = 1:gn
+        select_nearest!(gx[:,i],ox,param,m,index,distance,workd)
+        
+        # form compute the error covariance matrix of the observation 
 
-          # get the indexes of the nearest observations
+        #@show index
+        R[:] = ovar[index]
+        
+        # form the error covariance matrix background field
+        # A = H P H' and PH = P H'
+        
+        for j2 = 1:m
+            # Upper triangle only
 
-          select_nearest!(gx[:,i],ox,param,m,index,distance,workd)
-          
-          # form compute the error covariance matrix of the observation 
+            for j1 = 1:j2  
+                A[j1,j2] = background_covariance(ox[:,index[j1]],ox[:,index[j2]],param)
+            end 
 
-          #@show index
-          R[:] = ovar[index]
-          
-          # form the error covariance matrix background field
-          # A = H P H' and PH = P H'
-          
-          for j2 = 1:m
-              # Upper triangle only
+            PH[j2] = background_covariance(gx[:,i],ox[:,index[j2]],param)
+        end
 
-              for j1 = 1:j2  
-                  A[j1,j2] = background_covariance(ox[:,index[j1]],ox[:,index[j2]],param)
-              end 
+        # covariance matrix of the innovation
 
-              PH[j2] = background_covariance(gx[:,i],ox[:,index[j2]],param)
-          end
+        # now A = H P H' + R
+        for j = 1:m
+            A[j,j] = A[j,j] + R[j]
+        end         
+        
+        # pseudo inverse of the covariance matrix of the innovation
+        mypinv!(A, tolerance, work, D)
+        
+        # i-th row of the Kalman gain:          
+        # PHiA = P H' (H P H' + R)^(-1)
+        #      = P H' A  diag(D)  A'
+        # PHiA' = A diag(D) (PH' A)'
 
-          # covariance matrix of the innovation
+        #@show size(A), size(PH), size(D)
+        # only transposes on vectors here
+        PHiA[:,:] = A * (D .* (PH' * A)')
 
-          # now A = H P H' + R
-          #ifdef DIAG_OBS_COVAR
-          for j = 1:m
-              A[j,j] = A[j,j] + R[j]
-          end
-          #else
-          #        A  = A + R
-          #endif
-          
+        # compute the analysis for all fields
 
-          
-          # pseudo inverse of the covariance matrix of the innovation
-          mypinv!(A, tolerance, work, D)
-          
-          # F = eigfact(Symmetric(A))
-          # A[:,:] = F[:vectors] :: Array{Float64,2}
-          # D[:,:] = F[:values] :: Array{Float64,1}
-          # for j = 1:m
-          #     if (D[j] > tolerance)
-          #         D[j] = 1/D[j]
-          #     else
-          #         D[j] = 0
-          #     end
-          # end
-          
-          # now (H P H' + R)^(-1) = A * D * A'
-          #D = pinv(A,tolerance)    
+        gf[:,i] = of[:,index] * PHiA
 
-          # i-th row of the Kalman gain:          
-          # PHiA = P H' (H P H' + R)^(-1)
-          #      = P H' A  diag(D)  A'
-          # PHiA' = A diag(D) (PH' A)'
+        # compute the error variance of the analysis
+        gvar[i] = 1 - PHiA ⋅ PH
 
-          #@show size(A), size(PH), size(D)
-          # only transposes on vectors here
-          PHiA[:,:] = A * (D .* (PH' * A)')
-
-          # compute the analysis for all fields
-
-          gf[:,i] = of[:,index] * PHiA
-
-          # compute the error variance of the analysis
-
-          gvar[i] = 1 - PHiA ⋅ PH
-
-      end
-#$omp end do
-
-#     ifndef STATIC_WORKSPACE
-#      deallocate(work)
-#     endif
- 
-#$omp end parallel 
+    end
 end
 
 function optiminterp{T}(ox::Array{T,2},of::Array{T,2},ovar::Vector{T},param,m,gx::Array{T,2})
@@ -412,10 +336,21 @@ function optiminterp{T}(ox::Array{T,2},of::Array{T,2},ovar::Vector{T},param,m,gx
     return gf,gvar
 end
 
+"""
+    fi,vari = optiminterp(x,f,var,len,m,xi)
 
+Interpolate the data `f` (vector of floats) defined on the grid `x` (tuple of 
+vector of floats) on the grid defined by `xi` (tuple of arrays).
+Observations are assumed to have an error variance of `var` and a correlation 
+length-scale of `len`. The data are assumed to be anomalied, i.e. 
+the relevant mean must be substracted before-hand.
+The local analysis scheme is implemented which mean that for every grid point 
+the `m` closest data points are used.
+All variances are scaled by an assumed constant background variance.
+"""
 function optiminterp{T,N}(x::NTuple{N,Vector{T}},
-                           f::Vector{T},
-                           var::Vector{T},len,m,xi::NTuple{N,Array{T,N}})
+                          f::Vector{T},
+                          var::Vector{T},len,m,xi::NTuple{N,Array{T,N}})
 
     # number of observations
     on = length(var)
