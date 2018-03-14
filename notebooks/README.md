@@ -1,9 +1,10 @@
 ## Content
 
-Simple 2D surface analysis (Black Sea), Black Sea data in ODV format:
-* Including error field (JMB)
-* Manual calibration (JMB)
-* Calibration tools (JMB)
+Simple 2D surface analysis:
+* Effect of changing analysis parameters 
+* Calibration tools 
+* Error field
+* Data quality check in postprocessing
 
 2D per levels or 3D (lon,lat,depth) for Black Sea (Alex)
 
