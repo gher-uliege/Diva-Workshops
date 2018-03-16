@@ -1,9 +1,9 @@
 ## Content
 
-Simple 2D surface analysis:
+Simple 2D analysis:
 * Effect of changing analysis parameters 
 * Calibration tools 
-* Error field
+* Error fields
 * Data quality check in postprocessing
 
 2D per levels or 3D (lon,lat,depth) for Black Sea (Alex)
