@@ -73,7 +73,7 @@ versioninfo()
 print(join(["$p: $v\n" for (p,v) in Pkg.installed()]))
 ```
 - [x] Your .ipynb file that produces the issue (unless it is an unmodified version of the sample notebooks).
-- [x] An subset of you data to reproduce the problem (unless it is an example data set).
+- [x] A subset of you data to reproduce the problem (unless it is an example data set).
 
 - [x] From which directory are you running the script and do you have permission to write to this directory (and enough disk space)? Please include the output of:
 
