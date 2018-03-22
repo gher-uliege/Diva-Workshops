@@ -1,40 +1,23 @@
 ## Content
 
-
-* 01-Julia-Introduction.ipynb
-* DIVAnd-overview.ipynb
-* 01-netCDF.ipynb
-* topography.ipynb
-* data-downloading.ipynb
-* data-import.ipynb
-* analysiswithcycles.ipynb
-* cpmedemo.ipynb
-* Estimating-the-correlation-length.ipynb
-LandEpsiloneffect.ipynb
-ODV-data-import.ipynb
-open boundary conditions.ipynb
-processing_parameteroptimization.ipynb
-processing_qualitycheck.ipynb
-* example-analysis.ipynb
-
-
-Downloding and preparing a topography
-
-Loading data with some simple selection examples
-
-Simple 2D analysis:
-* Effect of changing analysis parameters 
-* Calibration tools 
-* Error fields
-* Data quality check in postprocessing
-
-2D per levels or 3D (lon,lat,depth) for Black Sea (Alex)
-
-Full 4D analysis on user data (Alex)
+01-Julia-introduction.ipynb (Alexander)
+01-netCDF.ipynb (Charles)
+DIVAnd-overview.ipynb (Alexander)
+topography.ipynb (Alexander)
+data-downloading.ipynb (Alexander)
+ODV-data-import.ipynb (Jean-Marie)
+processing-quality-check.ipynb (Jean-Marie)
+L-and-epsilon-effect.ipynb (Jean-Marie)
+correlation-length.ipynb (Alexander)
+processing-parameter-optimization.ipynb (Jean-Marie)
+analysis-with-cycles.ipynb (Jean-Marie)
+cpme-demo.ipynb (Jean-Marie)
+open-boundary-conditions.ipynb (Jean-Marie)
+example-analysis.ipynb (Alexander)
+generation-XML-metadata.ipynb (Alexander)
 
 [Visualization and post-processing](./postprocessing/README.md) (Charles)
 
-Generation of XML for sextant (Alex)
 
 ## How to download .ipynb files from GitHub
 
