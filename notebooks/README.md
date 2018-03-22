@@ -2,22 +2,22 @@
 
 List of notebooks discussed during the DIVA workshop.
 
-[01-Julia-introduction.ipynb](01-Julia-introduction.ipynb) (Alexander)
-[01-netCDF.ipynb](01-netCDF.ipynb) (Charles)
-[DIVAnd-overview.ipynb](DIVAnd-overview.ipynb) (Alexander)
-[topography.ipynb](topography.ipynb) (Alexander)
-[data-downloading.ipynb](data-downloading.ipynb) (Alexander)
-[ODV-data-import.ipynb](ODV-data-import.ipynb) (Jean-Marie)
-[processing-quality-check.ipynb](processing-quality-check.ipynb) (Jean-Marie)
-[L-and-epsilon-effect.ipynb](L-and-epsilon-effect.ipynb) (Jean-Marie)
-[correlation-length.ipynb](correlation-length.ipynb) (Alexander)
-[processing-parameter-optimization.ipynb](processing-parameter-optimization.ipynb) (Jean-Marie)
-[analysis-with-cycles.ipynb](analysis-with-cycles.ipynb) (Jean-Marie)
-[cpme-demo.ipynb](cpme-demo.ipynb) (Jean-Marie)
-[open-boundary-conditions.ipynb](open-boundary-conditions.ipynb) (Jean-Marie)
-[example-analysis.ipynb](example-analysis.ipynb) (Alexander)
-[generation-XML-metadata.ipynb](generation-XML-metadata.ipynb) (Alexander)
-[Visualization and post-processing](./postprocessing/README.md) (Charles)
+1. [01-Julia-introduction.ipynb](01-Julia-introduction.ipynb) (Alexander)
+1. [01-netCDF.ipynb](01-netCDF.ipynb) (Charles)
+1. [DIVAnd-overview.ipynb](DIVAnd-overview.ipynb) (Alexander)
+1. [topography.ipynb](topography.ipynb) (Alexander)
+1. [data-downloading.ipynb](data-downloading.ipynb) (Alexander)
+1. [ODV-data-import.ipynb](ODV-data-import.ipynb) (Jean-Marie)
+1. [processing-quality-check.ipynb](processing-quality-check.ipynb) (Jean-Marie)
+1. [L-and-epsilon-effect.ipynb](L-and-epsilon-effect.ipynb) (Jean-Marie)
+1. [correlation-length.ipynb](correlation-length.ipynb) (Alexander)
+1. [processing-parameter-optimization.ipynb](processing-parameter-optimization.ipynb) (Jean-Marie)
+1. [analysis-with-cycles.ipynb](analysis-with-cycles.ipynb) (Jean-Marie)
+1. [cpme-demo.ipynb](cpme-demo.ipynb) (Jean-Marie)
+1. [open-boundary-conditions.ipynb](open-boundary-conditions.ipynb) (Jean-Marie)
+1. [example-analysis.ipynb](example-analysis.ipynb) (Alexander)
+1. [generation-XML-metadata.ipynb](generation-XML-metadata.ipynb) (Alexander)
+1. [Visualization and post-processing](./postprocessing/README.md) (Charles)
 
 
 ## How to download .ipynb files from GitHub
