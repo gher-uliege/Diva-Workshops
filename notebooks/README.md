@@ -16,7 +16,6 @@ List of notebooks discussed during the DIVA workshop.
 1. [cpme-demo.ipynb](cpme-demo.ipynb) (Jean-Marie)
 1. [open-boundary-conditions.ipynb](open-boundary-conditions.ipynb) (Jean-Marie)
 1. [example-analysis.ipynb](example-analysis.ipynb) (Alexander)
-1. [generation-XML-metadata.ipynb](generation-XML-metadata.ipynb) (Alexander)
 1. [Visualization and post-processing](./postprocessing/README.md) (Charles)
 
 
