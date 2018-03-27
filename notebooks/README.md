@@ -52,7 +52,7 @@ There are different ways to open a `ipynb` file, the following works on all plat
 * Start Julia
 * In the Julia terminal:
 
-```
+```julia
 cd("path")
 using IJulia
 notebook()
