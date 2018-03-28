@@ -2,24 +2,30 @@
 
 List of notebooks discussed during the DIVA workshop.
 
-1. [01-Julia-introduction.ipynb](01-Julia-introduction.ipynb) (Alexander)
-1. [01-netCDF.ipynb](01-netCDF.ipynb) (Charles)
-1. [DIVAnd-overview.ipynb](DIVAnd-overview.ipynb) (Alexander)
-1. [topography.ipynb](topography.ipynb) (Alexander)
-1. [data-downloading.ipynb](data-downloading.ipynb) (Alexander)
-1. [ODV-data-import.ipynb](ODV-data-import.ipynb) (Jean-Marie)
-1. [processing-quality-check.ipynb](processing-quality-check.ipynb) (Jean-Marie)
-1. [L-and-epsilon-effect.ipynb](L-and-epsilon-effect.ipynb) (Jean-Marie)
-1. [correlation-length.ipynb](correlation-length.ipynb) (Alexander)
-1. [processing-parameter-optimization.ipynb](processing-parameter-optimization.ipynb) (Jean-Marie)
-1. [analysis-with-cycles.ipynb](analysis-with-cycles.ipynb) (Jean-Marie)
-1. [cpme-demo.ipynb](cpme-demo.ipynb) (Jean-Marie)
-1. [open-boundary-conditions.ipynb](open-boundary-conditions.ipynb) (Jean-Marie)
-1. [example-analysis.ipynb](example-analysis.ipynb) (Alexander)
+1. [01-notebooks-basics.ipynb](01-notebooks-basics.ipynb) (Charles)
+1. [02-Julia-introduction.ipynb](02-Julia-introduction.ipynb) (Alexander)
+1. [03-netCDF.ipynb](03-netCDF.ipynb) (Charles)
+1. [04-OI-variational-analysis-introduction.ipynb](04-OI-variational-analysis-introduction.ipynb) (Alexander)
+1. [05-DIVAnd-overview.ipynb](05-DIVAnd-overview.ipynb) (Alexander)
+1. [06-topography.ipynb](06-topography.ipynb) (Alexander)
+1. [07-reading-data.ipynb](07-reading-data.ipynb) (Charles)
+1. [08-data-downloading.ipynb](08-data-downloading.ipynb) (Alexander)
+1. [09-ODV-data-import.ipynb](09-ODV-data-import.ipynb) (Alexander)
+1. [10-processing-quality-check.ipynb](10-processing-quality-check.ipynb) (Jean-Marie)
+1. [11-L-and-epsilon-effect.ipynb](11-L-and-epsilon-effect.ipynb) (Jean-Marie)
+1. [12-correlation-length.ipynb](12-correlation-length.ipynb) (Alexander)
+1. [13-processing-parameter-optimization.ipynb](13-processing-parameter-optimization.ipynb) (Jean-Marie)
+1. [14-cpme-demo.ipynb](14-cpme-demo.ipynb) (Jean-Marie)
+1. [15-example-analysis.ipynb](15-example-analysis.ipynb) (Alexander)
 1. [Visualization and post-processing](./postprocessing/README.md) (Charles)
 
 
 ## How to download .ipynb files from GitHub
+
+### Download all files
+
+Follow [this link](https://github.com/gher-ulg/Diva-Workshops/archive/master.zip) and uncompress the zip file.
+The notebooks are in the folder `Diva-Workshops-master/notebooks/`.
 
 ### Download individual files
 1. Click on the .ipynb file you want to download, then click on *Raw*
@@ -38,6 +44,21 @@ You can directly clone the whole project:
 git clone git@github.com:gher-ulg/Diva-Workshops.git
 ```
 and then navigate into the notebooks directory.
+
+## Open a notebook file
+
+There are different ways to open a `ipynb` file, the following works on all platforms.
+
+* Start Julia
+* In the Julia terminal:
+
+```julia
+cd("path")
+using IJulia
+notebook()
+```
+
+where `path` is the file path containing the notebook files on your system.
 
 ## Upgrade divand
 
