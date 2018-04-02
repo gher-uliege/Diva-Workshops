@@ -17,7 +17,7 @@ List of notebooks discussed during the DIVA workshop.
 1. [13-processing-parameter-optimization.ipynb](13-processing-parameter-optimization.ipynb) (Jean-Marie)
 1. [14-cpme-demo.ipynb](14-cpme-demo.ipynb) (Jean-Marie)
 1. [15-example-analysis.ipynb](15-example-analysis.ipynb) (Alexander)
-1. [Visualization and post-processing](./postprocessing/README.md) (Charles)
+1. [16-plot-results.ipynb](16-plot-results.ipynb) (Charles)
 
 
 ## How to download .ipynb files from GitHub
