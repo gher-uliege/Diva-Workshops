@@ -15,13 +15,15 @@ For the variable naming in the notebooks
 
 ## Topography / Bathymetry
 
+|               |              	|
 | --------------|:--------------|
-|bx   | coordinates along x-axis (usually longitudes)|
-|by   | coordinates along y-axis (usually latitudes) |
-|b    | bathymetry measurements |
+|`bx`   | coordinates along y-axis (usually latitudes) |
+|`by`   | coordinates along x-axis (usually longitudes)|
+|`b`    | bathymetry measurements |
 
 ## Selecting / subsetting
 
+|               |              	|
 | --------------|:--------------|
-| depthr    | depth range                |
-| timer     | time range (month range)   |
+| `depthr`    | depth range                |
+| `timer`     | time range (month range)   |
