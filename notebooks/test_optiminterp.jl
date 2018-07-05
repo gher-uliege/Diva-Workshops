@@ -18,7 +18,7 @@
 # there is a bug in the optimal interpolation package or 
 # that it is incrorrectly installed.
 
-import divand
+import DIVAnd
 import OptimInterp
 using Base.Test
 #function test_optiminterp

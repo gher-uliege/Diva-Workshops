@@ -60,18 +60,18 @@ notebook()
 
 where `path` is the file path containing the notebook files on your system.
 
-## Upgrade divand
+## Upgrade DIVAnd
 
 In a julia terminal or in a Jupyter notebook cell, type:
 
 ```julia
-Pkg.update("divand")
+Pkg.update("DIVAnd")
 ```
 
-If `divand` is already up-to-date, this command will not make any change.
-It is usually necessary to restart julia (in Jupyter notebook you select `Kernel -> Restart`) if `divand` was updated, unless:
-  * you did not yet import divand
-  * or if you use `import divand` (as opposed to `using divand`), it is sufficient to reload divand with the command `reload("divand")`.
+If `DIVAnd` is already up-to-date, this command will not make any change.
+It is usually necessary to restart julia (in Jupyter notebook you select `Kernel -> Restart`) if `DIVAnd` was updated, unless:
+  * you did not yet import DIVAnd
+  * or if you use `import DIVAnd` (as opposed to `using DIVAnd`), it is sufficient to reload DIVAnd with the command `reload("DIVAnd")`.
 
 To update all Julia package, use the following command:
 
@@ -81,7 +81,7 @@ Pkg.update()
 
 ## Need help?
 
-If you have a problem when running these notebooks, please make sure that you are using the latest version of `divand` (see section [Upgrade divand](#upgrade-divand)) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
+If you have a problem when running these notebooks, please make sure that you are using the latest version of `DIVAnd` (see section [Upgrade DIVAnd](#upgrade-DIVAnd)) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
 
 - [x] The full error message that you are seeing (in particular file names and line numbers of the stack-trace).
 - [x] Which version of Julia are you using? Please include the output of:
@@ -109,5 +109,5 @@ Submit an issue with the details mentioned in the previous sections.
 
 <!--  LocalWords:  ODV JMB lon ipynb GitHub ctrl jupyter
  -->
-<!--  LocalWords:  divand julia versioninfo pwd
+<!--  LocalWords:  DIVAnd julia versioninfo pwd
  -->
