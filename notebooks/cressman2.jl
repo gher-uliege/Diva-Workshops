@@ -59,4 +59,4 @@ end
 # You should have received a copy of the GNU General Public License along with
 # this program; if not, see <http://www.gnu.org/licenses/>.
 
-# LocalWords:  fi divand pmn len diag CovarParam vel ceil moddim fracdim
+# LocalWords:  fi DIVAnd pmn len diag CovarParam vel ceil moddim fracdim
