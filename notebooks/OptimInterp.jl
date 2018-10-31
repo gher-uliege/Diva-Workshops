@@ -23,71 +23,10 @@
 module OptimInterp
 
 
-# Adapted from Julia 0.6 (MIT)
-# Symmetric (real) eigensolvers
-
 @static if VERSION < v"0.7"
-    const BLAS = Base.LinAlg.BLAS
-    const BlasInt = BLAS.BlasInt
-    const chkstride1 = Base.LinAlg.chkstride1
-    const checksquare = Base.LinAlg.checksquare
-    const liblapack = Base.LinAlg.LAPACK.liblapack
-    const chklapackerror = Base.LinAlg.LAPACK.chklapackerror
+    using Compat
 else
     using LinearAlgebra
-    const BLAS = LinearAlgebra.BLAS
-    const BlasInt = LinearAlgebra.BLAS.BlasInt
-    const chkstride1 = LinearAlgebra.chkstride1
-    const checksquare = LinearAlgebra.checksquare
-    const liblapack = LinearAlgebra.LAPACK.liblapack
-    const chklapackerror = LinearAlgebra.LAPACK.chklapackerror
-end
-using Compat
-
-@static if VERSION < v"0.7"
-
-for (syev, elty) in
-    ((:dsyev_,:Float64),
-     (:ssyev_,:Float32))
-    @eval begin
-        #       SUBROUTINE DSYEV( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO )
-        # *     .. Scalar Arguments ..
-        #       CHARACTER          JOBZ, UPLO
-        #       INTEGER            INFO, LDA, LWORK, N
-        # *     .. Array Arguments ..
-        #       DOUBLE PRECISION   A( LDA, * ), W( * ), WORK( * )
-        function syev_work(jobz::Char, uplo::Char, A::StridedMatrix{$elty})
-            chkstride1(A)
-            n = checksquare(A)
-            W     = similar(A, $elty, n)
-            work  = Vector{$elty}(1)
-            lwork = BlasInt(-1)
-            info  = Ref{BlasInt}()
-
-            ccall((BLAS.@blasfunc($syev), liblapack), Void,
-                  (Ptr{UInt8}, Ptr{UInt8}, Ptr{BlasInt}, Ptr{$elty}, Ptr{BlasInt},
-                   Ptr{$elty}, Ptr{$elty}, Ptr{BlasInt}, Ptr{BlasInt}),
-                  &jobz, &uplo, &n, A, &max(1,stride(A,2)), W, work, &lwork, info)
-            chklapackerror(info[])
-
-            return Int(work[1])
-        end
-
-        function syev!(jobz::Char, uplo::Char, A::StridedMatrix{$elty},W::Vector{$elty},work::Vector{$elty})
-            chkstride1(A)
-            n = checksquare(A)
-            lwork = BlasInt(length(work))
-            info  = Ref{BlasInt}()
-
-            ccall((BLAS.@blasfunc($syev), liblapack), Void,
-                  (Ptr{UInt8}, Ptr{UInt8}, Ptr{BlasInt}, Ptr{$elty}, Ptr{BlasInt},
-                   Ptr{$elty}, Ptr{$elty}, Ptr{BlasInt}, Ptr{BlasInt}),
-                  &jobz, &uplo, &n, A, &max(1,stride(A,2)), W, work, &lwork, info)
-            chklapackerror(info[])
-        end
-
-    end
-end
 end
 
 function select_nearest!(x,ox,param,m,index,distance,d)
@@ -214,22 +153,10 @@ function mypinv!(A, tolerance, work, D)
     N = size(A,1)
 
     # Eigendecomposition/SVD of symmetric A:
-    #D[:],A[:,:] = LAPACK.syev!('V', 'U', A)
-
-    #lwork = syev_work('V','U',A)
-    #@show lwork
-    #work = Vector{eltype(A)}(lwork)
-    @static if VERSION < v"0.7"
-        syev!('V', 'U', A, D, work)
-    else
-        D[:],A[:,:] = LAPACK.syev!('V', 'U', A)
-#        F = eigen(UpperTriangular(A))
-#        A .= F.vectors
-#        D = F.values
-    end
-
-
-    #call dsyev ('V', 'U', N, A, N, D, work, size (work), info)
+    D[:], = LAPACK.syev!('V', 'U', A)
+    #F = eigen(UpperTriangular(A))
+    #A .= F.vectors
+    #D .= F.values
 
     #     Diagonal factor D+ of pseudo-inverse:
     for j = 1:N
@@ -291,12 +218,7 @@ function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     workd = Vector{T}(undef,size(ox,2))
 
     percentage_done = 0
-
-    if VERSION < v"0.7"
-        lwork = syev_work('V','U',A)
-    else
-        lwork = 0
-    end
+    lwork = 0
     work = Vector{eltype(A)}(undef,lwork)
 
     for i = 1:gn
