@@ -28,12 +28,11 @@ module OptimInterp
 
 @static if VERSION < v"0.7"
     const BLAS = Base.LinAlg.BLAS
-    const BlasInt = Base.LinAlg.BLAS.BlasInt
+    const BlasInt = BLAS.BlasInt
     const chkstride1 = Base.LinAlg.chkstride1
     const checksquare = Base.LinAlg.checksquare
     const liblapack = Base.LinAlg.LAPACK.liblapack
     const chklapackerror = Base.LinAlg.LAPACK.chklapackerror
-    
 else
     using LinearAlgebra
     const BLAS = LinearAlgebra.BLAS
@@ -43,6 +42,9 @@ else
     const liblapack = LinearAlgebra.LAPACK.liblapack
     const chklapackerror = LinearAlgebra.LAPACK.chklapackerror
 end
+using Compat
+
+@static if VERSION < v"0.7"
 
 for (syev, elty) in
     ((:dsyev_,:Float64),
@@ -62,7 +64,7 @@ for (syev, elty) in
             lwork = BlasInt(-1)
             info  = Ref{BlasInt}()
 
-            ccall((Base.LinAlg.BLAS.@blasfunc($syev), liblapack), Void,
+            ccall((BLAS.@blasfunc($syev), liblapack), Void,
                   (Ptr{UInt8}, Ptr{UInt8}, Ptr{BlasInt}, Ptr{$elty}, Ptr{BlasInt},
                    Ptr{$elty}, Ptr{$elty}, Ptr{BlasInt}, Ptr{BlasInt}),
                   &jobz, &uplo, &n, A, &max(1,stride(A,2)), W, work, &lwork, info)
@@ -77,7 +79,7 @@ for (syev, elty) in
             lwork = BlasInt(length(work))
             info  = Ref{BlasInt}()
 
-            ccall((Base.LinAlg.BLAS.@blasfunc($syev), liblapack), Void,
+            ccall((BLAS.@blasfunc($syev), liblapack), Void,
                   (Ptr{UInt8}, Ptr{UInt8}, Ptr{BlasInt}, Ptr{$elty}, Ptr{BlasInt},
                    Ptr{$elty}, Ptr{$elty}, Ptr{BlasInt}, Ptr{BlasInt}),
                   &jobz, &uplo, &n, A, &max(1,stride(A,2)), W, work, &lwork, info)
@@ -85,6 +87,7 @@ for (syev, elty) in
         end
 
     end
+end
 end
 
 function select_nearest!(x,ox,param,m,index,distance,d)
@@ -216,7 +219,14 @@ function mypinv!(A, tolerance, work, D)
     #lwork = syev_work('V','U',A)
     #@show lwork
     #work = Vector{eltype(A)}(lwork)
-    syev!('V', 'U', A, D, work)
+    @static if VERSION < v"0.7"
+        syev!('V', 'U', A, D, work)
+    else
+        D[:],A[:,:] = LAPACK.syev!('V', 'U', A)
+#        F = eigen(UpperTriangular(A))
+#        A .= F.vectors
+#        D = F.values
+    end
 
 
     #call dsyev ('V', 'U', N, A, N, D, work, size (work), info)
@@ -268,22 +278,26 @@ function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     nf = size(of,1)  # parameters at each observation point
 
     T = eltype(of)
-    PHiA = Array{T,1}(m)
-    D = Array{T,1}(m)
+    PHiA = Array{T,1}(undef,m)
+    D = Array{T,1}(undef,m)
 
     tolerance = 1e-5
 
-    index = Array{Int,1}(m)
-    distance = Array{T,1}(m)
-    A = Array{T,2}(m,m)
-    PH = Array{T,1}(m)
-    R = Array{T,1}(m)
-    workd = Vector{T}(size(ox,2))
+    index = Array{Int,1}(undef,m)
+    distance = Array{T,1}(undef,m)
+    A = Array{T,2}(undef,m,m)
+    PH = Array{T,1}(undef,m)
+    R = Array{T,1}(undef,m)
+    workd = Vector{T}(undef,size(ox,2))
 
     percentage_done = 0
 
-    lwork = syev_work('V','U',A)
-    work = Vector{eltype(A)}(lwork)
+    if VERSION < v"0.7"
+        lwork = syev_work('V','U',A)
+    else
+        lwork = 0
+    end
+    work = Vector{eltype(A)}(undef,lwork)
 
     for i = 1:gn
         # get the indexes of the nearest observations
@@ -337,12 +351,12 @@ function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     end
 end
 
-function optiminterp{T}(ox::Array{T,2},of::Array{T,2},ovar::Vector{T},param,m,gx::Array{T,2})
+function optiminterp(ox::Array{T,2},of::Array{T,2},ovar::Vector{T},param,m,gx::Array{T,2}) where T
     gn = size(gx,2)
     nf = size(of,1)  # parameters at each observation point
 
-    gf = Array{T,2}(nf,gn)
-    gvar = Array{T,1}(gn)
+    gf = Array{T,2}(undef,(nf,gn))
+    gvar = Array{T,1}(undef,gn)
 
     optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     return gf,gvar
@@ -360,9 +374,9 @@ The local analysis scheme is implemented which mean that for every grid point
 the `m` closest data points are used.
 All variances are scaled by an assumed constant background variance.
 """
-function optiminterp{T,N}(x::NTuple{N,Vector{T}},
-                          f::Vector{T},
-                          var::Vector{T},len,m,xi::NTuple{N,Array{T,N}})
+function optiminterp(x::NTuple{N,Vector{T}},
+                     f::Vector{T},
+                     var::Vector{T},len,m,xi::NTuple{N,Array{T,N}}) where {T,N}
 
     # number of observations
     on = length(var)
@@ -373,7 +387,7 @@ function optiminterp{T,N}(x::NTuple{N,Vector{T}},
 
     #ox = Array{T,2}(N,on)
     ox = zeros(T,N,on)
-    gx = Array{T,2}(N,gn)
+    gx = Array{T,2}(undef,(N,gn))
 
     for i=1:N
         if on != length(x[i])
@@ -401,8 +415,8 @@ function optiminterp{T,N}(x::NTuple{N,Vector{T}},
 
     param = 1 ./ len
 
-    fi = Array{T,N}(gsz)
-    vari = Array{T,N}(gsz)
+    fi = Array{T,N}(undef,gsz)
+    vari = Array{T,N}(undef,gsz)
 
     fi[:],vari[:] = optiminterp(ox,f,var,param,m,gx);
 
