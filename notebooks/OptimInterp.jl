@@ -26,11 +26,23 @@ module OptimInterp
 # Adapted from Julia 0.6 (MIT)
 # Symmetric (real) eigensolvers
 
-const BlasInt = Base.LinAlg.BLAS.BlasInt
-const chkstride1 = Base.LinAlg.chkstride1
-const checksquare = Base.LinAlg.checksquare
-const liblapack = Base.LinAlg.LAPACK.liblapack
-const chklapackerror = Base.LinAlg.LAPACK.chklapackerror
+@static if VERSION < v"0.7"
+    const BLAS = Base.LinAlg.BLAS
+    const BlasInt = Base.LinAlg.BLAS.BlasInt
+    const chkstride1 = Base.LinAlg.chkstride1
+    const checksquare = Base.LinAlg.checksquare
+    const liblapack = Base.LinAlg.LAPACK.liblapack
+    const chklapackerror = Base.LinAlg.LAPACK.chklapackerror
+    
+else
+    using LinearAlgebra
+    const BLAS = LinearAlgebra.BLAS
+    const BlasInt = LinearAlgebra.BLAS.BlasInt
+    const chkstride1 = LinearAlgebra.chkstride1
+    const checksquare = LinearAlgebra.checksquare
+    const liblapack = LinearAlgebra.LAPACK.liblapack
+    const chklapackerror = LinearAlgebra.LAPACK.chklapackerror
+end
 
 for (syev, elty) in
     ((:dsyev_,:Float64),
@@ -387,7 +399,7 @@ function optiminterp{T,N}(x::NTuple{N,Vector{T}},
 
     f = reshape(f,nf,on) :: Array{T,2}
 
-    param = 1./len
+    param = 1 ./ len
 
     fi = Array{T,N}(gsz)
     vari = Array{T,N}(gsz)
