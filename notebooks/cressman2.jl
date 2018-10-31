@@ -8,7 +8,7 @@ defined by `X` and `Y` using the Cressman method (in 2 dimensions).
 
 
 function cressman2(R,X,Y,Fe,x,y; method = :cressman)
-    
+
     meanF = mean(Fe);
     Fa = Fe - meanF;
     fi = zeros(size(x));
@@ -18,7 +18,7 @@ function cressman2(R,X,Y,Fe,x,y; method = :cressman)
 
     for j=1:size(x,2)
         for i=1:size(y,1)
-            
+
             d2 = (x[i,j]-X).^2 + (y[i,j]-Y).^2;
 
 
@@ -28,14 +28,14 @@ function cressman2(R,X,Y,Fe,x,y; method = :cressman)
             else
                 w = exp.(-d2./(2*R2));
             end
-            
+
             sw = sum(w);
-            
+
             if sw == 0
                 fi[i,j] = NaN;
             else
                 fi[i,j] = sum(w.*Fa)/sw;
-            end   
+            end
         end
     end
 

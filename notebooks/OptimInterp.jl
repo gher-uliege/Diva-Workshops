@@ -6,12 +6,12 @@
 #  modify it under the terms of the GNU General Public License
 #  as published by the Free Software Foundation; either version 2
 #  of the License, or (at your option) any later version.
-#  
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-#  
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, see <http://www.gnu.org/licenses/>.
 #
@@ -49,7 +49,7 @@ for (syev, elty) in
             work  = Vector{$elty}(1)
             lwork = BlasInt(-1)
             info  = Ref{BlasInt}()
-            
+
             ccall((Base.LinAlg.BLAS.@blasfunc($syev), liblapack), Void,
                   (Ptr{UInt8}, Ptr{UInt8}, Ptr{BlasInt}, Ptr{$elty}, Ptr{BlasInt},
                    Ptr{$elty}, Ptr{$elty}, Ptr{BlasInt}, Ptr{BlasInt}),
@@ -85,10 +85,10 @@ function select_nearest!(x,ox,param,m,index,distance,d)
     #     Calculate a measure of (squared) distance to each observation:
     #d = zeros(size(ox,2))
     nd = size(ox,1)
-    
+
     for i=1:size(ox,2)
         d[i] = zero(eltype(x))
-        
+
         for j = 1:nd
             d[i] += ((x[j] - ox[j,i]) * param[j])^2
         end
@@ -111,7 +111,7 @@ function mysort!(d,m,pannier)
 
     for i=1:m
         pannier[i] = i
-    end 
+    end
 
     dummy,max_pannier = findmax(d[pannier])
 
@@ -158,7 +158,7 @@ end
 #       real(wp) :: c
 
 #       real(wp) :: d(size(x1))
-#       real(wp) :: rn 
+#       real(wp) :: rn
 
 #       d = (x1 - x2)*param
 #       rn = sqrt(sum(d**2))
@@ -206,7 +206,7 @@ function mypinv!(A, tolerance, work, D)
     #work = Vector{eltype(A)}(lwork)
     syev!('V', 'U', A, D, work)
 
-    
+
     #call dsyev ('V', 'U', N, A, N, D, work, size (work), info)
 
     #     Diagonal factor D+ of pseudo-inverse:
@@ -231,7 +231,7 @@ function  background_covariance(x1,x2,param)
     #d = (x1 - x2).*param
     #c = exp(-sum(d.^2))
     return c
-end 
+end
 
 
 #     --------------------------------------------------------------------------
@@ -254,11 +254,11 @@ gf, gvar  : Interpolated fields and error variances
 function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     gn = size(gx,2)
     nf = size(of,1)  # parameters at each observation point
-    
+
     T = eltype(of)
     PHiA = Array{T,1}(m)
     D = Array{T,1}(m)
-    
+
     tolerance = 1e-5
 
     index = Array{Int,1}(m)
@@ -272,26 +272,26 @@ function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
 
     lwork = syev_work('V','U',A)
     work = Vector{eltype(A)}(lwork)
-    
+
     for i = 1:gn
         # get the indexes of the nearest observations
 
         select_nearest!(gx[:,i],ox,param,m,index,distance,workd)
-        
-        # form compute the error covariance matrix of the observation 
+
+        # form compute the error covariance matrix of the observation
 
         #@show index
         R[:] = ovar[index]
-        
+
         # form the error covariance matrix background field
         # A = H P H' and PH = P H'
-        
+
         for j2 = 1:m
             # Upper triangle only
 
-            for j1 = 1:j2  
+            for j1 = 1:j2
                 A[j1,j2] = background_covariance(ox[:,index[j1]],ox[:,index[j2]],param)
-            end 
+            end
 
             PH[j2] = background_covariance(gx[:,i],ox[:,index[j2]],param)
         end
@@ -301,12 +301,12 @@ function optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
         # now A = H P H' + R
         for j = 1:m
             A[j,j] = A[j,j] + R[j]
-        end         
-        
+        end
+
         # pseudo inverse of the covariance matrix of the innovation
         mypinv!(A, tolerance, work, D)
-        
-        # i-th row of the Kalman gain:          
+
+        # i-th row of the Kalman gain:
         # PHiA = P H' (H P H' + R)^(-1)
         #      = P H' A  diag(D)  A'
         # PHiA' = A diag(D) (PH' A)'
@@ -331,7 +331,7 @@ function optiminterp{T}(ox::Array{T,2},of::Array{T,2},ovar::Vector{T},param,m,gx
 
     gf = Array{T,2}(nf,gn)
     gvar = Array{T,1}(gn)
-    
+
     optiminterp!(ox,of,ovar,param,m,gx,gf,gvar)
     return gf,gvar
 end
@@ -339,12 +339,12 @@ end
 """
     fi,vari = optiminterp(x,f,var,len,m,xi)
 
-Interpolate the data `f` (vector of floats) defined on the grid `x` (tuple of 
+Interpolate the data `f` (vector of floats) defined on the grid `x` (tuple of
 vector of floats) on the grid defined by `xi` (tuple of arrays).
-Observations are assumed to have an error variance of `var` and a correlation 
-length-scale of `len`. The data are assumed to be anomalied, i.e. 
+Observations are assumed to have an error variance of `var` and a correlation
+length-scale of `len`. The data are assumed to be anomalied, i.e.
 the relevant mean must be substracted before-hand.
-The local analysis scheme is implemented which mean that for every grid point 
+The local analysis scheme is implemented which mean that for every grid point
 the `m` closest data points are used.
 All variances are scaled by an assumed constant background variance.
 """
@@ -358,7 +358,7 @@ function optiminterp{T,N}(x::NTuple{N,Vector{T}},
     # number of target grid points
     gsz = size(xi[1])
     gn = length(xi[1])
-    
+
     #ox = Array{T,2}(N,on)
     ox = zeros(T,N,on)
     gx = Array{T,2}(N,gn)
@@ -375,7 +375,7 @@ function optiminterp{T,N}(x::NTuple{N,Vector{T}},
         if (length(xi[i]) != gn)
             error("optiminterpn: xi, yi, ... must have the same number of elements");
         end
-        
+
         gx[i,:] = xi[i][:]
     end
 
@@ -391,11 +391,11 @@ function optiminterp{T,N}(x::NTuple{N,Vector{T}},
 
     fi = Array{T,N}(gsz)
     vari = Array{T,N}(gsz)
-    
+
     fi[:],vari[:] = optiminterp(ox,f,var,param,m,gx);
 
     return fi,vari
-end    
+end
 
 export optiminterp
 
