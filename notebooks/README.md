@@ -19,7 +19,7 @@ List of notebooks discussed during the DIVA workshop.
 1. [15-example-analysis.ipynb](15-example-analysis.ipynb): how to run a simple analysis?
 1. [16-plot-results.ipynb](16-plot-results.ipynb): plotting the results and the mask.
 1. [17-relative-correlation-length.ipynb](17-relative-correlation-length.ipynb): working with a relative correlation length.
-1.	[18-defining-time-periods.ipynb]: how to select time periods?
+1.	[18-defining-time-periods.ipynb](18-defining-time-periods.ipynb): how to select time periods?
 1.	[90-full-analysis.ipynb](90-full-analysis.ipynb): a full example, from data to 4D netCDF and XML for the catalog.
 
 
