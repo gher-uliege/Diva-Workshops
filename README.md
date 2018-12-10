@@ -1,25 +1,16 @@
 [![DOI](https://zenodo.org/badge/108153788.svg)](https://zenodo.org/badge/latestdoi/108153788)
 
-# Diva-Workshops
+# DIVA Workshops
 
-This page provides the jupyter notebooks (exemples/exercices) for the Diva user workshops organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project.     
+This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and exercices) for the `DIVAnd` user workshops organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project.     
+
+## Tools
+
 [`Diva`](https://github.com/gher-ulg/DIVA) and [`DIVAnd`](https://github.com/gher-ulg/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
+
+## Objectives
+The workshop is focused on the creation of gridded products and climatologies using `DIVAnd`
 
 The organisational details are available https://gher-ulg.github.io/Diva-Workshops/.
 
-The code is maintained at https://github.com/gher-ulg/divand.jl.
-
-## What should be here
-
-- [x] Notebooks     
-- [x] Presentations    
-
-## What should not be here
-
-Workshop program     
-Schedule     
-...
-
-
-
-
+Following the workshop, the notebooks have been updated, improved and corrected when necessary. New notebooks are developed based on the participants requirements.
