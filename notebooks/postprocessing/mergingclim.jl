@@ -123,3 +123,47 @@ function get_years(filename::String)::Array
     close(ds)
     return yeargrid
 end
+
+
+"""
+Get the 2 closest depths to a select depth level
+
+```julia
+get_closer_depth(depthgrid, depthlevel)
+```
+
+## Example
+```julia
+get_closer_depth([-10., -5., 7., 20], 1.);
+(-5., 7.)
+```
+"""
+function get_closer_depth(depthgrid::Array, depthlevel::Float64)
+    Δdepth =  depthgrid .- depthlevel
+    depthbelow = maximum(Δdepth[Δdepth .< 0]) + depthlevel
+    depthabove = minimum(Δdepth[Δdepth .> 0]) + depthlevel;
+    @debug("Depth below: " * string(depthbelow) * " m")
+    @debug("Depth above: " * string(depthabove) * " m")
+
+    return depthbelow, depthabove
+end
+
+"""
+Compute the weight for the linear interpolation, according to the depths
+
+```julia
+w1, w2 = get_depth_weights(depthlevel, dmin, dmax)
+```
+
+## Example
+```julia
+w1, w2 = get_depth_weights(-5., -20., 0.)
+(0.75, 0.25)
+```
+"""
+function get_depth_weights(depthlevel::Float64, dmin::Float64, dmax::Float64)
+    Δ = dmax - dmin
+    w1 = (depthlevel - dmin) / Δ
+    w2 = 1 - w1
+    return w1, w2
+end
