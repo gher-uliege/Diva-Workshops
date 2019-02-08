@@ -126,11 +126,10 @@ end
 
 
 """
-Get the 2 closest depths to a select depth level
-
 ```julia
 get_closer_depth(depthgrid, depthlevel)
 ```
+Get the 2 closest depths in vector `depthgrid`, to a select depth level `depthlevel`
 
 ## Example
 ```julia
@@ -149,11 +148,10 @@ function get_closer_depth(depthgrid::Array, depthlevel::Float64)
 end
 
 """
-Compute the weight for the linear interpolation, according to the depths
-
 ```julia
 w1, w2 = get_depth_weights(depthlevel, dmin, dmax)
 ```
+Compute the weight for the linear interpolation, according to the depths
 
 ## Example
 ```julia
@@ -166,4 +164,41 @@ function get_depth_weights(depthlevel::Float64, dmin::Float64, dmax::Float64)
     w1 = (depthlevel - dmin) / Δ
     w2 = 1 - w1
     return w1, w2
+end
+
+"""
+```julia
+get_depth_indices(depth, depthvector)
+```
+Return the indices of the depth levels from `depthvector` above and below
+the depth level `depth`
+"""
+function get_depth_indices(depth::Float64, depthvector::Array{Float64})
+    dmin, dmax = get_closer_depth(depthvector, depth)
+    indmin = findall(depthvector .== dmin)[1]
+    indmax = findall(depthvector .== dmax)[1]
+    return indmin, indmax
+end
+
+
+"""
+```julia
+depth_interp(depth, depthvector, field)
+```
+Perform linear interpolation of the 4D variable `field` (read from a netCDF) defined on the
+levels `depthvector` (vector) onto the depth level `depth`.
+
+## Example
+```julia
+depth_interp(25., (0., 10., 20., 30.), temperature)
+```
+"""
+function depth_interp(depth::Float64, depthvector::Array{Float64}, field::Array{Float64})
+    dmin, dmax = get_closer_depth(depthvector, depth)
+    indmin, indmax = get_depth_indices(depth, depthvector)
+    # Compute weigths
+    w1, w2 = get_depth_weights(depth, dmin, dmax)
+    # Perform interpolation
+    fieldinterp = w1 * field[:,:,indmin,:] + w2 * field[:,:,indmax,:]
+    return fieldinterp
 end
