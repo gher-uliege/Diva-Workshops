@@ -22,4 +22,4 @@ However it is recommended to always start with a simple application (constant pa
 1. Final users tend to prefer simple, *rectangular* domains, i.e. delimited by lines of constant longitudes or latitudes.
 2. If merged products have to be created, it is necessary to ensure that we can have a smooth transition between them.
 
-If there is a need for a domain delimitation following the 
+If there is a need for a domain delimitation following the irregular shapes, it may be relevant to have post-processing tools provided to the interested users.
