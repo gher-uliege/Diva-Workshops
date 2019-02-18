@@ -130,19 +130,31 @@ end
 get_closer_depth(depthgrid, depthlevel)
 ```
 Get the 2 closest depths in vector `depthgrid`, to a select depth level `depthlevel`
+If `depthlevel` is outside the interval defined by `depthgrid`, then nothing is returned.
 
-## Example
+## Examples
+```julia
+get_closer_depth([-10., -5., 7., 20], 1.);
+(-5., 7.)
+```
+
 ```julia
 get_closer_depth([-10., -5., 7., 20], 1.);
 (-5., 7.)
 ```
 """
 function get_closer_depth(depthgrid::Array, depthlevel::Float64)
-    Δdepth =  depthgrid .- depthlevel
-    depthbelow = maximum(Δdepth[Δdepth .< 0]) + depthlevel
-    depthabove = minimum(Δdepth[Δdepth .> 0]) + depthlevel;
-    @debug("Depth below: " * string(depthbelow) * " m")
-    @debug("Depth above: " * string(depthabove) * " m")
+    # Check if we are within the depth interval
+    if depthlevel >= minimum(depthgrid) && depthlevel <= maximum(depthgrid)
+        Δdepth =  depthgrid .- depthlevel
+        depthbelow = maximum(Δdepth[Δdepth .< 0]) + depthlevel
+        depthabove = minimum(Δdepth[Δdepth .> 0]) + depthlevel;
+        @debug("Depth below: " * string(depthbelow) * " m")
+        @debug("Depth above: " * string(depthabove) * " m")
+    else
+        depthbelow = nothing
+        depthabove = nothing
+    end
 
     return depthbelow, depthabove
 end
@@ -151,7 +163,9 @@ end
 ```julia
 w1, w2 = get_depth_weights(depthlevel, dmin, dmax)
 ```
-Compute the weight for the linear interpolation, according to the depths
+Compute the weight for the linear interpolation, according to the depths.
+If `depthlevel` is outside the interval defined by `dmin` and `dmax`,
+then nothing is returned.
 
 ## Example
 ```julia
@@ -160,9 +174,15 @@ w1, w2 = get_depth_weights(-5., -20., 0.)
 ```
 """
 function get_depth_weights(depthlevel::Float64, dmin::Float64, dmax::Float64)
-    Δ = dmax - dmin
-    w1 = (depthlevel - dmin) / Δ
-    w2 = 1 - w1
+    if depthlevel <= dmax && depthlevel >= dmin
+        Δ = dmax - dmin
+        w1 = (depthlevel - dmin) / Δ
+        w2 = 1 - w1
+    else
+        w1 = nothing
+        w2 = nothing
+    end
+
     return w1, w2
 end
 
@@ -175,8 +195,13 @@ the depth level `depth`
 """
 function get_depth_indices(depth::Float64, depthvector::Array{Float64})
     dmin, dmax = get_closer_depth(depthvector, depth)
-    indmin = findall(depthvector .== dmin)[1]
-    indmax = findall(depthvector .== dmax)[1]
+    if dmin == nothing || dmax == nothing
+        indmin = nothing
+        indmax = nothing
+    else
+        indmin = findall(depthvector .== dmin)[1]
+        indmax = findall(depthvector .== dmax)[1]
+    end
     return indmin, indmax
 end
 
