@@ -227,3 +227,41 @@ function depth_interp(depth::Float64, depthvector::Array{Float64}, field::Array{
     fieldinterp = w1 * field[:,:,indmin,:] + w2 * field[:,:,indmax,:]
     return fieldinterp
 end
+
+"""
+```julia
+interp_horiz(londata, latdata, data, longrid, latgrid)
+```
+Perform a bilinear interpolation of a 2D field defined by the coordinates
+`(londata, latdata)` and the values `data`, onto the grid defined by the
+vectors `longrid` and `latgrid`.
+The interpolation is only performed over the area where data are available,
+i.e., no extrapolation is performed.
+
+"""
+function interp_horiz(londata, latdata, data, longrid, latgrid)
+
+    # Find the coordinates where the interpolation can be performed
+    # (no extrapolation)
+    goodlon = (longrid .<= londata[end]) .& (longrid .>= londata[1]);
+    goodlat = (latgrid .<= latdata[end]) .& (latgrid .>= latdata[1]);
+
+    # Remove the missing values?
+    # Ask Alex if necessary
+    #londata = coalesce.(londata, NaN)
+    #latdata = coalesce.(latdata, NaN)
+    #data = coalesce.(data, NaN);
+    #data = convert(Array{Float32,2}, data)
+
+    # Create the interpolator
+    itp = Interpolations.interpolate((londata, latdata), data, Gridded(Linear()))
+    #fieldinterpolated = itp(longrid, latgrid);
+
+    # Perform the interpolation
+    # (only within the domain of interest)
+    lon_interp = longrid[goodlon]
+    lat_interp = latgrid[goodlat]
+    field_interpolated = itp(lon_interp, lat_interp);
+
+    return lon_interp, lat_interp, field_interpolated
+end
