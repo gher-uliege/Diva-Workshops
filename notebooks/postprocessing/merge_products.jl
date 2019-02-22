@@ -114,7 +114,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 				yearregion = get_years(regionfile)
 
 				# Loop on years
-				for years in yeargrid[1:5]
+				for years in yeargrid[end-10:end-5]
 					@info("Working on year $(years)")
 					# find in the variable the time index
 					# corresponding to the year
@@ -122,7 +122,8 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 					if length(yearindex) == 0
 						@debug "Year $(years) not available in the file"
 					else
-						@info "Year $(years) is available, will performd 2D interpolation"
+						@info "Year $(years) is available, will perform 2D interpolation"
+						@debug "Year index: $(yearindex)"
 						field2interp_horiz = field_depth_interpolated[:,:,yearindex]
 						@info(size(field2interp_horiz))
 					end
