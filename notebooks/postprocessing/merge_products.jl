@@ -10,6 +10,9 @@ latgrid = 24.:Δlat:67.
 depthgrid = Float64.([0, 5, 10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300, 400,
 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1750, 2000,
 2500, 3000]);
+
+depthgrid = depthgrid[1:6];
+
 # Time should be generated from years and seasons maybe
 timegrid = [23787, 23876, 23968, 24060, 24152, 24241, 24333, 24425, 24517, 24606,
 24698, 24790, 24882, 24972, 25064, 25156, 25248, 25337, 25429, 25521,
@@ -61,8 +64,8 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 	@info("Found $(length(filelist)) files")
 
 	# Loop on the depths
-	for depth in depthgrid
-		@debug("Working on depth $(depth)")
+	for depthtarget in depthgrid
+		@debug("Working on depth $(depthtarget)")
 
 		# Loop on the regions (using the file list)
 		for regionfile in filelist
@@ -82,33 +85,51 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 
 			# Check if the considered depth lies within the depth interval
 			# of the considered file
-			if depth >= minimum(depthregionvector) && depth <= minimum(depthregionvector)
+			if depthtarget >= minimum(depthregionvector) && depthtarget <= maximum(depthregionvector)
 				# Find the indices for that depth and that time
-				if length(findall(depthregionvector .== depth)) == 0
+
+				ds1 = Dataset(regionfile, "r")
+				field2interp = varbyattrib(ds1, standard_name = "mass_concentration_of_chlorophyll_a_in_sea_water")[1]
+				if length(findall(depthregionvector .== depthtarget)) == 0
 					@info("Depth not found, will perform interpolation")
-					dmin, dmax = get_closer_depth(depthregionvector, depth)
-					w1, w2 = get_depth_weights(depth, dmin, dmax)
-					indmin, indmax = get_depth_indices(depth, depthregionvector)
+					dmin, dmax = get_closer_depth(depthregionvector, depthtarget)
+					w1, w2 = get_depth_weights(depthtarget, dmin, dmax)
+					indmin, indmax = get_depth_indices(depthtarget, depthregionvector)
 
 					# Select the variable according to the standard name, which should be
 					# (fingers crossed) unique
-					ds1 = Dataset(regionfile, "r")
-					fieldinterp = varbyattrib(ds1, standard_name = "mass_concentration_of_chlorophyll_a_in_sea_water")[1][:,:,indmin:indmax,:];
-					close(ds1)
-					@info(size(fieldinterp));
+
+					field_depth_interpolated = w1 * field2interp[:,:,indmin,:] + w2 * field[:,:,indmax,:];
+					@info(size(field_depth_interpolated));
 
 				else
 					@info("Depth is found, we use it without interpolation")
-					depthindex = findall(depthregionvector .== depth)[1]
+					depthindex = findall(depthregionvector .== depthtarget)[1]
+					field_depth_interpolated = field2interp[:,:,depthindex,:]
+					@info(size(field_depth_interpolated));
 				end
+				close(ds1)
+
+				# Get the years available in the regional file
+				yearregion = get_years(regionfile)
 
 				# Loop on years
 				for years in yeargrid[1:5]
 					@info("Working on year $(years)")
+					# find in the variable the time index
+					# corresponding to the year
+					yearindex = findall(years .== yearregion)
+					if length(yearindex) == 0
+						@debug "Year $(years) not available in the file"
+					else
+						@info "Year $(years) is available, will performd 2D interpolation"
+						field2interp_horiz = field_depth_interpolated[:,:,yearindex]
+						@info(size(field2interp_horiz))
+					end
 				end
 
 			else
-				@info("The depths in the regional product don't include the depth level $(depth) m")
+				@warn("The depths in the regional product don't include the depth level $(depthtarget) m")
 			end
 
 		end
