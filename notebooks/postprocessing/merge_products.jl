@@ -2,10 +2,12 @@ using NCDatasets
 using Dates
 using Glob
 using PyPlot
+using DIVAnd
 include("mergingclim.jl")
 
 figdir = "./figures/"
 plotcheck = 1
+ioff()
 
 Δlon = 1.
 Δlat = 1.
@@ -39,6 +41,7 @@ timegrid = [23787, 23876, 23968, 24060, 24152, 24241, 24333, 24425, 24517, 24606
 40223, 40312, 40404, 40496];
 
 varname = "chlorophyll-a"
+var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
 product_id = "e61d12cd-837f-49ff-a0e1-3a694ab84bc5"
 outputdir = "/data/EMODnet/Chemistry/merged/"
 databasedir = "/data/EMODnet/Chemistry/prod/"
@@ -85,6 +88,10 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 				fieldlist2plot = []
 			end
 
+			# Create a 3D array that will be used for the merging
+			sz = (length(longrid), length(latgrid), length(filelist))
+			fields2merge = fill(NaN, sz)
+
 			for regionfile in filelist
 				iregion += 1
 				@debug("Working on region $(regionfile)")
@@ -94,9 +101,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 				@debug(typeof(lonregion), size(lonregion));
 				@debug(typeof(latregion), size(latregion));
 
-				# Remove the missing values
-				depthregionvector = coalesce.(depthregionvector, NaN);
-				@info("Depth range: $(minimum(depthregionvector))--$(maximum(depthregionvector)) m");
+				@info("Depth range: $(minimum(depthregion))--$(maximum(depthregion)) m");
 
 				# find in the variable the time index
 				# corresponding to the year
@@ -104,36 +109,33 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 				if length(yearindex) == 0
 					@debug "Year $(years) not available in the file, processing next region"
 				else
-					@info "Year $(years) is available, will perform vertical interpolation"
+					@info "Year $(years) is available, will perform vertical extraction"
 					@debug "Year index: $(yearindex)"
 
 					# Check if the considered depth lies within the depth interval
 					# of the considered file
-					if (depthtarget >= minimum(depthregionvector) &&
-						depthtarget <= maximum(depthregionvector))
+					if (depthtarget >= minimum(depthregion) &&
+						depthtarget <= maximum(depthregion))
 
 						# Read the field at the good year index
 						@debug("Reading variable for selected year $(years)")
-						ds1 = Dataset(regionfile, "r")
-						field_depth = varbyattrib(ds1, standard_name="mass_concentration_of_chlorophyll_a_in_sea_water")[1][:,:,:,yearindex]
-						close(ds1)
 
-						if length(findall(depthregionvector .== depthtarget)) == 0
+						if length(findall(depthregion .== depthtarget)) == 0
 							@info("Depth not found, will perform interpolation")
-							dmin, dmax = get_closer_depth(depthregionvector, depthtarget)
+							dmin, dmax = get_closer_depth(depthregion, depthtarget)
 							w1, w2 = get_depth_weights(depthtarget, dmin, dmax)
-							indmin, indmax = get_depth_indices(depthtarget, depthregionvector)
+							indmin, indmax = get_depth_indices(depthtarget, depthregion)
 
 							# Select the variable according to the standard name, which should be
 							# (fingers crossed) unique
-
-							field_below = field_depth[:,:,indmin]
-							field_above = field_depth[:,:,indmax]
-							field_depth_interpolated = w1 * field_below + w2 * field_above;
+							field_depth = get_var_level_time(var_stdname, regionfile, [indmin, indmax], yearindex)
+							@debug(size(field_depth))
+							field_depth_interpolated = w1 * field_depth[:,:,1] +
+							w2 * field_above[:,:,2];
 						else
 							@info("Depth is found, we use it without interpolation")
-							depthindex = findall(depthregionvector .== depthtarget)[1]
-							field_depth_interpolated = field_depth[:,:,depthindex]
+							depthindex = findall(depthregion .== depthtarget)[1]
+							field_depth_interpolated = get_var_level_time(var_stdname, regionfile, depthindex, yearindex)
 						end
 						@info(size(field_depth_interpolated));
 
@@ -141,6 +143,9 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 						@debug("Performing 2D interpolation")
 						loninterp, latinterp, finterp, indlon, indlat = interp_horiz(lonregion, latregion,
 						field_depth_interpolated, longrid, latgrid);
+
+						@debug("Filling the 3D array for merging")
+						fields2merge(indlon, indlat, iregion) = finterp;
 
 						if plotcheck == 1
 							# Gather the coordinates and fields into lists
@@ -154,6 +159,10 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 					end
 				end
 			end # end of loop on the regions
+
+			@info("Merging the domains using `DIVAnd.hmerge`")
+			field_merged = DIVAnd.hmerge(fields2merge,L);
+			@info(size(field_merged));
 
 			# Make a plot for checking if it works
 			if plotcheck == 1

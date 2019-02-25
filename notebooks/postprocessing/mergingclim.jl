@@ -131,16 +131,22 @@ get_coords(filename)
 
 Extract the years, longitudes, latitudes and depths
 out of a netCDF file `filename`
+TODO use varbyattrib in case the variable names change
 """
-function get_coords(filename::String)::Array
+function get_coords(filename::String)
     ds = Dataset(filename,"r")
     dategrid = ds["time"][:]
-    yeargrid = unique(Dates.year.(dategrid))
-    lonregion = varbyattrib(ds1, units="degrees_east")[1][:];
-    latregion = varbyattrib(ds1, units="degrees_north")[1][:];
+    years = unique(Dates.year.(dategrid))
+    @info size(years)
+    @info typeof(years)
+    lonregion = varbyattrib(ds, units="degrees_east")[1][:];
+    latregion = varbyattrib(ds, units="degrees_north")[1][:];
+    lonregion = coalesce.(lonregion, NaN)
+    latregion = coalesce.(latregion, NaN)
     depthregion = ds["depth"][:]
+    depthregion = coalesce.(depthregion, NaN)
     close(ds)
-    return yeargrid, lonregion, latregion, depthregion
+    return years, lonregion, latregion, depthregion
 end
 
 
@@ -222,6 +228,14 @@ function get_depth_indices(depth::Float64, depthvector::Array{Float64})
         indmax = findall(depthvector .== dmax)[1]
     end
     return indmin, indmax
+end
+
+
+function get_var_level_time(var_stdname::String, filename::String, depthindex, timeindex::Array)
+    ds1 = Dataset(filename, "r")
+    field_depth = varbyattrib(ds1, standard_name=var_stdname)[1][:,:,:,timeindex]
+    close(ds1)
+    return field_depth[:,:,depthindex]
 end
 
 
