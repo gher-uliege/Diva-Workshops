@@ -79,7 +79,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 			iregion = 0
 
 			if plotcheck == 1
-				fig = figure("",figsize=(2,2))
+				fig = figure()
 				lonlist2plot = []
 				latlist2plot = []
 				fieldlist2plot = []
@@ -90,14 +90,13 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 				@debug("Working on region $(regionfile)")
 
 				# Get the years available in the regional file
-				# TODO: function to get all the coordinates in one go
-				yearregion = get_years(regionfile)
-				ds1 = Dataset(regionfile, "r")
-				lonregion = varbyattrib(ds1, units="degrees_east")[1][:];
-				latregion = varbyattrib(ds1, units="degrees_north")[1][:];
-				close(ds1)
+				yearregion, lonregion, latregion, depthregion = get_coords(regionfile)
 				@debug(typeof(lonregion), size(lonregion));
 				@debug(typeof(latregion), size(latregion));
+
+				# Remove the missing values
+				depthregionvector = coalesce.(depthregionvector, NaN);
+				@info("Depth range: $(minimum(depthregionvector))--$(maximum(depthregionvector)) m");
 
 				# find in the variable the time index
 				# corresponding to the year
@@ -107,15 +106,6 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 				else
 					@info "Year $(years) is available, will perform vertical interpolation"
 					@debug "Year index: $(yearindex)"
-
-					# Read depths from the file
-					ds1 = Dataset(regionfile, "r")
-					depthregionvector = ds1["depth"][:]
-					close(ds1)
-
-					# Remove the missing values
-					depthregionvector = coalesce.(depthregionvector, NaN);
-					@info("Depth range: $(minimum(depthregionvector))--$(maximum(depthregionvector)) m");
 
 					# Check if the considered depth lies within the depth interval
 					# of the considered file
@@ -181,6 +171,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 					vmin=vmin, vmax=vmax)
 				end
 				colorbar()
+				title("$(varname), $(season) $(years) at $(depthtarget) m")
 				figname = joinpath(figdir, "$(varname)-$(season)-$(depthtarget)-$(years).png")
 				@info "Saving figure as $(figname)"
 				PyPlot.savefig(figname)

@@ -126,6 +126,23 @@ function get_years(filename::String)::Array
     return yeargrid
 end
 
+"""
+get_coords(filename)
+
+Extract the years, longitudes, latitudes and depths
+out of a netCDF file `filename`
+"""
+function get_coords(filename::String)::Array
+    ds = Dataset(filename,"r")
+    dategrid = ds["time"][:]
+    yeargrid = unique(Dates.year.(dategrid))
+    lonregion = varbyattrib(ds1, units="degrees_east")[1][:];
+    latregion = varbyattrib(ds1, units="degrees_north")[1][:];
+    depthregion = ds["depth"][:]
+    close(ds)
+    return yeargrid, lonregion, latregion, depthregion
+end
+
 
 """
 ```julia
