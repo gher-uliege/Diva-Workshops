@@ -265,5 +265,5 @@ function interp_horiz(londata, latdata, data, longrid, latgrid)
     lat_interp = latgrid[goodlat]
     field_interpolated = itp(lon_interp, lat_interp);
 
-    return lon_interp, lat_interp, field_interpolated
+    return lon_interp, lat_interp, field_interpolated, findall(goodlon), findall(goodlat)
 end

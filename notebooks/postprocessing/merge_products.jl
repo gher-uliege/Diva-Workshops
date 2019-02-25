@@ -1,7 +1,11 @@
 using NCDatasets
 using Dates
 using Glob
+using PyPlot
 include("mergingclim.jl")
+
+figdir = "./figures/"
+plotcheck = 1
 
 Δlon = 1.
 Δlat = 1.
@@ -67,72 +71,121 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 	for depthtarget in depthgrid
 		@debug("Working on depth $(depthtarget)")
 
-		# Loop on the regions (using the file list)
-		for regionfile in filelist
-			@debug("Working on region $(regionfile)")
+		# Loop on years
+		for years in yeargrid[end-10:end-5]
+			@info("Working on year $(years)")
 
-			# Read years and depths from the file
-			ds1 = Dataset(regionfile, "r")
-			depthregionvector = ds1["depth"][:]
-			close(ds1)
+			# Loop on the regions (using the file list)
+			iregion = 0
 
-			# Remove the missing values
-			depthregionvector = coalesce.(depthregionvector, NaN);
-			yearlistregion = get_years(regionfile);
-
-			@info("Minimal depth: $(minimum(depthregionvector))");
-			@info("Maximal depth: $(maximum(depthregionvector))");
-
-			# Check if the considered depth lies within the depth interval
-			# of the considered file
-			if depthtarget >= minimum(depthregionvector) && depthtarget <= maximum(depthregionvector)
-				# Find the indices for that depth and that time
-
-				ds1 = Dataset(regionfile, "r")
-				field2interp = varbyattrib(ds1, standard_name = "mass_concentration_of_chlorophyll_a_in_sea_water")[1]
-				if length(findall(depthregionvector .== depthtarget)) == 0
-					@info("Depth not found, will perform interpolation")
-					dmin, dmax = get_closer_depth(depthregionvector, depthtarget)
-					w1, w2 = get_depth_weights(depthtarget, dmin, dmax)
-					indmin, indmax = get_depth_indices(depthtarget, depthregionvector)
-
-					# Select the variable according to the standard name, which should be
-					# (fingers crossed) unique
-
-					field_depth_interpolated = w1 * field2interp[:,:,indmin,:] + w2 * field[:,:,indmax,:];
-					@info(size(field_depth_interpolated));
-
-				else
-					@info("Depth is found, we use it without interpolation")
-					depthindex = findall(depthregionvector .== depthtarget)[1]
-					field_depth_interpolated = field2interp[:,:,depthindex,:]
-					@info(size(field_depth_interpolated));
-				end
-				close(ds1)
-
-				# Get the years available in the regional file
-				yearregion = get_years(regionfile)
-
-				# Loop on years
-				for years in yeargrid[end-10:end-5]
-					@info("Working on year $(years)")
-					# find in the variable the time index
-					# corresponding to the year
-					yearindex = findall(years .== yearregion)
-					if length(yearindex) == 0
-						@debug "Year $(years) not available in the file"
-					else
-						@info "Year $(years) is available, will perform 2D interpolation"
-						@debug "Year index: $(yearindex)"
-						field2interp_horiz = field_depth_interpolated[:,:,yearindex]
-						@info(size(field2interp_horiz))
-					end
-				end
-
-			else
-				@warn("The depths in the regional product don't include the depth level $(depthtarget) m")
+			if plotcheck == 1
+				fig = figure("",figsize=(2,2))
+				lonlist2plot = []
+				latlist2plot = []
+				fieldlist2plot = []
 			end
 
-		end
-	end
-end
+			for regionfile in filelist
+				iregion += 1
+				@debug("Working on region $(regionfile)")
+
+				# Get the years available in the regional file
+				# TODO: function to get all the coordinates in one go
+				yearregion = get_years(regionfile)
+				ds1 = Dataset(regionfile, "r")
+				lonregion = varbyattrib(ds1, units="degrees_east")[1][:];
+				latregion = varbyattrib(ds1, units="degrees_north")[1][:];
+				close(ds1)
+				@debug(typeof(lonregion), size(lonregion));
+				@debug(typeof(latregion), size(latregion));
+
+				# find in the variable the time index
+				# corresponding to the year
+				yearindex = findall(years .== yearregion)
+				if length(yearindex) == 0
+					@debug "Year $(years) not available in the file, processing next region"
+				else
+					@info "Year $(years) is available, will perform vertical interpolation"
+					@debug "Year index: $(yearindex)"
+
+					# Read depths from the file
+					ds1 = Dataset(regionfile, "r")
+					depthregionvector = ds1["depth"][:]
+					close(ds1)
+
+					# Remove the missing values
+					depthregionvector = coalesce.(depthregionvector, NaN);
+					@info("Depth range: $(minimum(depthregionvector))--$(maximum(depthregionvector)) m");
+
+					# Check if the considered depth lies within the depth interval
+					# of the considered file
+					if (depthtarget >= minimum(depthregionvector) &&
+						depthtarget <= maximum(depthregionvector))
+
+						# Read the field at the good year index
+						@debug("Reading variable for selected year $(years)")
+						ds1 = Dataset(regionfile, "r")
+						field_depth = varbyattrib(ds1, standard_name="mass_concentration_of_chlorophyll_a_in_sea_water")[1][:,:,:,yearindex]
+						close(ds1)
+
+						if length(findall(depthregionvector .== depthtarget)) == 0
+							@info("Depth not found, will perform interpolation")
+							dmin, dmax = get_closer_depth(depthregionvector, depthtarget)
+							w1, w2 = get_depth_weights(depthtarget, dmin, dmax)
+							indmin, indmax = get_depth_indices(depthtarget, depthregionvector)
+
+							# Select the variable according to the standard name, which should be
+							# (fingers crossed) unique
+
+							field_below = field_depth[:,:,indmin]
+							field_above = field_depth[:,:,indmax]
+							field_depth_interpolated = w1 * field_below + w2 * field_above;
+						else
+							@info("Depth is found, we use it without interpolation")
+							depthindex = findall(depthregionvector .== depthtarget)[1]
+							field_depth_interpolated = field_depth[:,:,depthindex]
+						end
+						@info(size(field_depth_interpolated));
+
+						#field2interp_horiz = dropdims(field_depth_interpolated[:,:,yearindex], dims=3)
+						@debug("Performing 2D interpolation")
+						loninterp, latinterp, finterp, indlon, indlat = interp_horiz(lonregion, latregion,
+						field_depth_interpolated, longrid, latgrid);
+
+						if plotcheck == 1
+							# Gather the coordinates and fields into lists
+							push!(lonlist2plot, loninterp)
+							push!(latlist2plot, latinterp)
+							push!(fieldlist2plot, finterp)
+						end
+
+					else
+						@warn("The depths in the regional product don't include the depth level $(depthtarget) m")
+					end
+				end
+			end # end of loop on the regions
+
+			# Make a plot for checking if it works
+			if plotcheck == 1
+				@info "Creating plot for checking"
+
+				vmin = 0.
+				vmax = 1.
+
+				for (lon2plot, lat2plot, field2plot) in zip(lonlist2plot, latlist2plot, fieldlist2plot)
+
+					@debug("Extremal values: $(vmin), $(vmax)")
+					#PyPlot.pcolormesh(lonregion, latregion, permutedims(field2interp_horiz_nomiss, [2,1]),
+					#vmin=vmin, vmax=vmax)
+					PyPlot.pcolormesh(lon2plot, lat2plot, permutedims(coalesce.(field2plot, NaN), [2,1]),
+					vmin=vmin, vmax=vmax)
+				end
+				colorbar()
+				figname = joinpath(figdir, "$(varname)-$(season)-$(depthtarget)-$(years).png")
+				@info "Saving figure as $(figname)"
+				PyPlot.savefig(figname)
+				PyPlot.close()
+			end
+		end # end of loop on the years
+	end # end of loop on the depth levels
+end # end of loop on the seasons
