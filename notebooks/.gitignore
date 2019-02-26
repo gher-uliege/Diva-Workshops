@@ -1,3 +1,4 @@
+data/
 .ipynb_checkpoints
 */.ipynb_checkpoints
 Salinity.bigfile
@@ -7,3 +8,7 @@ gebco_30sec_16.nc
 CDI-list-export.zip
 Adriatic*
 out*.html
+postprocessing/test*
+test*ipynb
+*.xml
+../SurveyMonkey*
