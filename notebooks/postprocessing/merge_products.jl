@@ -9,6 +9,16 @@ figdir = "./figures/"
 plotcheck = 1
 ioff()
 
+# User inputs
+# ------------
+
+varname = "chlorophyll-a"
+var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
+product_id = "e61d12cd-837f-49ff-a0e1-3a694ab84bc5"
+outputdir = "/data/EMODnet/Chemistry/merged/"
+databasedir = "/data/EMODnet/Chemistry/prod/"
+
+# Grid and resolutions
 Δlon = 1.
 Δlat = 1.
 longrid = -40.:Δlon:55.
@@ -40,11 +50,6 @@ timegrid = [23787, 23876, 23968, 24060, 24152, 24241, 24333, 24425, 24517, 24606
 39308, 39400, 39492, 39582, 39674, 39766, 39858, 39947, 40039, 40131,
 40223, 40312, 40404, 40496];
 
-varname = "chlorophyll-a"
-var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
-product_id = "e61d12cd-837f-49ff-a0e1-3a694ab84bc5"
-outputdir = "/data/EMODnet/Chemistry/merged/"
-databasedir = "/data/EMODnet/Chemistry/prod/"
 
 if !(isdir(outputdir))
 	@info("Create new output directory")
@@ -55,13 +60,14 @@ end
 outputfile = joinpath(outputdir, "Water_body_$(varname)_combined.nc")
 outputtitle = "DIVA 4D analysis of Water_body_$(varname)";
 
-@info("Creating new file for the new grid")
+@info("Creating new netCDF file for the new grid")
 create_nc_merged(outputfile, longrid, latgrid, depthgrid, timegrid);
 
 yeargrid = get_years(joinpath(outputdir, outputfile));
 @show yeargrid;
 
 # Loop on the seasons
+# TODO: work on all the seasons
 for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 
 	@info("Working on season $(season)")
@@ -75,12 +81,14 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 		@debug("Working on depth $(depthtarget)")
 
 		# Loop on years
+		# TODO: test on all the years
 		for years in yeargrid[end-10:end-5]
 			@info("Working on year $(years)")
 
 			# Loop on the regions (using the file list)
 			iregion = 0
 
+			# Prepare the figure
 			if plotcheck == 1
 				fig = figure()
 				lonlist2plot = []
@@ -145,7 +153,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 						field_depth_interpolated, longrid, latgrid);
 
 						@debug("Filling the 3D array for merging")
-						fields2merge(indlon, indlat, iregion) = finterp;
+						fields2merge[indlon, indlat, iregion] = coalesce.(finterp, NaN);
 
 						if plotcheck == 1
 							# Gather the coordinates and fields into lists
@@ -161,16 +169,18 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 			end # end of loop on the regions
 
 			@info("Merging the domains using `DIVAnd.hmerge`")
-			field_merged = DIVAnd.hmerge(fields2merge,L);
+			field_merged = DIVAnd.hmerge(fields2merge,4.0);
 			@info(size(field_merged));
 
 			# Make a plot for checking if it works
 			if plotcheck == 1
 				@info "Creating plot for checking"
 
+				#TODO adapt the extremal values for the plot
 				vmin = 0.
 				vmax = 1.
 
+				# Loop on the regional fields that were re-interpolated
 				for (lon2plot, lat2plot, field2plot) in zip(lonlist2plot, latlist2plot, fieldlist2plot)
 
 					@debug("Extremal values: $(vmin), $(vmax)")
@@ -185,6 +195,20 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 				@info "Saving figure as $(figname)"
 				PyPlot.savefig(figname)
 				PyPlot.close()
+
+				@info("Plotting the merged field on the full grid")
+				PyPlot.pcolormesh(longrid, latgrid, permutedims(field_merged, [2,1]),
+				vmin=vmin, vmax=vmax)
+				colorbar()
+				title("$(varname), $(season) $(years) at $(depthtarget) m")
+				figname = joinpath(figdir, "$(varname)-$(season)-$(depthtarget)-$(years)_merged.png")
+				@info "Saving figure as $(figname)"
+				PyPlot.savefig(figname)
+				PyPlot.close()
+
+
+
+
 			end
 		end # end of loop on the years
 	end # end of loop on the depth levels
