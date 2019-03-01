@@ -77,7 +77,7 @@ lat = collect(22.:.25:30.);
 f2 = make2D_test(length(lon), length(lat));
 longrid = collect(9:.1:16);
 latgrid = collect(21:.2:24);
-loninterp, latinterp, finterp = interp_horiz(lon, lat, f2, longrid, latgrid);
+loninterp, latinterp, finterp, indlon, indlat = interp_horiz(lon, lat, f2, longrid, latgrid);
 longrid2 = collect(16.5:0.1:17)
 loninterp2, latinterp2, finterp2 = interp_horiz(lon, lat, f2, longrid2, latgrid);
 
@@ -89,3 +89,7 @@ loninterp2, latinterp2, finterp2 = interp_horiz(lon, lat, f2, longrid2, latgrid)
 @test finterp[end-4, end-3] ≈ 80.52
 @test length(loninterp2) == 0
 @test size(finterp2) == (0, 11)
+@test length(indlon) == 61
+@test length(indlat) == 11
+@test indlat[1] == 6
+@test indlat[end] == 16

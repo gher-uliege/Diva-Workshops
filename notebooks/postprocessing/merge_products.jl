@@ -6,7 +6,7 @@ using DIVAnd
 include("mergingclim.jl")
 
 figdir = "./figures/"
-plotcheck = 1
+plotcheck = 0
 ioff()
 
 # User inputs
@@ -19,15 +19,15 @@ outputdir = "/data/EMODnet/Chemistry/merged/"
 databasedir = "/data/EMODnet/Chemistry/prod/"
 
 # Grid and resolutions
-Δlon = 1.
-Δlat = 1.
+Δlon = 0.5
+Δlat = 0.5
 longrid = -40.:Δlon:55.
 latgrid = 24.:Δlat:67.
 depthgrid = Float64.([0, 5, 10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300, 400,
 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1750, 2000,
 2500, 3000]);
 
-depthgrid = depthgrid[1:6];
+# depthgrid = depthgrid[1:6];
 
 # Time should be generated from years and seasons maybe
 timegrid = [23787, 23876, 23968, 24060, 24152, 24241, 24333, 24425, 24517, 24606,
@@ -49,6 +49,8 @@ timegrid = [23787, 23876, 23968, 24060, 24152, 24241, 24333, 24425, 24517, 24606
 38397, 38486, 38578, 38670, 38762, 38851, 38943, 39035, 39127, 39216,
 39308, 39400, 39492, 39582, 39674, 39766, 39858, 39947, 40039, 40131,
 40223, 40312, 40404, 40496];
+
+# timegrid = timegrid[end-5:end];
 
 
 if !(isdir(outputdir))
@@ -77,12 +79,12 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 	@info("Found $(length(filelist)) files")
 
 	# Loop on the depths
-	for depthtarget in depthgrid
+	for (idepth, depthtarget) in enumerate(depthgrid)
 		@debug("Working on depth $(depthtarget)")
 
 		# Loop on years
 		# TODO: test on all the years
-		for years in yeargrid[end-10:end-5]
+		for (iyear, years) in enumerate(yeargrid)
 			@info("Working on year $(years)")
 
 			# Loop on the regions (using the file list)
@@ -103,6 +105,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 			for regionfile in filelist
 				iregion += 1
 				@debug("Working on region $(regionfile)")
+				@debug("Depth index: $(idepth) -- time index: $(iyear)")
 
 				# Get the years available in the regional file
 				yearregion, lonregion, latregion, depthregion = get_coords(regionfile)
@@ -113,6 +116,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 
 				# find in the variable the time index
 				# corresponding to the year
+
 				yearindex = findall(years .== yearregion)
 				if length(yearindex) == 0
 					@debug "Year $(years) not available in the file, processing next region"
@@ -171,6 +175,11 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 			@info("Merging the domains using `DIVAnd.hmerge`")
 			field_merged = DIVAnd.hmerge(fields2merge,4.0);
 			@info(size(field_merged));
+
+			# Write inside the global netCDF file
+			dsout = Dataset(outputfile, "a")
+			dsout["Water_body_ammonium"][1:length(longrid),1:length(latgrid),idepth,iyear] = field_merged;
+			close(dsout)
 
 			# Make a plot for checking if it works
 			if plotcheck == 1
