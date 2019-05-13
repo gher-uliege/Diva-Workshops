@@ -5,6 +5,24 @@ using GridInterpolations
 using Interpolations
 using Missings
 
+
+"""
+Generate a list dates (days since `dateref`) for the specified arrays
+`years` and `months`
+"""
+function create_date_list(years::Array, months::Array, dateref::Date=Date(1900,1,1))
+    datelist = []
+    for year in years
+        for month in months
+            global daydiff
+            d = Date(year, month, 15)
+            daydiff = d - dateref
+            push!(datelist, daydiff.value + 1)
+        end
+    end
+    return datelist
+end
+
 """
 create_nc_merged(filename, longrid, latgrid, depthgrid, timegrid)
 

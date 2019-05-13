@@ -1,6 +1,15 @@
 using Test
 include("mergingclim.jl")
 
+# Test the creation of list of days
+yearrange = collect(2006:2010)
+monthlist = [2,5,8,11]
+dateslist = create_date_list(yearrange, monthlist)
+datescheck = [38762, 38851, 38943, 39035, 39127, 39216,
+39308, 39400, 39492, 39582, 39674, 39766, 39858, 39947, 40039, 40131,
+40223, 40312, 40404, 40496];
+@test datescheck == dateslist;
+
 # Test depth selection
 dmin, dmax =  get_closer_depth([-10., -5., 7., 20], 1.);
 @test dmin == -5.
