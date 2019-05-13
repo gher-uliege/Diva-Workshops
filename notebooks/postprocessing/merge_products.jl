@@ -50,8 +50,8 @@ timegrid = [23787, 23876, 23968, 24060, 24152, 24241, 24333, 24425, 24517, 24606
 39308, 39400, 39492, 39582, 39674, 39766, 39858, 39947, 40039, 40131,
 40223, 40312, 40404, 40496];
 
-# timegrid = timegrid[end-5:end];
 
+# timegrid = timegrid[end-5:end];
 
 if !(isdir(outputdir))
 	@info("Create new output directory")
@@ -63,8 +63,10 @@ outputfile = joinpath(outputdir, "Water_body_$(varname)_combined.nc")
 outputtitle = "DIVA 4D analysis of Water_body_$(varname)";
 
 @info("Creating new netCDF file for the new grid")
+@info("inside directory: $(outputdir)")
 create_nc_merged(outputfile, longrid, latgrid, depthgrid, timegrid);
 
+@info "Getting the years from the output file"
 yeargrid = get_years(joinpath(outputdir, outputfile));
 @show yeargrid;
 
@@ -83,7 +85,6 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 		@debug("Working on depth $(depthtarget)")
 
 		# Loop on years
-		# TODO: test on all the years
 		for (iyear, years) in enumerate(yeargrid)
 			@info("Working on year $(years)")
 
@@ -133,7 +134,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 						@debug("Reading variable for selected year $(years)")
 
 						if length(findall(depthregion .== depthtarget)) == 0
-							@info("Depth not found, will perform interpolation")
+							@info("Depth not found, will perform vertical interpolation")
 							dmin, dmax = get_closer_depth(depthregion, depthtarget)
 							w1, w2 = get_depth_weights(depthtarget, dmin, dmax)
 							indmin, indmax = get_depth_indices(depthtarget, depthregion)
@@ -149,10 +150,10 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 							depthindex = findall(depthregion .== depthtarget)[1]
 							field_depth_interpolated = get_var_level_time(var_stdname, regionfile, depthindex, yearindex)
 						end
-						@info(size(field_depth_interpolated));
+						@info("Size of the interpolated field: $(size(field_depth_interpolated))");
 
 						#field2interp_horiz = dropdims(field_depth_interpolated[:,:,yearindex], dims=3)
-						@debug("Performing 2D interpolation")
+						@debug("Performing 2D horizontal interpolation")
 						loninterp, latinterp, finterp, indlon, indlat = interp_horiz(lonregion, latregion,
 						field_depth_interpolated, longrid, latgrid);
 
@@ -174,7 +175,7 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 
 			@info("Merging the domains using `DIVAnd.hmerge`")
 			field_merged = DIVAnd.hmerge(fields2merge,4.0);
-			@info(size(field_merged));
+			@info("Size of the merged field: $(size(field_merged))");
 
 			# Write inside the global netCDF file
 			dsout = Dataset(outputfile, "a")

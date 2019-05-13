@@ -4,6 +4,7 @@ using Glob
 using GridInterpolations
 using Interpolations
 using Missings
+
 """
 create_nc_merged(filename, longrid, latgrid, depthgrid, timegrid)
 
@@ -13,78 +14,78 @@ longrid, latgrid, depthgrid, timegrid.
 The interpolated variable will be written by another function.
 """
 function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegrid)
-    ds = Dataset(joinpath(outputdir, outputfile), "c")
+    Dataset(filename, "c") do ds
 
-    # Dimensions
-    ds.dim["lon"] = length(longrid)
-    ds.dim["nv"] = 2
-    ds.dim["lat"] = length(latgrid)
-    ds.dim["depth"] = length(depthgrid)
-    ds.dim["time"] = length(timegrid)
+        # Dimensions
+        ds.dim["lon"] = length(longrid)
+        ds.dim["nv"] = 2
+        ds.dim["lat"] = length(latgrid)
+        ds.dim["depth"] = length(depthgrid)
+        ds.dim["time"] = length(timegrid)
 
-    # Declare variables
-    nclon = defVar(ds,"lon", Float64, ("lon",))
-    nclon.attrib["standard_name"] = "longitude"
-    nclon.attrib["long_name"] = "longitude"
-    nclon.attrib["units"] = "degrees east"
-    nclon.attrib["axis"] = "X"
-    nclon.attrib["valid_min"] = -180.
-    nclon.attrib["valid_max"] = 180.
+        # Declare variables
+        nclon = defVar(ds,"lon", Float64, ("lon",))
+        nclon.attrib["standard_name"] = "longitude"
+        nclon.attrib["long_name"] = "longitude"
+        nclon.attrib["units"] = "degrees east"
+        nclon.attrib["axis"] = "X"
+        nclon.attrib["valid_min"] = -180.
+        nclon.attrib["valid_max"] = 180.
 
-    nclon_bnds = defVar(ds,"lon_bnds", Float64, ("nv", "lon"))
+        nclon_bnds = defVar(ds,"lon_bnds", Float64, ("nv", "lon"))
 
-    nclat = defVar(ds,"lat", Float64, ("lat",))
-    nclat.attrib["standard_name"] = "latitude"
-    nclat.attrib["long_name"] = "latitude"
-    nclat.attrib["units"] = "degrees north"
-    nclat.attrib["axis"] = "Y"
-    nclat.attrib["valid_min"] = -90.
-    nclat.attrib["valid_max"] = 90.
+        nclat = defVar(ds,"lat", Float64, ("lat",))
+        nclat.attrib["standard_name"] = "latitude"
+        nclat.attrib["long_name"] = "latitude"
+        nclat.attrib["units"] = "degrees north"
+        nclat.attrib["axis"] = "Y"
+        nclat.attrib["valid_min"] = -90.
+        nclat.attrib["valid_max"] = 90.
 
-    nclat_bnds = defVar(ds,"lat_bnds", Float64, ("nv", "lat"))
+        nclat_bnds = defVar(ds,"lat_bnds", Float64, ("nv", "lat"))
 
-    ncdepth = defVar(ds,"depth", Float64, ("depth",))
-    ncdepth.attrib["standard_name"] = "depth"
-    ncdepth.attrib["units"] = "meters"
-    ncdepth.attrib["axis"] = "Z"
-    ncdepth.attrib["positive"] = "down"
+        ncdepth = defVar(ds,"depth", Float64, ("depth",))
+        ncdepth.attrib["standard_name"] = "depth"
+        ncdepth.attrib["units"] = "meters"
+        ncdepth.attrib["axis"] = "Z"
+        ncdepth.attrib["positive"] = "down"
 
-    ncdepthnew_bnds = defVar(ds,"depthnew_bnds", Float64, ("nv", "depth"))
+        ncdepthnew_bnds = defVar(ds,"depthnew_bnds", Float64, ("nv", "depth"))
 
-    nctime = defVar(ds,"time", Float64, ("time",))
-    nctime.attrib["standard_name"] = "time"
-    nctime.attrib["bounds"] = "time3_bnds"
-    nctime.attrib["units"] = "days since 1900-01-01 00:00:00"
-    nctime.attrib["calendar"] = "standard"
-    nctime.attrib["climatology"] = "climatology_bounds"
+        nctime = defVar(ds,"time", Float64, ("time",))
+        nctime.attrib["standard_name"] = "time"
+        nctime.attrib["bounds"] = "time3_bnds"
+        nctime.attrib["units"] = "days since 1900-01-01 00:00:00"
+        nctime.attrib["calendar"] = "standard"
+        nctime.attrib["climatology"] = "climatology_bounds"
 
-    ncclimatology_bounds = defVar(ds,"climatology_bounds", Float64, ("nv", "time"))
-    ncclimatology_bounds.attrib["units"] = "days since 1900-01-01 00:00:00"
-    ncclimatology_bounds.attrib["calendar"] = "standard"
+        ncclimatology_bounds = defVar(ds,"climatology_bounds", Float64, ("nv", "time"))
+        ncclimatology_bounds.attrib["units"] = "days since 1900-01-01 00:00:00"
+        ncclimatology_bounds.attrib["calendar"] = "standard"
 
-    # Interpolated variable
-    # (should be obtained from one of the regional netCDF files)
-    ncvarinterp = defVar(ds,"Water_body_ammonium", Float32, ("lon", "lat", "depth", "time"))
-    ncvarinterp.attrib["long_name"] = "Water_body_ammonium"
-    ncvarinterp.attrib["_FillValue"] = Float32(-9999.)
-    ncvarinterp.attrib["missing_value"] = Float32(-9999.)
-    ncvarinterp.attrib["actual_range"] = "0,125"
-    ncvarinterp.attrib["units"] = "umol/l"
+        # Interpolated variable
+        # (should be obtained from one of the regional netCDF files)
+        ncvarinterp = defVar(ds,"Water_body_ammonium", Float32, ("lon", "lat", "depth", "time"))
+        ncvarinterp.attrib["long_name"] = "Water_body_ammonium"
+        ncvarinterp.attrib["_FillValue"] = Float32(-9999.)
+        ncvarinterp.attrib["missing_value"] = Float32(-9999.)
+        ncvarinterp.attrib["actual_range"] = "0,125"
+        ncvarinterp.attrib["units"] = "umol/l"
 
-    # Global attributes
-    ds.attrib["Conventions"] = "CF-1.0"
-    ds.attrib["title"] = "DIVA 4D analysis of Water_body_ammonium"
-    ds.attrib["product_id"] = product_id
-    ds.attrib["abstract"] = "Merge netCDF product obtained from the Arctic, Atlantic, Baltic, Black, Mediterranean and North seas"
-    ds.attrib["Creation date"] = Dates.format(Dates.now(),  "yyyy-mm-dd HH:MM:SS")
-    ds.attrib["Authors"] = "GHER, University of Liège"
+        # Global attributes
+        ds.attrib["Conventions"] = "CF-1.0"
+        ds.attrib["title"] = "DIVA 4D analysis of Water_body_ammonium"
+        ds.attrib["product_id"] = product_id
+        ds.attrib["abstract"] = "Merge netCDF product obtained from the Arctic, Atlantic, Baltic, Black, Mediterranean and North seas"
+        ds.attrib["Creation date"] = Dates.format(Dates.now(),  "yyyy-mm-dd HH:MM:SS")
+        ds.attrib["Authors"] = "GHER, University of Liège"
 
-    nclat[:] = latgrid;
-    nclon[:] = longrid;
-    nctime[:] = timegrid;
-    ncdepth[:] = depthgrid;
+        nclat[:] = latgrid;
+        nclon[:] = longrid;
+        nctime[:] = timegrid;
+        ncdepth[:] = depthgrid;
 
-    close(ds)
+    end
 end
 
 
@@ -116,13 +117,14 @@ end
 """
 get_years(filename)
 
-Extract the years (from the time variable) out of a netCDF file
+Extract the years (from the time variable) out of a netCDF file `filename`
 """
 function get_years(filename::String)::Array
-    ds = Dataset(filename,"r")
-    dategrid = ds["time"][:]
-    yeargrid = unique(Dates.year.(dategrid))
-    close(ds)
+    Dataset(filename,"r") do ds
+        global yeargrid
+        dategrid = ds["time"][:]
+        yeargrid = unique(Dates.year.(dategrid))
+    end
     return yeargrid
 end
 
@@ -131,21 +133,21 @@ get_coords(filename)
 
 Extract the years, longitudes, latitudes and depths
 out of a netCDF file `filename`
-TODO use varbyattrib in case the variable names change
 """
 function get_coords(filename::String)
-    ds = Dataset(filename,"r")
-    dategrid = ds["time"][:]
-    years = unique(Dates.year.(dategrid))
-    @info size(years)
-    @info typeof(years)
-    lonregion = varbyattrib(ds, units="degrees_east")[1][:];
-    latregion = varbyattrib(ds, units="degrees_north")[1][:];
-    lonregion = coalesce.(lonregion, NaN)
-    latregion = coalesce.(latregion, NaN)
-    depthregion = ds["depth"][:]
-    depthregion = coalesce.(depthregion, NaN)
-    close(ds)
+    Dataset(filename,"r") do ds
+        global years, lonregion, latregion, depthregion
+        dategrid = ds["time"][:]
+        years = unique(Dates.year.(dategrid))
+        @info size(years)
+        @info typeof(years)
+        lonregion = varbyattrib(ds, units="degrees_east")[1][:];
+        latregion = varbyattrib(ds, units="degrees_north")[1][:];
+        lonregion = coalesce.(lonregion, NaN)
+        latregion = coalesce.(latregion, NaN)
+        depthregion = ds["depth"][:]
+        depthregion = coalesce.(depthregion, NaN)
+    end
     return years, lonregion, latregion, depthregion
 end
 
@@ -230,11 +232,21 @@ function get_depth_indices(depth::Float64, depthvector::Array{Float64})
     return indmin, indmax
 end
 
+"""
+Get the field for the specificed variable, depth level, time period
+from the file `filename`
 
+```julia
+get_var_level_time("mass_concentration_of_chlorophyll_a_in_sea_water",
+ "Water_body_chlorophyll-a.4Danl.nc",
+ 12, 4)
+```
+"""
 function get_var_level_time(var_stdname::String, filename::String, depthindex, timeindex::Array)
-    ds1 = Dataset(filename, "r")
-    field_depth = varbyattrib(ds1, standard_name=var_stdname)[1][:,:,:,timeindex]
-    close(ds1)
+    Dataset(filename, "r") do ds1
+        global field_depth
+        field_depth = varbyattrib(ds1, standard_name=var_stdname)[1][:,:,:,timeindex]
+    end
     return field_depth[:,:,depthindex]
 end
 
