@@ -25,14 +25,12 @@ longrid = -40.:Δlon:55.
 latgrid = 24.:Δlat:67.
 
 # List of depths: no product with
-depthgrid = Float64.([0, 5, 10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300, 400,
-500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1750, 2000,
-2500, 3000]);
-
-# depthgrid = depthgrid[1:6];
+depthgrid = Float64.([0, 5, 10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300]);
 
 # Time grid defined from list of years and months
-yearrange = collect(2006:2010)
+yearmin = 2006;
+yearmax = 2010;
+yearrange = collect(yearmin:yearmax)
 monthlist = [2,5,8,11]
 dateref = Date(1900,1,1)
 timegrid = create_date_list(yearrange, monthlist)
@@ -43,7 +41,7 @@ if !(isdir(outputdir))
 else
 	@info("Output directory already exists")
 end
-outputfile = joinpath(outputdir, "Water_body_$(varname)_combined.nc")
+outputfile = joinpath(outputdir, "Water_body_$(varname)_combined_test.nc")
 outputtitle = "DIVA 4D analysis of Water_body_$(varname)";
 
 @info("Creating new netCDF file for the new grid")
@@ -54,10 +52,17 @@ create_nc_merged(outputfile, longrid, latgrid, depthgrid, timegrid);
 yeargrid = get_years(joinpath(outputdir, outputfile));
 @show yeargrid;
 
+# Create a specific structure to store the data of a climatology
+struct RegionClimato
+	name::String
+	years::Array{Int64,1}
+	depths::Array{Float32,1}
+	lons::Array{Float32,1}
+	lats::Array{Float32,1}
+	field::Array{Union{Missing, Float32},4}
+end
+
 # Loop on the seasons
-# TODO: work on all the seasons
-
-
 for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 
 	@info("Working on season $(season)")
@@ -66,163 +71,174 @@ for season in ["Winter",] # "Spring", "Summer", "Autumn"]
 	filelist = get_file_list(databasedir, varname, season);
 	@info("Found $(length(filelist)) files")
 
-	fieldlist = []
+	global climlist = []
+
 	for datafile in filelist
-		years, lonregion, latregion, depthregion = get_coords(datafile)
-		@info("minimum year: $(minimum(years)), maximum year: $(maximum(years))");
+		@info "Reading data from file $(datafile)"
+		regionname = get_region_name(datafile);
+		yeargridregion, lonregion, latregion, depthregion = get_coords(datafile)
+		@info("minimum year for the region: $(minimum(yeargridregion)), maximum year: $(maximum(yeargridregion))");
+		@debug "Year grid for the region: $(yeargridregion)";
 
-		#Dataset(datafile, "r") do ds1
+		# Select the good years according to target grid
+		goodyears = (yeargridregion .>= yearmin) .& (yeargridregion .<= yearmax);
+		# Select good depths according to target
+		gooddepths = (depthregion .>= minimum(depthgrid)) .&
+		(depthregion .<= maximum(depthgrid));
 
-	     #   global field
-	      #  field = varbyattrib(ds1, standard_name=var_stdname)[1][:,:,:,:]
-	    #end
-		@info("Reading coordinates")
-		@info(size(field))
-		push!(fieldlist, field)
+		# Loading the field only in the region and for the period of interest
+		Dataset(datafile, "r") do ds1
+			global field_subset
+			field = varbyattrib(ds1, standard_name=var_stdname)[1][:,:,:,:]
+			@debug("Before subsetting: $(size(field))")
+			field_subset = field[:,:,gooddepths,goodyears]
+			@debug("After subsetting: $(size(field_subset))")
+		end
+		@info(typeof(field_subset))
+		clim = RegionClimato(regionname, yeargridregion[goodyears],
+		depthregion[gooddepths], lonregion, latregion, coalesce.(field_subset))
+		push!(climlist, clim)
+		@info(size(clim.field))
 	end
-	@info(size(fieldlist))
+	@info(size(climlist))
+	@info("Finished reading climatologies")
 
-	#
-	# # Loop on the depths
-	# for (idepth, depthtarget) in enumerate(depthgrid)
-	# 	@debug("Working on depth $(depthtarget)")
-	#
-	# 	# Loop on years
-	# 	for (iyear, years) in enumerate(yeargrid)
-	# 		@info("Working on year $(years)")
-	#
-	# 		# Loop on the regions (using the file list)
-	# 		iregion = 0
-	#
-	# 		# Prepare the figure
-	# 		if plotcheck == 1
-	# 			fig = figure()
-	# 			lonlist2plot = []
-	# 			latlist2plot = []
-	# 			fieldlist2plot = []
-	# 		end
-	#
-	# 		# Create a 3D array that will be used for the merging
-	# 		sz = (length(longrid), length(latgrid), length(filelist))
-	# 		fields2merge = fill(NaN, sz)
-	#
-	# 		for regionfile in filelist
-	# 			iregion += 1
-	# 			@debug("Working on region $(regionfile)")
-	# 			@debug("Depth index: $(idepth) -- time index: $(iyear)")
-	#
-	# 			# Get the years available in the regional file
-	# 			yearregion, lonregion, latregion, depthregion = get_coords(regionfile)
-	# 			@debug(typeof(lonregion), size(lonregion));
-	# 			@debug(typeof(latregion), size(latregion));
-	#
-	# 			@info("Depth range: $(minimum(depthregion))--$(maximum(depthregion)) m");
-	#
-	# 			# find in the variable the time index
-	# 			# corresponding to the year
-	#
-	# 			yearindex = findall(years .== yearregion)
-	# 			if length(yearindex) == 0
-	# 				@debug "Year $(years) not available in the file, processing next region"
-	# 			else
-	# 				@info "Year $(years) is available, will perform vertical extraction"
-	# 				@debug "Year index: $(yearindex)"
-	#
-	# 				# Check if the considered depth lies within the depth interval
-	# 				# of the considered file
-	# 				if (depthtarget >= minimum(depthregion) &&
-	# 					depthtarget <= maximum(depthregion))
-	#
-	# 					# Read the field at the good year index
-	# 					@debug("Reading variable for selected year $(years)")
-	#
-	# 					if length(findall(depthregion .== depthtarget)) == 0
-	# 						@info("Depth not found, will perform vertical interpolation")
-	# 						dmin, dmax = get_closer_depth(depthregion, depthtarget)
-	# 						w1, w2 = get_depth_weights(depthtarget, dmin, dmax)
-	# 						indmin, indmax = get_depth_indices(depthtarget, depthregion)
-	#
-	# 						# Select the variable according to the standard name, which should be
-	# 						# (fingers crossed) unique
-	# 						field_depth = get_var_level_time(var_stdname, regionfile, [indmin, indmax], yearindex)
-	# 						@debug(size(field_depth))
-	# 						field_depth_interpolated = w1 * field_depth[:,:,1] +
-	# 						w2 * field_above[:,:,2];
-	# 					else
-	# 						@info("Depth is found, we use it without interpolation")
-	# 						depthindex = findall(depthregion .== depthtarget)[1]
-	# 						field_depth_interpolated = get_var_level_time(var_stdname, regionfile, depthindex, yearindex)
-	# 					end
-	# 					@info("Size of the interpolated field: $(size(field_depth_interpolated))");
-	#
-	# 					#field2interp_horiz = dropdims(field_depth_interpolated[:,:,yearindex], dims=3)
-	# 					@debug("Performing 2D horizontal interpolation")
-	# 					loninterp, latinterp, finterp, indlon, indlat = interp_horiz(lonregion, latregion,
-	# 					field_depth_interpolated, longrid, latgrid);
-	#
-	# 					@debug("Filling the 3D array for merging")
-	# 					fields2merge[indlon, indlat, iregion] = coalesce.(finterp, NaN);
-	#
-	# 					if plotcheck == 1
-	# 						# Gather the coordinates and fields into lists
-	# 						push!(lonlist2plot, loninterp)
-	# 						push!(latlist2plot, latinterp)
-	# 						push!(fieldlist2plot, finterp)
-	# 					end
-	#
-	# 				else
-	# 					@warn("The depths in the regional product don't include the depth level $(depthtarget) m")
-	# 				end
-	# 			end
-	# 		end # end of loop on the regions
-	#
-	# 		@info("Merging the domains using `DIVAnd.hmerge`")
-	# 		field_merged = DIVAnd.hmerge(fields2merge,4.0);
-	# 		@info("Size of the merged field: $(size(field_merged))");
-	#
-	# 		# Write inside the global netCDF file
-	# 		dsout = Dataset(outputfile, "a")
-	# 		dsout["Water_body_ammonium"][1:length(longrid),1:length(latgrid),idepth,iyear] = field_merged;
-	# 		close(dsout)
-	#
-	# 		# Make a plot for checking if it works
-	# 		if plotcheck == 1
-	# 			@info "Creating plot for checking"
-	#
-	# 			#TODO adapt the extremal values for the plot
-	# 			vmin = 0.
-	# 			vmax = 1.
-	#
-	# 			# Loop on the regional fields that were re-interpolated
-	# 			for (lon2plot, lat2plot, field2plot) in zip(lonlist2plot, latlist2plot, fieldlist2plot)
-	#
-	# 				@debug("Extremal values: $(vmin), $(vmax)")
-	# 				#PyPlot.pcolormesh(lonregion, latregion, permutedims(field2interp_horiz_nomiss, [2,1]),
-	# 				#vmin=vmin, vmax=vmax)
-	# 				PyPlot.pcolormesh(lon2plot, lat2plot, permutedims(coalesce.(field2plot, NaN), [2,1]),
-	# 				vmin=vmin, vmax=vmax)
-	# 			end
-	# 			colorbar()
-	# 			title("$(varname), $(season) $(years) at $(depthtarget) m")
-	# 			figname = joinpath(figdir, "$(varname)-$(season)-$(depthtarget)-$(years).png")
-	# 			@info "Saving figure as $(figname)"
-	# 			PyPlot.savefig(figname)
-	# 			PyPlot.close()
-	#
-	# 			@info("Plotting the merged field on the full grid")
-	# 			PyPlot.pcolormesh(longrid, latgrid, permutedims(field_merged, [2,1]),
-	# 			vmin=vmin, vmax=vmax)
-	# 			colorbar()
-	# 			title("$(varname), $(season) $(years) at $(depthtarget) m")
-	# 			figname = joinpath(figdir, "$(varname)-$(season)-$(depthtarget)-$(years)_merged.png")
-	# 			@info "Saving figure as $(figname)"
-	# 			PyPlot.savefig(figname)
-	# 			PyPlot.close()
-	#
-	#
-	#
-	#
-	# 		end
-	# 	end # end of loop on the years
-	# end # end of loop on the depth levels
+	# Now we have all the climatologies in a list `climlist`
+
+	# Loop on the depths
+	for (idepth, depthtarget) in enumerate(depthgrid)
+		@info("Working on depth $(depthtarget)")
+
+		# Loop on years
+		for (iyear, years) in enumerate(yeargrid)
+			@info("Working on year $(years)")
+
+			# Loop on the regions (using the file list)
+			iregion = 0
+
+			# Prepare the figure
+			if plotcheck == 1
+				fig = figure()
+				lonlist2plot = []
+				latlist2plot = []
+				fieldlist2plot = []
+			end
+
+			# Create a 3D array that will be used for the merging
+			sz = (length(longrid), length(latgrid), length(filelist))
+			fields2merge = fill(NaN, sz)
+
+			for clim in climlist
+				iregion += 1
+				@debug("Working on $(clim.name) region")
+				@debug("Depth index: $(idepth) -- time index: $(iyear)")
+
+				# find in the variable the time index
+				# corresponding to the year
+
+				yearindex = findall(years .== clim.years)
+				@show clim.years
+				if length(yearindex) == 0
+					@debug "Year $(years) not available in the file, processing next region"
+				else
+					@info "Year $(years) is available"
+					@info "Year index: $(yearindex)"
+				end
+
+				# Check if the considered depth lies within the depth interval
+				# of the considered file
+				if (depthtarget >= minimum(clim.depths) &&
+					depthtarget <= maximum(clim.depths))
+
+					# Read the field at the good year index
+					@debug("Reading variable for selected year $(years)")
+
+					if length(findall(clim.depths .== depthtarget)) == 0
+						@warn("Depth not found, will perform vertical interpolation")
+						dmin, dmax = get_closer_depth(clim.depths, depthtarget)
+						w1, w2 = get_depth_weights(depthtarget, dmin, dmax)
+						@show (w1, w2);
+						@show depthtarget;
+						@show typeof(clim.depths)
+						indmin, indmax = get_depth_indices(depthtarget, clim.depths)
+
+
+						field_depth = clim.field[:,:,[indmin, indmax],yearindex]
+						@debug(size(field_depth))
+						field_depth_interpolated = w1 * field_depth[:,:,1] +
+						w2 * field_depth[:,:,2];
+					else
+						@info("Depth is found, we use it without interpolation")
+						depthindex = findall(clim.depths .== depthtarget)[1]
+						@show depthindex;
+						@show yearindex[1];
+						@show size(clim.field);
+						field_depth_interpolated = clim.field[:,:,depthindex,yearindex[1]]
+
+					end
+					@info("Size of the interpolated field: $(size(field_depth_interpolated))");
+
+					@debug("Performing 2D horizontal interpolation")
+					loninterp, latinterp, finterp, indlon, indlat = interp_horiz(clim.lons, clim.lats,
+					field_depth_interpolated, longrid, latgrid);
+
+					@debug("Filling the 3D array for merging")
+					fields2merge[indlon, indlat, iregion] = coalesce.(finterp, NaN);
+
+					if plotcheck == 1
+						# Gather the coordinates and fields into lists
+						push!(lonlist2plot, loninterp)
+						push!(latlist2plot, latinterp)
+						push!(fieldlist2plot, finterp)
+					end
+
+				else
+					@warn("The depths in the regional product don't include the depth level $(depthtarget) m")
+				end
+			end
+			# @info("Merging the domains using `DIVAnd.hmerge`")
+			# field_merged = DIVAnd.hmerge(fields2merge,4.0);
+			# @info("Size of the merged field: $(size(field_merged))");
+			#
+			# # Write inside the global netCDF file
+			# dsout = Dataset(outputfile, "a")
+			# dsout["Water_body_ammonium"][1:length(longrid),1:length(latgrid),idepth,iyear] = field_merged;
+			# close(dsout)
+
+			# Make a plot for checking if it works
+			if plotcheck == 1
+				@info "Creating plot for checking"
+
+				#TODO adapt the extremal values for the plot
+				vmin = 0.
+				vmax = 1.
+
+				# Loop on the regional fields that were re-interpolated
+				for (lon2plot, lat2plot, field2plot) in zip(lonlist2plot, latlist2plot, fieldlist2plot)
+
+					@debug("Extremal values: $(vmin), $(vmax)")
+					#PyPlot.pcolormesh(lonregion, latregion, permutedims(field2interp_horiz_nomiss, [2,1]),
+					#vmin=vmin, vmax=vmax)
+					PyPlot.pcolormesh(lon2plot, lat2plot, permutedims(coalesce.(field2plot, NaN), [2,1]),
+					vmin=vmin, vmax=vmax)
+				end
+				colorbar()
+				title("$(varname), $(season) $(years) at $(depthtarget) m")
+				figname = joinpath(figdir, "$(varname)-$(season)-$(depthtarget)-$(years).png")
+				@info "Saving figure as $(figname)"
+				PyPlot.savefig(figname)
+				PyPlot.close()
+
+				@info("Plotting the merged field on the full grid")
+				PyPlot.pcolormesh(longrid, latgrid, permutedims(field_merged, [2,1]),
+				vmin=vmin, vmax=vmax)
+				colorbar()
+				title("$(varname), $(season) $(years) at $(depthtarget) m")
+				figname = joinpath(figdir, "$(varname)-$(season)-$(depthtarget)-$(years)_merged.png")
+				@info "Saving figure as $(figname)"
+				PyPlot.savefig(figname)
+				PyPlot.close()
+			end # end of plotting
+		end # end of loop on the years
+	end # end of loop on the depth levels
 end # end of loop on the seasons

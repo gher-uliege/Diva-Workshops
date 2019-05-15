@@ -238,7 +238,7 @@ get_depth_indices(depth, depthvector)
 Return the indices of the depth levels from `depthvector` above and below
 the depth level `depth`
 """
-function get_depth_indices(depth::Float64, depthvector::Array{Float64})
+function get_depth_indices(depth::Float64, depthvector::Array{Float32})
     dmin, dmax = get_closer_depth(depthvector, depth)
     if dmin == nothing || dmax == nothing
         indmin = nothing
@@ -327,4 +327,13 @@ function interp_horiz(londata, latdata, data, longrid, latgrid)
     field_interpolated = itp(lon_interp, lat_interp);
 
     return lon_interp, lat_interp, field_interpolated, findall(goodlon), findall(goodlat)
+end
+
+
+"""
+Simple function to get the name of the region from the file path
+Could be done from the netCDF itself
+"""
+function get_region_name(datafile::String)::String
+    return split(datafile,"/")[6]
 end
