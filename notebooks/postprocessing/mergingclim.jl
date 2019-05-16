@@ -31,7 +31,8 @@ longrid, latgrid, depthgrid, timegrid.
 
 The interpolated variable will be written by another function.
 """
-function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegrid)
+function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegrid,
+    varname::String, standardname::String, longname::String, valex::Float64=-999.)
     Dataset(filename, "c") do ds
 
         # Dimensions
@@ -83,10 +84,11 @@ function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegri
 
         # Interpolated variable
         # (should be obtained from one of the regional netCDF files)
-        ncvarinterp = defVar(ds,"Water_body_ammonium", Float32, ("lon", "lat", "depth", "time"))
-        ncvarinterp.attrib["long_name"] = "Water_body_ammonium"
-        ncvarinterp.attrib["_FillValue"] = Float32(-9999.)
-        ncvarinterp.attrib["missing_value"] = Float32(-9999.)
+        ncvarinterp = defVar(ds,varname, Float32, ("lon", "lat", "depth", "time"))
+        ncvarinterp.attrib["long_name"] = longname
+        ncvarinterp.attrib["standard_name"] = standardname
+        ncvarinterp.attrib["_FillValue"] = Float32(valex)
+        ncvarinterp.attrib["missing_value"] = Float32(valex)
         ncvarinterp.attrib["actual_range"] = "0,125"
         ncvarinterp.attrib["units"] = "umol/l"
 
