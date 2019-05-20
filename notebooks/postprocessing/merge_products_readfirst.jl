@@ -29,8 +29,8 @@ latgrid = 24.:Δlat:67.
 depthgrid = Float64.([0, 5, 10, 20, 30, 40, 50, 75, 100, 125, 150, 200, 250, 300]);
 
 # Time grid defined from list of years and months
-yearmin = 1993;
-yearmax = 2015;
+yearmin = 1983;
+yearmax = 2016;
 yearrange = collect(yearmin:yearmax)
 monthlist = [2,5,8,11]
 dateref = Date(1900,1,1)
@@ -87,6 +87,8 @@ for (iseason, season) in enumerate(["Winter",]) # "Spring", "Summer", "Autumn"]
 		yeargridregion, lonregion, latregion, depthregion = get_coords(datafile)
 		@info("minimum year for the region: $(minimum(yeargridregion)), maximum year: $(maximum(yeargridregion))");
 		@debug "Year grid for the region: $(yeargridregion)";
+
+		@info("minimum depth for the region: $(minimum(depthregion)), maximum year: $(maximum(depthregion))");
 
 		# Select the good years according to target grid
 		goodyears = (yeargridregion .>= yearmin) .& (yeargridregion .<= yearmax);
