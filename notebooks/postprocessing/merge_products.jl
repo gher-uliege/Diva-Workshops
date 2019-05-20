@@ -1,12 +1,17 @@
 using NCDatasets
 using Dates
 using Glob
-using PyPlot
 using DIVAnd
 include("mergingclim.jl")
 
-figdir = "./figures/"
 plotcheck = 0
+
+if plotcheck
+	@info("Will create plots for checking")
+	figdir = "./figures/"
+	using PyPlot
+end
+
 ioff()
 
 # User inputs
@@ -18,6 +23,10 @@ longname = "chlorophyll-a"
 product_id = "e61d12cd-837f-49ff-a0e1-3a694ab84bc5"
 outputdir = "/data/EMODnet/Chemistry/merged/"
 databasedir = "/data/EMODnet/Chemistry/prod/"
+
+# On cineca:
+# outputdir = "/production/apache/data/emodnet-test-charles/merged"
+# databasedir = "/data/EMODnet/Chemistry/prod/"
 
 # Grid and resolutions
 Δlon = 0.1
@@ -63,7 +72,7 @@ yeargrid = get_years(joinpath(outputdir, outputfile));
 
 
 # Loop on the seasons
-for (iseason, season) in enumerate(["Winter",]) # "Spring", "Summer", "Autumn"]
+for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
 
 	@info("Working on season $(season)")
 
@@ -144,7 +153,7 @@ for (iseason, season) in enumerate(["Winter",]) # "Spring", "Summer", "Autumn"]
 				if length(yearindex) == 0
 					@debug "Year $(years) not available in the file, processing next region"
 				else
-					@info "Year $(years) is available, year index: $(yearindex)"
+					@info "Year $(years) is available, year index: $(yearindex[1])"
 
 					# Check if the considered depth lies within the depth interval
 					# of the considered file
@@ -201,7 +210,7 @@ for (iseason, season) in enumerate(["Winter",]) # "Spring", "Summer", "Autumn"]
 			field_merged = DIVAnd.hmerge(fields2merge,4.0);
 			@info("Size of the merged field: $(size(field_merged))");
 
-			@info("Setting the mission value for the variable")
+			@info("Setting the missing value for the variable")
 			nanmask = isnan.(field_merged)
 			field_merged[nanmask] .= valex;
 
