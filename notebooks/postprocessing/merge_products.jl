@@ -61,15 +61,6 @@ create_nc_merged(outputfile, longrid, latgrid, depthgrid, timegrid,
 yeargrid = get_years(joinpath(outputdir, outputfile));
 @debug "Year grid: $(yeargrid)";
 
-# Create a specific structure to store the data of a climatology
-struct RegionClimato
-	name::String
-	years::Array{Int64,1}
-	depths::Array{Float32,1}
-	lons::Array{Float32,1}
-	lats::Array{Float32,1}
-	field::Array{Union{Missing, Float32},4}
-end
 
 # Loop on the seasons
 for (iseason, season) in enumerate(["Winter",]) # "Spring", "Summer", "Autumn"]

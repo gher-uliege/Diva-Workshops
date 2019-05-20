@@ -6,6 +6,16 @@ using Interpolations
 using Missings
 
 
+# Create a specific structure to store the data of a climatology
+struct RegionClimato
+	name::String
+	years::Array{Int64,1}
+	depths::Array{Float32,1}
+	lons::Array{Float32,1}
+	lats::Array{Float32,1}
+	field::Array{Union{Missing, Float32},4}
+end
+
 """
 Generate a list dates (days since `dateref`) for the specified arrays
 `years` and `months`
