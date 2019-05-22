@@ -18,3 +18,8 @@ Following the workshop, the notebooks have been updated, improved and corrected 
 ## Recommendation for the products
 
 A list of [recommendation](climato_recommendation.md) for the preparation of products.
+
+## Export ODV to netCDF
+
+[Instruction](ODV_netCDF_export.md) and screenshots detailing how to create a netCDF
+from an ODV collection.
