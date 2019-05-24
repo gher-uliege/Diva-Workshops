@@ -131,10 +131,12 @@ get_file("./data/EMODnet/", "chlorophyll-a", "Winter")
 """
 function get_file_list(datadir::String, varname::String="", season::String="")::Array
     filelist = []
+	# Varname with spaces instead of underscores
+	varname2 = replace(varname, "_" => " ")
     for (root, dirs, files) in walkdir(datadir)
         for file in files
             if endswith(file, ".nc") &
-                occursin(varname, file) &
+                (occursin(varname, file) | occursin(varname2, file)) &
                 occursin(uppercasefirst(season), root)
                 push!(filelist, joinpath(root, file))
             end
