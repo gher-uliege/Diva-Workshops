@@ -8,6 +8,7 @@ Set `INTEGER` as the data type.
 ![New meta variable](./figures/ODV_metadata02.png "New meta variable")
 
 ### ✅ Create a new meta variable called LOCAL_CDI_ID
+Set `INDEXED_TEXT` as the data type. 
 ![New meta variable](./figures/ODV_metadata03.png "New meta variable")
 
 ### ✅ Re-write the collection
