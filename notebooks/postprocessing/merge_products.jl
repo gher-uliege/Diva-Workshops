@@ -78,7 +78,11 @@ for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
 
 	# Generate list of files for that season and that variable
 	filelist = get_file_list(databasedir, varname, season);
-	@info("Found $(length(filelist)) files")
+	nfiles = length(filelist);
+	@info("Found $(nfiles) files")
+	if nfiles !== 6
+		@warn("6 files expected, only found $(nfiles)")
+	end
 
 	global climlist = []
 
