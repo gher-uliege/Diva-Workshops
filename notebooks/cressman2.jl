@@ -4,9 +4,6 @@
 Interpolate the data `Fe` at the locations `x`, `y`, onto the regular grid
 defined by `X` and `Y` using the Cressman method (in 2 dimensions).
 """
-
-
-
 function cressman2(R,X,Y,Fe,x,y; method = :cressman)
 
     meanF = mean(Fe);
