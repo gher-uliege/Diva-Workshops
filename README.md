@@ -29,3 +29,7 @@ from an ODV collection.
 
 [Instructions](ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
 dataset.
+
+## Manipulation of a netCDF with nco
+
+[Examples](cutting_netcdf.md)
