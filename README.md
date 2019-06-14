@@ -33,3 +33,7 @@ dataset.
 ## Manipulation of a netCDF with nco
 
 [Examples](cutting_netcdf.md)
+
+## Viewing netCDF file
+
+[netCDF](netCDV_viewing.md)
