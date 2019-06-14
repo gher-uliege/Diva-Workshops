@@ -1,5 +1,5 @@
 **Tool:** nco (netCDF operator): http://nco.sourceforge.net/           
-**Credit:** O. Bäck
+**Credit:** Ö. Bäck
  
 
 ### Mask an area 
