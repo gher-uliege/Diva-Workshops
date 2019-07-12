@@ -17,22 +17,43 @@ ioff()
 # User inputs
 # ------------
 
-varname = "chlorophyll-a"
-var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
-longname = "chlorophyll-a"
-product_id = "e61d12cd-837f-49ff-a0e1-3a694ab84bc5"
-outputdir = "/data/EMODnet/Chemistry/merged/"
-databasedir = "/data/EMODnet/Chemistry/prod/"
+#varname = "chlorophyll-a"
+#var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
+#longname = "chlorophyll-a"
+#units = "mg/m^3"
 
-# On cineca:
-# outputdir = "/production/apache/data/emodnet-test-charles/merged"
-# databasedir = "/data/EMODnet/Chemistry/prod/"
+#varname = "silicate"
+#longname = "Water body silicate"
+#var_stdname = "mass_concentration_of_silicate_in_sea_water"
+
+#varname = "oxygen_concentration"
+#longname = "Water body dissolved oxygen concentration"
+#var_stdname = "mass_concentration_of_oxygen_in_sea_water"
+
+#varname = "phosphate"
+#longname = "Water body phosphate"
+#var_stdname = "mass_concentration_of_phosphate_in_sea_water"
+
+#varname = "nitrogen"
+#longname = "Water_body_dissolved_inorganic_nitrogen"
+#var_stdname = "mass_concentration_of_inorganic_nitrogen_in_sea_water"
+
+hostname = gethostname()
+if hostname == "ogs01"
+	outputdir = "/production/apache/data/emodnet-test-charles/merged"
+	databasedir = "/data/EMODnet/Chemistry/prod/"
+elseif hostname == "GHER-ULg-Laptop"
+	outputdir = "/data/EMODnet/Chemistry/merged/"
+	databasedir = "/data/EMODnet/Chemistry/prod/"
+else
+	@error("Unknown host")
+end
 
 # Grid and resolutions
-Δlon = 0.1
-Δlat = 0.1
-longrid = -40.:Δlon:55.
-latgrid = 24.:Δlat:67.
+deltalon = 0.1
+deltalat = 0.1
+longrid = -40.:deltalon:55.
+latgrid = 24.:deltalat:67.
 
 # List of depths: selected as the union of the different products
 depthgrid = Float64.([0, 5, 10, 20, 30, 40, 50, 75, 100, 125, 150, 200,
@@ -52,7 +73,7 @@ if !(isdir(outputdir))
 else
 	@info("Output directory already exists")
 end
-outputfile = joinpath(outputdir, "Water_body_$(varname)_combined_test.nc")
+outputfile = joinpath(outputdir, "Water_body_$(varname)_combined_V1.nc")
 outputtitle = "DIVA 4D analysis of Water_body_$(varname)";
 
 if isfile(outputfile)
@@ -63,13 +84,14 @@ end
 @info("Creating new netCDF file for the new grid")
 @info("inside directory: $(outputdir)")
 valex = -999.
+
+title = "Water body $(varname)"
 create_nc_merged(outputfile, longrid, latgrid, depthgrid, timegrid,
-				 varname, var_stdname, longname, valex);
+				 varname, var_stdname, longname, title, valex, units);
 
 @info "Getting the years from the output file"
 yeargrid = get_years(joinpath(outputdir, outputfile));
 @debug "Year grid: $(yeargrid)";
-
 
 # Loop on the seasons
 for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
@@ -104,15 +126,18 @@ for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
 
 		# Loading the field only in the region and for the period of interest
 		Dataset(datafile, "r") do ds1
-			global field_subset
+			global field_subset, field_masked05_subset
 			field = varbyattrib(ds1, standard_name=var_stdname)[1][:,:,:,:]
+			field_masked05 = varbyattrib(ds1, standard_name=var_stdname)[3][:,:,:,:]
 			@debug("Before subsetting: $(size(field))")
 			field_subset = field[:,:,gooddepths,goodyears]
+			field_masked05_subset = field_masked05[:,:,gooddepths,goodyears]
 			@debug("After subsetting: $(size(field_subset))")
 		end
 		@info(typeof(field_subset))
 		clim = RegionClimato(regionname, yeargridregion[goodyears],
-		depthregion[gooddepths], lonregion, latregion, coalesce.(field_subset))
+		depthregion[gooddepths], lonregion, latregion,
+		coalesce.(field_subset), coalesce.(field_masked05_subset))
 		push!(climlist, clim)
 		@info(size(clim.field))
 	end
@@ -143,6 +168,7 @@ for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
 			# Create a 3D array that will be used for the merging
 			sz = (length(longrid), length(latgrid), length(filelist))
 			fields2merge = fill(NaN, sz)
+			fields_masked2merge = fill(NaN, sz)
 
 			for clim in climlist
 				iregion += 1
@@ -176,18 +202,23 @@ for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
 							@show typeof(clim.depths)
 							indmin, indmax = get_depth_indices(depthtarget, clim.depths)
 
-
 							field_depth = clim.field[:,:,[indmin, indmax],yearindex]
+							fieldmasked_depth = clim.fieldmasked[:,:,[indmin, indmax],yearindex]
+
 							@debug(size(field_depth))
 							field_depth_interpolated = w1 * field_depth[:,:,1] +
 							w2 * field_depth[:,:,2];
+							fieldmasked_depth_interpolated = w1 * fieldmasked_depth[:,:,1] +
+							w2 * fieldmasked_depth[:,:,2];
 						else
 							@info("Depth is found, we use it without interpolation")
 							depthindex = findall(clim.depths .== depthtarget)[1]
-							@show depthindex;
-							@show yearindex[1];
-							@show size(clim.field);
+
+							@debug depthindex;
+							@debug yearindex[1];
+							@info(size(clim.field));
 							field_depth_interpolated = clim.field[:,:,depthindex,yearindex[1]]
+							fieldmasked_depth_interpolated = clim.fieldmasked[:,:,depthindex,yearindex[1]]
 						end
 						@info("Size of the interpolated field: $(size(field_depth_interpolated))");
 
@@ -195,8 +226,12 @@ for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
 						loninterp, latinterp, finterp, indlon, indlat = interp_horiz(clim.lons, clim.lats,
 						field_depth_interpolated, longrid, latgrid);
 
+						_, _, finterp_masked, _, _ = interp_horiz(clim.lons, clim.lats,
+						fieldmasked_depth_interpolated, longrid, latgrid);
+
 						@debug("Filling the 3D array for merging")
 						fields2merge[indlon, indlat, iregion] = coalesce.(finterp, NaN);
+						fields_masked2merge[indlon, indlat, iregion] = coalesce.(finterp_masked, NaN);
 
 						if plotcheck == 1
 							# Gather the coordinates and fields into lists
@@ -212,16 +247,22 @@ for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
 			end
 			@info("Merging the domains using `DIVAnd.hmerge`")
 			field_merged = DIVAnd.hmerge(fields2merge,4.0);
+			field_masked_merged = DIVAnd.hmerge(fields_masked2merge,4.0);
 			@info("Size of the merged field: $(size(field_merged))");
 
 			@info("Setting the missing value for the variable")
 			nanmask = isnan.(field_merged)
 			field_merged[nanmask] .= valex;
 
+			nanmask = isnan.(field_masked_merged)
+			field_masked_merged[nanmask] .= valex;
+
 			@debug("Time index in the netCDF: $((iyear-1)*4+iseason)")
 			# Write inside the global netCDF file
 			dsout = Dataset(outputfile, "a") do dsout
+				dsout
 				dsout[varname][1:length(longrid),1:length(latgrid),idepth,(iyear-1)*4+iseason] = field_merged;
+				dsout[varname*"_L2"][1:length(longrid),1:length(latgrid),idepth,(iyear-1)*4+iseason] = field_masked_merged;
 			end
 
 			# Make a plot for checking if it works

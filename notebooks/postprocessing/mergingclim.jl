@@ -14,6 +14,7 @@ struct RegionClimato
 	lons::Array{Float32,1}
 	lats::Array{Float32,1}
 	field::Array{Union{Missing, Float32},4}
+	fieldmasked::Array{Union{Missing, Float32},s4}
 end
 
 """
@@ -42,7 +43,8 @@ longrid, latgrid, depthgrid, timegrid.
 The interpolated variable will be written by another function.
 """
 function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegrid,
-    varname::String, standardname::String, longname::String, valex::Float64=-999.)
+    varname::String, standardname::String, longname::String, title::String, valex::Float64=-999.,
+	units::String)
     Dataset(filename, "c") do ds
 
         # Dimensions
@@ -99,12 +101,20 @@ function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegri
         ncvarinterp.attrib["standard_name"] = standardname
         ncvarinterp.attrib["_FillValue"] = Float32(valex)
         ncvarinterp.attrib["missing_value"] = Float32(valex)
-        ncvarinterp.attrib["actual_range"] = "0,125"
-        ncvarinterp.attrib["units"] = "umol/l"
+        ncvarinterp.attrib["units"] = units
+
+		# Interpolated variable masked using relative error threshold 0.3
+        # (should be obtained from one of the regional netCDF files)
+        ncvarinterp_masked = defVar(ds,varname*"_L2", Float32, ("lon", "lat", "depth", "time"))
+        ncvarinterp_masked.attrib["long_name"] = longname * " masked using relative error threshold 0.3"
+        ncvarinterp_masked.attrib["standard_name"] = standardname
+        ncvarinterp_masked.attrib["_FillValue"] = Float32(valex)
+        ncvarinterp_masked.attrib["missing_value"] = Float32(valex)
+        ncvarinterp_masked.attrib["units"] = units
 
         # Global attributes
         ds.attrib["Conventions"] = "CF-1.0"
-        ds.attrib["title"] = "DIVA 4D analysis of Water_body_ammonium"
+        ds.attrib["title"] = title
         ds.attrib["product_id"] = product_id
         ds.attrib["abstract"] = "Merge netCDF product obtained from the Arctic, Atlantic, Baltic, Black, Mediterranean and North seas"
         ds.attrib["Creation date"] = Dates.format(Dates.now(),  "yyyy-mm-dd HH:MM:SS")
@@ -280,6 +290,23 @@ function get_var_level_time(var_stdname::String, filename::String, depthindex, t
         field_depth = varbyattrib(ds1, standard_name=var_stdname)[1][:,:,:,timeindex]
     end
     return field_depth[:,:,depthindex]
+end
+
+"""
+Get the masked field (relative error below 0.5) for the specificed variable, depth level, time period
+from the file `filename`
+
+```julia
+get_masked_var_level_time("mass_concentration_of_chlorophyll_a_in_sea_water",
+ "Water_body_chlorophyll-a.4Danl.nc", 12, 4)
+```
+"""
+function get_masked_var_level_time(var_stdname::String, filename::String, depthindex, timeindex::Array)
+    Dataset(filename, "r") do ds1
+        global masked_field_depth
+        masked_field_depth = varbyattrib(ds1, standard_name=var_stdname)[3][:,:,:,timeindex]
+    end
+    return masked_field_depth[:,:,depthindex]
 end
 
 
