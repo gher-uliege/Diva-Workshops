@@ -14,7 +14,7 @@ struct RegionClimato
 	lons::Array{Float32,1}
 	lats::Array{Float32,1}
 	field::Array{Union{Missing, Float32},4}
-	fieldmasked::Array{Union{Missing, Float32},s4}
+	fieldmasked::Array{Union{Missing, Float32},4}
 end
 
 """
@@ -43,8 +43,8 @@ longrid, latgrid, depthgrid, timegrid.
 The interpolated variable will be written by another function.
 """
 function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegrid,
-    varname::String, standardname::String, longname::String, title::String, valex::Float64=-999.,
-	units::String)
+    varname::String, standardname::String, longname::String, title::String, units::String,
+	valex::Float64=-999.)
     Dataset(filename, "c") do ds
 
         # Dimensions

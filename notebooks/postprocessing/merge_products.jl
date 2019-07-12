@@ -87,7 +87,7 @@ valex = -999.
 
 title = "Water body $(varname)"
 create_nc_merged(outputfile, longrid, latgrid, depthgrid, timegrid,
-				 varname, var_stdname, longname, title, valex, units);
+				 varname, var_stdname, longname, title, units, valex);
 
 @info "Getting the years from the output file"
 yeargrid = get_years(joinpath(outputdir, outputfile));
