@@ -37,3 +37,8 @@ dataset.
 ## Viewing netCDF file
 
 [netCDF](netCDV_viewing.md)
+
+## Saving the attributes in a text file
+
+This is useful when working on a machine with no internet connexion.
+[save_attributes_file.ipynb](notebooks/postprocessing/save_attributes_file.ipynb)
