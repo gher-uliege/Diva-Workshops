@@ -4,7 +4,7 @@ using Glob
 using DIVAnd
 include("mergingclim.jl")
 
-plotcheck = 0
+plotcheck = false
 
 if plotcheck
 	@info("Will create plots for checking")
@@ -12,15 +12,13 @@ if plotcheck
 	using PyPlot
 end
 
-ioff()
-
 # User inputs
 # ------------
 
-#varname = "chlorophyll-a"
-#var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
-#longname = "chlorophyll-a"
-#units = "mg/m^3"
+varname = "chlorophyll-a"
+var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
+longname = "chlorophyll-a"
+units = "mg/m^3"
 
 #varname = "silicate"
 #longname = "Water body silicate"
@@ -38,10 +36,13 @@ ioff()
 #longname = "Water_body_dissolved_inorganic_nitrogen"
 #var_stdname = "mass_concentration_of_inorganic_nitrogen_in_sea_water"
 
+product_id = ""
+
 hostname = gethostname()
 if hostname == "ogs01"
+	@info "Working in production server"
 	outputdir = "/production/apache/data/emodnet-test-charles/merged"
-	databasedir = "/data/EMODnet/Chemistry/prod/"
+	databasedir = "/production/apache/data/emodnet-domains/"
 elseif hostname == "GHER-ULg-Laptop"
 	outputdir = "/data/EMODnet/Chemistry/merged/"
 	databasedir = "/data/EMODnet/Chemistry/prod/"
@@ -94,7 +95,7 @@ yeargrid = get_years(joinpath(outputdir, outputfile));
 @debug "Year grid: $(yeargrid)";
 
 # Loop on the seasons
-for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"]
+for (iseason, season) in enumerate(["Winter", "Spring", "Summer", "Autumn"])
 
 	@info("Working on season $(season)")
 
