@@ -20,21 +20,27 @@ var_stdname = "mass_concentration_of_chlorophyll_a_in_sea_water"
 longname = "chlorophyll-a"
 units = "mg/m^3"
 
+
 #varname = "silicate"
 #longname = "Water body silicate"
 #var_stdname = "mass_concentration_of_silicate_in_sea_water"
+units = "umol/l"
 
 #varname = "oxygen_concentration"
 #longname = "Water body dissolved oxygen concentration"
 #var_stdname = "mass_concentration_of_oxygen_in_sea_water"
+#units = "umol/l"
 
 #varname = "phosphate"
 #longname = "Water body phosphate"
 #var_stdname = "mass_concentration_of_phosphate_in_sea_water"
+#units = "umol/l"
 
 #varname = "nitrogen"
 #longname = "Water_body_dissolved_inorganic_nitrogen"
 #var_stdname = "mass_concentration_of_inorganic_nitrogen_in_sea_water"
+#units = "umol/l"
+
 
 product_id = ""
 

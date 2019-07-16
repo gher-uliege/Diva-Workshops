@@ -103,10 +103,10 @@ function create_nc_merged(filename::String, longrid, latgrid, depthgrid, timegri
         ncvarinterp.attrib["missing_value"] = Float32(valex)
         ncvarinterp.attrib["units"] = units
 
-		# Interpolated variable masked using relative error threshold 0.3
+		# Interpolated variable masked using relative error threshold 0.5
         # (should be obtained from one of the regional netCDF files)
         ncvarinterp_masked = defVar(ds,varname*"_L2", Float32, ("lon", "lat", "depth", "time"))
-        ncvarinterp_masked.attrib["long_name"] = longname * " masked using relative error threshold 0.3"
+        ncvarinterp_masked.attrib["long_name"] = longname * " masked using relative error threshold 0.5"
         ncvarinterp_masked.attrib["standard_name"] = standardname
         ncvarinterp_masked.attrib["_FillValue"] = Float32(valex)
         ncvarinterp_masked.attrib["missing_value"] = Float32(valex)
