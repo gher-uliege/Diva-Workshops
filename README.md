@@ -16,8 +16,8 @@ Following the 1st workshop, the notebooks have been updated, improved and correc
 
 ## To-do list
 
-- [] Notebook showing the use of a background field.
-- [] Organise notebooks by topic?
+- [ ] Notebook showing the use of a background field.
+- [ ] Organise notebooks by topic?
 
 ## Recommendation for the products
 
