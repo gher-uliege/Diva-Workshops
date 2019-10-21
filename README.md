@@ -18,7 +18,7 @@ Following the 1st workshop, the notebooks have been updated, improved and correc
 
 ## Recommendation for the products
 
-A list of [recommendation](climato_recommendation.md) for the preparation of products.
+A list of [recommendations](climato_recommendation.md) for the preparation of products.
 
 ## Export ODV to netCDF
 

@@ -29,7 +29,7 @@ Main axis:
 
 Try to have a consistent approach: same dataset(s) for each region and a comparable method for the duplicate removal.
 
-<img src="./figures/datasources.png" class="img-responsive">
+<img src="./figures/datasources.png" width="200" class="img-responsive">
 
 * Which data source(s)?
 * Which version for each dataset?
@@ -40,7 +40,7 @@ Try to have a consistent approach: same dataset(s) for each region and a compara
 1. Final users tend to prefer simple, *rectangular* domains, i.e. delimited by lines of constant longitudes or latitudes.
 2. If merged products have to be created, it is necessary to ensure that we can have a smooth transition between them.
 
-<img src="./figures/EMODnet_domains05.png" class="img-responsive">
+<img src="./figures/EMODnet_domains05.png" width="200" class="img-responsive">
 
 If there is a need for a domain delimitation following the irregular shapes, it may be relevant to have post-processing tools provided to the interested users.
 
