@@ -29,7 +29,7 @@ Main axis:
 
 Try to have a consistent approach: same dataset(s) for each region and a comparable method for the duplicate removal.
 
-<img src="./figures/datasources.png" width="200" class="img-responsive">
+<img src="./figures/datasources.png" width="400" class="img-responsive">
 
 * Which data source(s)?
 * Which version for each dataset?
@@ -40,7 +40,7 @@ Try to have a consistent approach: same dataset(s) for each region and a compara
 1. Final users tend to prefer simple, *rectangular* domains, i.e. delimited by lines of constant longitudes or latitudes.
 2. If merged products have to be created, it is necessary to ensure that we can have a smooth transition between them.
 
-<img src="./figures/EMODnet_domains05.png" width="200" class="img-responsive">
+<img src="./figures/EMODnet_domains05.png" width="400" class="img-responsive">
 
 If there is a need for a domain delimitation following the irregular shapes, it may be relevant to have post-processing tools provided to the interested users.
 
@@ -69,3 +69,62 @@ surfextend = true (vertical extension at surface)
 coeff_derivative2 = [0., 0., 10⁻⁸] (sensitivity test)       
 
 ### Speeding up things
+
+Julia is already very fast!       
+[https://www.nature.com/articles/d41586-019-02310-3](Julia: come for the syntax, stay for the speed)
+
+<img src="./figures/julianature.png" width="400" class="img-responsive">
+
+#### Don't forget
+
+1. Packages are pre-compiled when a kernel is started      
+2. Functions gets compiled during the 1st execution      
+3. Some operations can be executed once and their results stored
+
+#### Data reading
+
+1. Read the original netCDF ODV file
+```julia
+obsval, obslon, obslat, obsdepth, obstime, obsid =
+    NCODV.load(Float64, ODVfile1, "Water body salinity");
+```
+2. Re-write the data
+```julia
+DIVAnd.saveobs(obsfile, "Water body salinity", obsval,
+   (obslon, obslat, obsdepth, obstime), obsid)
+```
+3. Use the newly written files for the climatologies
+```julia
+obsval1, obslon1, obslat1, obsdepth1, obstime1, obsid1 =
+   DIVAnd.loadobs(Float64,obsfile,"Water body salinity");
+```
+
+#### Computing weights "offline"
+
+Example (adapt paths and file names)
+```julia
+using DIVAnd
+using JLD
+
+datadir = "/data/SeaDataCloud/NorthSea/"
+varname = "Salinity"
+obsfile = joinpath(datadir, "NorthSea_obs.nc")
+netcdfODV = joinpath(datadir, "data_from_SDC_NS_DATA_DISCRETE_TS_V1b.nc")
+isfile(netcdfODV)
+@info("Reading data from the observation file")
+@time obsval,obslon, obslat, obsdepth, obstime,obsid = DIVAnd.loadobs(Float64,obsfile,varname)
+@info("Total number of data points: $(length(obsval))");
+
+@time rdiag=1.0./DIVAnd.weight_RtimesOne((obslon,obslat),(0.03,0.03));
+@show maximum(rdiag),mean(rdiag)
+save("northsea_weights.jld", "rdiag", rdiag);
+```
+
+#### Export the notebooks as `.jl` files
+
+And run them in a terminal:
+```julia
+include(name_of_the_program.jl)
+```       
+
+<img src="./figures/julia_run.png" width="400" class="img-responsive">
