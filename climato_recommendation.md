@@ -71,9 +71,9 @@ coeff_derivative2 = [0., 0., 10⁻⁸] (sensitivity test)
 ### Speeding up things
 
 Julia is already very fast!       
-[https://www.nature.com/articles/d41586-019-02310-3](Julia: come for the syntax, stay for the speed)
+[Julia: come for the syntax, stay for the speed](https://www.nature.com/articles/d41586-019-02310-3)
 
-<img src="./figures/julianature.png" width="400" class="img-responsive">
+<img src="./figures/julianature.png" width="600" class="img-responsive">
 
 #### Don't forget
 
@@ -127,4 +127,4 @@ And run them in a terminal:
 include(name_of_the_program.jl)
 ```       
 
-<img src="./figures/julia_run.png" width="400" class="img-responsive">
+<img src="./figures/julia_run.png" width="500" class="img-responsive">
