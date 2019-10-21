@@ -4,8 +4,6 @@
 
 This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and exercises) for the `DIVAnd` user workshops and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project.     
 
-## Tools
-
 [`Diva`](https://github.com/gher-ulg/DIVA) and [`DIVAnd`](https://github.com/gher-ulg/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
 
 ## Objectives
@@ -16,29 +14,36 @@ This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and e
 
 Following the 1st workshop, the notebooks have been updated, improved and corrected when necessary. New notebooks are developed based on the participants requirements.
 
+## To-do list
+
+- [] Notebook showing the use of a background field.
+- [] Organise notebooks by topic?
+
 ## Recommendation for the products
 
 A list of [recommendations](climato_recommendation.md) for the preparation of products.
 
-## Export ODV to netCDF
+## Tips and tricks
+
+### Export ODV to netCDF
 
 [Instructions](ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
 from an ODV collection.
 
-## Adding EDMO code and CDI to CORA data sets
+### Adding EDMO code and CDI to CORA data sets
 
 [Instructions](ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
 dataset.
 
-## Manipulation of a netCDF with nco
+### Manipulation of a netCDF with nco
 
 [Examples](cutting_netcdf.md)
 
-## Viewing netCDF file
+### Viewing netCDF file
 
 [netCDF](netCDV_viewing.md)
 
-## Saving the attributes in a text file
+### Saving the attributes in a text file
 
 This is useful when working on a machine with no internet connexion.
 [save_attributes_file.ipynb](notebooks/postprocessing/save_attributes_file.ipynb)
