@@ -252,7 +252,7 @@ metadata = OrderedDict(
     # bathymetry source acknowledgement
     # see, e.g.
     # * EMODnet Bathymetry Consortium (2016): EMODnet Digital Bathymetry (DTM).
-    # http://doi.org/10.12770/c7b53704-999d-4721-b1a3-04ec60c87238
+    # https://doi.org/10.12770/c7b53704-999d-4721-b1a3-04ec60c87238
     # 
     # taken from
     # http://www.emodnet-bathymetry.eu/data-products/acknowledgement-in-publications
@@ -280,7 +280,7 @@ metadata = OrderedDict(
     # project that produced the data
     "acknowledgement" => "...",
 
-    "documentation" => "http://dx.doi.org/doi_of_doc",
+    "documentation" => "https://doi.org/doi_of_doc",
 
     # Digital Object Identifier of the data product
     "doi" => "...");
