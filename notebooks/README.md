@@ -66,13 +66,10 @@ where `path` is the file path containing the notebook files on your system.
 ## Upgrade DIVAnd
 
 In a julia terminal or in a Jupyter notebook cell, type:
-* For Julia 0.6:
+
 ```julia-repl
+using Pkg
 Pkg.update("DIVAnd")
-```
-* For Julia 0.7 and above, open the [Pkg REPL-mode](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html#Getting-Started-1):
-```julia
-update DIVAnd
 ```
 
 If `DIVAnd` is already up-to-date, this command will not make any change.
@@ -82,15 +79,10 @@ It is usually necessary to restart julia (in Jupyter notebook you select `Kernel
 
 To update all Julia package, use the following command:
 
-* For Julia 0.6
 ```julia
+using Pkg
 Pkg.update()
 ```
-* For Julia 0.7 and above:
-```julia
-update()
-```
-
 ## Need help?
 
 If you have a problem when running these notebooks, please make sure that you are using the latest version of `DIVAnd` (see section [Upgrade DIVAnd](#upgrade-DIVAnd)) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
