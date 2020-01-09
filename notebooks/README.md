@@ -1,5 +1,13 @@
 ## Content
 
+The notebooks are now organised into 5 categories, separeted in folders:
+* 1-Intro
+* 2-Preprocessing
+* 3-Analysis 
+* 4-Postprocessing
+* 5-AdvancedTopics
+
+
 List of notebooks discussed during the DIVA workshop.
 
 1. [01-notebooks-basics.ipynb](01-notebooks-basics.ipynb): how to use a jupyter-notebook.
@@ -77,7 +85,7 @@ It is usually necessary to restart julia (in Jupyter notebook you select `Kernel
   * you did not yet import `DIVAnd`
   * or if you use `import DIVAnd` (as opposed to `using DIVAnd`), it is sufficient to reload DIVAnd with the command `reload("DIVAnd")`.
 
-To update all Julia package, use the following command:
+To update all the Julia packages, use the following command:
 
 ```julia
 using Pkg
