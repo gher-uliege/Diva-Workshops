@@ -1,4 +1,5 @@
 notebooks/data/data_from_*
+notebooks/*html
 .ipynb_checkpoints
 */*/.ipynb_checkpoints
 Water_body_Salinity.4Danl.nc
