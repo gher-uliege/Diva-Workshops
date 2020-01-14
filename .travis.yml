@@ -1,0 +1,57 @@
+language: julia
+
+os:
+  - linux
+#  - osx
+
+julia:
+#  - 1.0
+  - 1.3
+#  - nightly
+
+# # Uncomment the following lines to allow failures on nightly julia
+# # (tests will run but not make your overall status red)
+#matrix:
+#   allow_failures:
+#   - julia: 1.3
+#   - julia: nightly
+
+notifications:
+  email: false
+
+install:
+  - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+  - python3 get-pip.py --user
+  - pip3 install --user matplotlib
+  - pip3 install --user jupyter
+
+script: # the default script is equivalent to the following
+  - echo $PATH
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - julia --project --eval 'using Pkg; Pkg.instantiate();'
+  - julia --project --eval 'using Pkg; Pkg.status();'
+  - jupyter kernelspec list
+  - |
+    JULIA_VERSION=$(julia --version | cut --delimiter=' ' --field=3);
+    JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  --delimiter='.' --field=1,2);
+    for i in notebooks/*.ipynb; do
+       fname=$(basename)
+
+       if [ $fname != "91-AtlanticTest.ipynb" ] &&
+          [ $fname != "20-Turtles-Density-map.ipynb" ] &&
+          [ $fname != "13-processing-parameter-optimization.ipynb" ] &&
+          [ $fname != "HeatmapsCV.ipynb" ] &&
+          [ $fname != "Heatmaps.ipynb" ] &&
+          [ $fname != "03-netCDF-2Dimensions.ipynb" ] &&
+          [ $fname != "analysis-with-cycles.ipynb" ] &&
+          [ $fname != "BigBlackSea.ipynb" ] &&
+          [ $fname != "03-netCDF-2Dimensions.ipynb" ] &&
+          [ $fname != "19_plot_results_basemap.ipynb" ]; then
+
+           echo $i $JULIA_VERSION;
+           sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$i";
+           sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$i";
+           jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$i";
+       fi
+    done
+
