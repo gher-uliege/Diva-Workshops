@@ -34,8 +34,8 @@ script: # the default script is equivalent to the following
   - |
     JULIA_VERSION=$(julia --version | cut --delimiter=' ' --field=3);
     JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  --delimiter='.' --field=1,2);
-    for i in notebooks/*.ipynb; do
-       fname=$(basename)
+    for i in notebooks/*.ipynb notebooks/*/*.ipynb; do
+       fname=$(basename $i)
 
        if [ $fname != "91-AtlanticTest.ipynb" ] &&
           [ $fname != "20-Turtles-Density-map.ipynb" ] &&
