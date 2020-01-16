@@ -15,6 +15,9 @@ for i in $DIR/../notebooks/*.ipynb $DIR/../notebooks/*/*.ipynb; do
           [ $fname != "analysis-with-cycles.ipynb" ] &&
           [ $fname != "BigBlackSea.ipynb" ] &&
           [ $fname != "03-netCDF-2Dimensions.ipynb" ] &&
+          [ $fname != "open-boundary-conditions.ipynb" ] && # too long
+          [ $fname != "02-Julia-introduction.ipynb" ] && # to be completed by the user
+          [ $fname != "open-boundary-conditions.ipynb" ] && # too long
           [ $fname != "19_plot_results_basemap.ipynb" ]; then
 
            echo $i $JULIA_VERSION;
@@ -23,4 +26,3 @@ for i in $DIR/../notebooks/*.ipynb $DIR/../notebooks/*/*.ipynb; do
            jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$i";
        fi
 done
-
