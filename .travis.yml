@@ -20,12 +20,14 @@ notifications:
   email: false
 
 install:
+  - export PATH="/Users/travis/Library/Python/3.7/bin:$PATH"
   - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
   - python3 get-pip.py --user
   - pip3 install --user matplotlib
   - pip3 install --user jupyter
 
 script: # the default script is equivalent to the following
+  - export PATH="/Users/travis/Library/Python/3.7/bin:$PATH"
   - echo $PATH
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia --project --eval 'using Pkg; Pkg.instantiate();'
