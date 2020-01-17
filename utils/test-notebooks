@@ -1,11 +1,18 @@
 #!/bin/bash
+# Test notebooks that should succeed
+# run as:
+# ./test-notebooks 2>&1 | tee ./test-notebooks.log
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 JULIA_VERSION=$(julia --version | cut --delimiter=' ' --field=3);
 JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  --delimiter='.' --field=1,2);
 
-NOTEBOOKS_DIR="$DIR/../notebooks/"
-
+NOTEBOOKS_DIR="$DIR/../notebooks"
+NFAILS=0
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
 
 for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
              $NOTEBOOKS_DIR/2-Preprocessing/*.ipynb \
@@ -15,22 +22,30 @@ for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
 
        FNAME=$(basename "$FILE")
 
-       if [ $FNAME != "91-AtlanticTest.ipynb" ] &&
-          [ $FNAME != "HeatmapsCV.ipynb" ] &&
-          [ $FNAME != "Heatmaps.ipynb" ] &&
-          [ $FNAME != "analysis-with-cycles.ipynb" ] &&
-          [ $FNAME != "BigBlackSea.ipynb" ] &&
-          [ $FNAME != "02-Julia-introduction.ipynb" ] && # to be completed by the user
-          [ $FNAME != "03-netCDF-2Dimensions.ipynb" ] &&
-          [ $FNAME != "08-data-downloading.ipynb" ] && # requires email from user
-          [ $FNAME != "20-Turtles-Density-map.ipynb" ] && # file missing
+       if [ $FNAME != "91-AtlanticTest.ipynb"          ] && # too long
+          [ $FNAME != "HeatmapsCV.ipynb"               ] &&
+          [ $FNAME != "Heatmaps.ipynb"                 ] &&
+          [ $FNAME != "analysis-with-cycles.ipynb"     ] &&
+          [ $FNAME != "BigBlackSea.ipynb"              ] &&
+          [ $FNAME != "02-Julia-introduction.ipynb"    ] && # to be completed by the user
+          [ $FNAME != "03-netCDF-2Dimensions.ipynb"    ] &&
+          [ $FNAME != "08-data-downloading.ipynb"      ] && # requires email from user
+          [ $FNAME != "20-Turtles-Density-map.ipynb"   ] && # file missing
           [ $FNAME != "open-boundary-conditions.ipynb" ] && # too long
-          [ $FNAME != "19_plot_results_basemap.ipynb" ]; then
+          [ $FNAME != "19_plot_results_basemap.ipynb"  ]; then # requires basemap
 
-           echo $FILE $JULIA_VERSION;
-           sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$FILE";
-           sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$FILE";
-           jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$FILE";
-           echo $FILE $?
+           sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$FILE"
+           sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$FILE"
+           jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$FILE"
+           if [ "$?" != "0" ]; then
+               echo -e "${RED}$FILE failed${NC}"
+               let NFAILS=NFAILS+1
+           else
+               echo -e "${GREEN}$FILE OK${NC}"
+           fi
        fi
 done
+
+if [ $NFAILS != "0" ]; then
+    exit 1
+fi
