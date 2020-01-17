@@ -1,0 +1,12 @@
+#!/bin/bash
+# run as
+# nbrun 16-plot-results.ipynb
+
+FILE="$1"
+JULIA_VERSION=$(julia --version | cut --delimiter=' ' --field=3)
+JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  --delimiter='.' --field=1,2)
+
+echo $FILE $JULIA_VERSION
+sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$FILE";
+sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$FILE";
+exec jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$FILE";
