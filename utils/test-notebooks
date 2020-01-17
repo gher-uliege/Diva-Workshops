@@ -3,26 +3,34 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 JULIA_VERSION=$(julia --version | cut --delimiter=' ' --field=3);
 JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  --delimiter='.' --field=1,2);
-for i in $DIR/../notebooks/*.ipynb $DIR/../notebooks/*/*.ipynb; do
-       fname=$(basename $i)
 
-       if [ $fname != "91-AtlanticTest.ipynb" ] &&
-          [ $fname != "20-Turtles-Density-map.ipynb" ] &&
-          [ $fname != "13-processing-parameter-optimization.ipynb" ] &&
-          [ $fname != "HeatmapsCV.ipynb" ] &&
-          [ $fname != "Heatmaps.ipynb" ] &&
-          [ $fname != "03-netCDF-2Dimensions.ipynb" ] &&
-          [ $fname != "analysis-with-cycles.ipynb" ] &&
-          [ $fname != "BigBlackSea.ipynb" ] &&
-          [ $fname != "03-netCDF-2Dimensions.ipynb" ] &&
-          [ $fname != "open-boundary-conditions.ipynb" ] && # too long
-          [ $fname != "02-Julia-introduction.ipynb" ] && # to be completed by the user
-          [ $fname != "open-boundary-conditions.ipynb" ] && # too long
-          [ $fname != "19_plot_results_basemap.ipynb" ]; then
+NOTEBOOKS_DIR="$DIR/../notebooks/"
 
-           echo $i $JULIA_VERSION;
-           sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$i";
-           sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$i";
-           jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$i";
+
+for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
+             $NOTEBOOKS_DIR/2-Preprocessing/*.ipynb \
+             $NOTEBOOKS_DIR/3-Analysis/*.ipynb \
+             $NOTEBOOKS_DIR/4-Postprocessing/*.ipynb \
+             $NOTEBOOKS_DIR/5-AdvancedTopics/*.ipynb; do
+
+       FNAME=$(basename "$FILE")
+
+       if [ $FNAME != "91-AtlanticTest.ipynb" ] &&
+          [ $FNAME != "HeatmapsCV.ipynb" ] &&
+          [ $FNAME != "Heatmaps.ipynb" ] &&
+          [ $FNAME != "analysis-with-cycles.ipynb" ] &&
+          [ $FNAME != "BigBlackSea.ipynb" ] &&
+          [ $FNAME != "02-Julia-introduction.ipynb" ] && # to be completed by the user
+          [ $FNAME != "03-netCDF-2Dimensions.ipynb" ] &&
+          [ $FNAME != "08-data-downloading.ipynb" ] && # requires email from user
+          [ $FNAME != "20-Turtles-Density-map.ipynb" ] && # file missing
+          [ $FNAME != "open-boundary-conditions.ipynb" ] && # too long
+          [ $FNAME != "19_plot_results_basemap.ipynb" ]; then
+
+           echo $FILE $JULIA_VERSION;
+           sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$FILE";
+           sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$FILE";
+           jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$FILE";
+           echo $FILE $?
        fi
 done
