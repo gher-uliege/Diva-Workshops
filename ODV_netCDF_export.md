@@ -28,4 +28,8 @@ In case of doubt, take them all
 ### ✅ Modify the Longitude range if needed
 ![Longitude range](./figures/ODV_nc09.png "Longitude range")
 
+### Run the export
+🛈 This step can take up to a few minutes.     
+We end up with a netCDF 
+
 You're done!
