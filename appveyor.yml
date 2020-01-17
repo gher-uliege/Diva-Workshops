@@ -27,9 +27,9 @@ build_script:
   - ps: $env:Path = "C:\Python38-x64;C:\Users\appveyor\AppData\Roaming\Python\Python38\Scripts;$env:Path"
   - ps: python -Wignore -m pip install --user matplotlib
   - ps: python -Wignore -m pip install --user jupyter
-  - C:\julia\bin\julia --project --eval 'using Pkg; Pkg.instantiate();'
-  - C:\julia\bin\julia --project --eval 'using Pkg; Pkg.status();'
-  - C:\julia\bin\julia --project --eval 'using Pkg; Pkg.add(PackageSpec(name="DIVAnd", rev="master"));'
+  - C:\julia\bin\julia --project --eval "using Pkg; Pkg.instantiate();"
+  - C:\julia\bin\julia --project --eval "using Pkg; Pkg.status();"
+  - C:\julia\bin\julia --project --eval "using Pkg; Pkg.add(PackageSpec(name=^"DIVAnd^", rev=^"master^"));"
   - ps: python -m jupyter kernelspec list
 
 test_script:
