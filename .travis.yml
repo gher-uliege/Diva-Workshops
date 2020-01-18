@@ -26,7 +26,7 @@ install:
   - python3 get-pip.py --user
   - pip3 install --user matplotlib
   - pip3 install --user jupyter
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; brew install gnu-sed --with-default-names; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install gnu-sed --with-default-names; fi
 
 script: # the default script is equivalent to the following
   - sed --version
