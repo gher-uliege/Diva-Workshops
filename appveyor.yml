@@ -29,7 +29,7 @@ build_script:
   - ps: python -Wignore -m pip install --user jupyter
   - C:\julia\bin\julia --project --eval "using Pkg; Pkg.instantiate();"
   - C:\julia\bin\julia --project --eval "using Pkg; Pkg.status();"
-  - C:\julia\bin\julia --project --eval "using Pkg; Pkg.add(PackageSpec(name=^"DIVAnd^", rev=^"master^"));"
+  - C:\julia\bin\julia --project --eval "using Pkg; Pkg.add(PackageSpec(name="""DIVAnd""", rev="""master"""));"
   - ps: python -m jupyter kernelspec list
   - ps: jupyter kernelspec list
   - jupyter kernelspec list
