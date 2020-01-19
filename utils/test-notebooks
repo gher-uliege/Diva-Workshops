@@ -5,8 +5,8 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-JULIA_VERSION=$(julia --version | cut --delimiter=' ' --field=3);
-JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  --delimiter='.' --field=1,2);
+JULIA_VERSION=$(julia --version | cut -d ' ' -f 3);
+JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  -d '.' -f '1,2');
 
 NOTEBOOKS_DIR="$DIR/../notebooks"
 NFAILS=0
@@ -31,6 +31,7 @@ for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
           [ $FNAME != "03-netCDF-2Dimensions.ipynb"    ] &&
           [ $FNAME != "08-data-downloading.ipynb"      ] && # requires email from user
           [ $FNAME != "20-Turtles-Density-map.ipynb"   ] && # file missing
+          [ $FNAME != "90-full-analysis.ipynb"         ] && # too long
           [ $FNAME != "open-boundary-conditions.ipynb" ] && # too long
           [ $FNAME != "19_plot_results_basemap.ipynb"  ]; then # requires basemap
 
