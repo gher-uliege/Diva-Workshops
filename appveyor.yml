@@ -25,8 +25,8 @@ install:
 
 build_script:
   - ps: $env:Path = "C:\Python38-x64;C:\Users\appveyor\AppData\Roaming\Python\Python38\Scripts;C:\julia\bin\;$env:Path"
-  - ps: python -Wignore -m pip install --user matplotlib
-  - ps: python -Wignore -m pip install --user jupyter
+  - python -Wignore -m pip install --user matplotlib
+  - python -Wignore -m pip install --user jupyter
   - C:\julia\bin\julia --project --eval "using Pkg; Pkg.instantiate();"
   - C:\julia\bin\julia --project --eval "using Pkg; Pkg.status();"
   - C:\julia\bin\julia --project --eval "using Pkg; Pkg.add(PackageSpec(name="""DIVAnd""", rev="""Alex"""));"
