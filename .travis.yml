@@ -37,6 +37,6 @@ script: # the default script is equivalent to the following
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - julia --project --eval 'using Pkg; Pkg.instantiate();'
   - julia --project --eval 'using Pkg; Pkg.status();'
-  - julia --project --eval 'using Pkg; Pkg.add(PackageSpec(name="DIVAnd", rev="Alex"));'
+  - julia --project --eval 'using Pkg; Pkg.add(PackageSpec(name="DIVAnd", rev="master"));'
   - jupyter kernelspec list
   - utils/test-notebooks
