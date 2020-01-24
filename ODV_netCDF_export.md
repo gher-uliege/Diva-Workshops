@@ -30,6 +30,6 @@ In case of doubt, take them all
 
 ### Run the export
 🛈 This step can take up to a few minutes.     
-We end up with a netCDF 
+We end up with a 992M netCDF file that we can use to produce a climatology.
 
 You're done!
