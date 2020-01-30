@@ -65,7 +65,7 @@ Data weights: optional (check sensitivity on a few levels)
 Background field: to discuss (case by case)     
 
 **Other parameters:**      
-surfextend = true (vertical extension at surface)       
+surfextend = true (vertical extension at surface)           
 coeff_derivative2 = [0., 0., 10⁻⁸] (sensitivity test)       
 
 ### Speeding up things
