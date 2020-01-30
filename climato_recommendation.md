@@ -75,6 +75,11 @@ Julia is already very fast!
 
 <img src="./figures/julianature.png" width="600" class="img-responsive">
 
+#### Use memtofit in `diva3d`
+
+Use optional parameters memtofit=100 (for example) in the diva3d call.
+(+ add more details)
+
 #### Don't forget
 
 1. Packages are pre-compiled when a kernel is started      
