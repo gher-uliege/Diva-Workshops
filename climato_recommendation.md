@@ -46,8 +46,8 @@ If there is a need for a domain delimitation following the irregular shapes, it 
 
 #### Interpolation tool
 
-* Julia version: >= 1.0 (now at 1.2)
-* DIVAnd version: >= v2.1.0 (now at v2.4.0)
+* Julia version: >= 1.0 (now at 1.3)
+* DIVAnd version: >= v2.1.0 (now at v2.5.1)
 
 #### Procedure & parameters
 
