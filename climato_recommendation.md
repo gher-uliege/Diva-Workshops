@@ -104,6 +104,9 @@ obsval1, obslon1, obslat1, obsdepth1, obstime1, obsid1 =
    DIVAnd.loadobs(Float64,obsfile,"Water body salinity");
 ```
 
+Another option could be to write the data into `.jld` format.     
+However this format is not always maintained from one version of Julia to the next.
+
 #### Computing weights "offline"
 
 Example (adapt paths and file names)
