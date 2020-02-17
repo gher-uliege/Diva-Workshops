@@ -9,16 +9,11 @@ This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and e
 
 ## Objectives
 
-* The 1st workshop (3-6 April 2018) was focused on the creation of gridded products and climatologies using `DIVAnd`. The organizational details are available https://gher-ulg.github.io/Diva-Workshops/.
+* The [1st workshop](https://gher-ulg.github.io/Diva-Workshops/Previous/Diva-workshop-2018-Liege.html) (Liège, 3-6 April 2018) was focused on the creation of gridded products and climatologies using `DIVAnd`. The organizational details are available.
 
 * Within the 2nd SeaDataCloud training course (19-26 June 2019), the objective is to introduce participants to the `Julia` language, the Jupyter notebooks and the new Virtual Research Environment.
 
-Following the 1st workshop, the notebooks have been updated, improved and corrected when necessary. New notebooks are developed based on the participants requirements.
-
-## To-do list
-
-- [ ] Notebook showing the use of a background field.
-- [ ] Organise notebooks by topic?
+* The [2nd workshop](https://gher-ulg.github.io/Diva-Workshops/2020/) (Bologna, 27-30 January 2020) was attended by beginners, intermediate and advanced users, and the goal was to help them create new products with `DIVAnd`.
 
 ## Recommendation for the products
 
