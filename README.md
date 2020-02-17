@@ -17,29 +17,29 @@ This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and e
 
 ## Recommendation for the products
 
-A list of [recommendations](climato_recommendation.md) for the preparation of products.
+A list of [recommendations](./tricks/climato_recommendation.md) for the preparation of products.
 
 ## Tips and tricks
 
 ### Export ODV to netCDF
 
-[Instructions](ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
+[Instructions](./tricks/ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
 from an ODV collection.
 
 ### Adding EDMO code and CDI to CORA data sets
 
-[Instructions](ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
+[Instructions](./tricks/ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
 dataset.
 
 ### Manipulation of a netCDF with nco
 
-[Examples](cutting_netcdf.md)
+[Examples](./tricks/cutting_netcdf.md)
 
 ### Viewing netCDF file
 
-[netCDF](netCDV_viewing.md)
+[netCDF](./tricks/netCDV_viewing.md)
 
 ### Saving the attributes in a text file
 
-This is useful when working on a machine with no internet connexion.
+This is useful when working on a machine with no internet connexion:      
 [save_attributes_file.ipynb](notebooks/postprocessing/save_attributes_file.ipynb)
