@@ -29,7 +29,7 @@ Main axis:
 
 Try to have a consistent approach: same dataset(s) for each region and a comparable method for the duplicate removal.
 
-<img src="./figures/datasources.png" width="400" class="img-responsive">
+<img src="../figures/datasources.png" width="400" class="img-responsive">
 
 * Which data source(s)?
 * Which version for each dataset?
@@ -40,7 +40,7 @@ Try to have a consistent approach: same dataset(s) for each region and a compara
 1. Final users tend to prefer simple, *rectangular* domains, i.e. delimited by lines of constant longitudes or latitudes.
 2. If merged products have to be created, it is necessary to ensure that we can have a smooth transition between them.
 
-<img src="./figures/EMODnet_domains05.png" width="400" class="img-responsive">
+<img src="../figures/EMODnet_domains05.png" width="400" class="img-responsive">
 
 If there is a need for a domain delimitation following the irregular shapes, it may be relevant to have post-processing tools provided to the interested users.
 
@@ -73,7 +73,7 @@ data sets, as explained in the notebook [90-full-analysis](https://github.com/gh
 
 #### Interpolation tool
 
-* Julia version: >= 1.0 (now at 1.3)
+* Julia version: >= 1.0 (now at 1.4)
 * DIVAnd version: >= v2.1.0 (now at v2.5.1)
 
 #### Procedure & parameters
@@ -100,7 +100,7 @@ coeff_derivative2 = [0., 0., 10⁻⁸] (sensitivity test)
 Julia is already very fast!       
 [Julia: come for the syntax, stay for the speed](https://www.nature.com/articles/d41586-019-02310-3)
 
-<img src="./figures/julianature.png" width="600" class="img-responsive">
+<img src="../figures/julianature.png" width="600" class="img-responsive">
 
 #### Use memtofit in `diva3d`
 
@@ -162,4 +162,4 @@ And run them in a terminal:
 include(name_of_the_program.jl)
 ```       
 
-<img src="./figures/julia_run.png" width="500" class="img-responsive">
+<img src="../figures/julia_run.png" width="500" class="img-responsive">
