@@ -46,5 +46,5 @@ This is useful when working on a machine with no internet connexion:
 
 # Binder
 
-Most notebooks need more resources that can currently available on Binder. The introduction notebooks (introduction to OI and variationa analysis) however does work
+Most notebooks need more resources that what is can currently available on Binder. The introduction notebooks (introduction to OI and variationa analysis) however work
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gher-ulg/Diva-Workshops/master?filepath=notebooks%2F1-Intro%2F04-OI-variational-analysis-introduction.ipynb).
