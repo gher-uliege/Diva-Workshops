@@ -6,10 +6,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+
 python3 get-pip.py --user
-pip3 install --user matplotlib
-pip3 install --user jupyter
+python3 -m pip install --user matplotlib
+python3 -m pip install --user jupyter
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install gnu-sed
