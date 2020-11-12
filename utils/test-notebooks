@@ -37,7 +37,7 @@ for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
 
            sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$FILE"
            sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$FILE"
-           jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=600 "$FILE"
+           python3 -m jupyter nbconvert --to html --execute --ExecutePreprocessor.timeout=600 "$FILE"
            if [ "$?" != "0" ]; then
                echo -e "${RED}$FILE failed${NC}"
                let NFAILS=NFAILS+1
