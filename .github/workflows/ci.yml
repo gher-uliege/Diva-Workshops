@@ -36,5 +36,5 @@ jobs:
       - run: |
           #git config --global user.name Tester
           #git config --global user.email te@st.er
-          utils/ci-test-install
-          utils/ci-test-run
+          bash utils/ci-test-install
+          bash utils/ci-test-run

@@ -4,6 +4,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     if [ "$TRAVIS_OS_NAME" = "osx" ]; then
         export PATH="/Users/travis/Library/Python/3.7/bin:$PATH";
     fi
+
+    export PATH="/Users/runner/Library/Python/3.8/bin:$PATH"
 fi
 
 export PATH="$HOME/.local/bin:$PATH"
@@ -22,4 +24,3 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install gnu-sed
     export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 fi
-
