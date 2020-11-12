@@ -21,22 +21,7 @@ notifications:
   email: false
 
 install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="/Users/travis/Library/Python/3.7/bin:$PATH"; fi
-  - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-  - python3 get-pip.py --user
-  - pip3 install --user matplotlib
-  - pip3 install --user jupyter
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install gnu-sed; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
+  - utils/ci-test-install
 
 script: # the default script is equivalent to the following
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then export PATH="/Users/travis/Library/Python/3.7/bin:$PATH"; fi
-  - sed --version
-  - echo $PATH
-  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia --project --eval 'using Pkg; Pkg.instantiate();'
-  - julia --project --eval 'using Pkg; Pkg.status();'
-  - julia --project --eval 'using Pkg; Pkg.add(PackageSpec(name="DIVAnd", rev="master"));'
-  - jupyter kernelspec list
-  - utils/test-notebooks
+  - utils/ci-test-run
