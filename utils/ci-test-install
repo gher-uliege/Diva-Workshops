@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+        export PATH="/Users/travis/Library/Python/3.7/bin:$PATH";
+    fi
+fi
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --user
+pip3 install --user matplotlib
+pip3 install --user jupyter
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    brew install gnu-sed
+    export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+fi
+
