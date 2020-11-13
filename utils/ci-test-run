@@ -12,6 +12,11 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 
 sed --version
+python --version
+python3 --version
+which python
+which python3
+
 echo $PATH
 if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 julia --project --eval 'using Pkg; Pkg.instantiate();'
