@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gher-ulg/Diva-Workshops.svg?branch=master)](https://travis-ci.org/gher-ulg/Diva-Workshops)
+[![Build Status](https://github.com/gher-ulg/Diva-Workshops/workflows/CI/badge.svg)](https://github.com/gher-ulg/Diva-Workshops/actions)
 [![DOI](https://zenodo.org/badge/108153788.svg)](https://zenodo.org/badge/latestdoi/108153788)
 
 # DIVA Workshops and training

@@ -1,0 +1,75 @@
+#!/bin/bash
+
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+        export PATH="/Users/travis/Library/Python/3.7/bin:$PATH";
+    fi
+
+    export PATH="/Users/runner/Library/Python/3.8/bin:$PATH"
+    brew install gnu-sed coreutils
+    export PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$PATH"
+    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+fi
+
+# necessary for Windows
+if ! command -v python3 &> /dev/null; then
+    echo "python3 could not be found"
+
+    function python3() {
+       python "$@"
+    }
+fi
+
+notebooks=( "$@" )
+export PATH="$HOME/.local/bin:$PATH"
+echo $PATH
+
+sed --version
+cut --version
+python3 --version
+
+
+if [[ "$CI" == "true" ]]; then
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python3 get-pip.py --user
+
+    #ValueError: No template sub-directory with name 'lab' found in the following paths:
+    #python3 -m pip install --user --use-feature=2020-resolver  matplotlib jupyter
+    # AssertionError: wrong color format 'var(--jp-mirror-editor-variable-color)'
+    # nbconvert 6.0.7 requires pygments>=2.4.1, but you'll have pygments 2.2.0 which is incompatible.
+    python3 -m pip install pygments==2.4.1
+    python3 -m pip install matplotlib jupyter
+
+    julia --eval 'using Pkg; pkg"dev https://github.com/Alexander-Barth/GeoMapping.jl"'
+    julia --project --eval 'using Pkg; Pkg.instantiate();'
+    julia --project --eval 'using Pkg; Pkg.status();'
+fi
+
+python3 -m jupyter kernelspec list
+
+JULIA_VERSION=$(julia --version | cut --delimiter=' ' --field=3);
+JULIA_VERSION_XY=$(echo $JULIA_VERSION | cut  --delimiter='.' --field=1,2);
+NFAILS=0
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo JULIA_VERSION $JULIA_VERSION $JULIA_VERSION_XY
+
+for i in "${notebooks[@]}"; do
+   echo $i $JULIA_VERSION;
+   sed --regexp-extended --in-place "s/julia-1.[0-9]/julia-$JULIA_VERSION_XY/g" "$i";
+   sed --regexp-extended --in-place "s/Julia 1.[0-9].[0-9]/Julia $JULIA_VERSION/g" "$i";
+   python3 -m nbconvert --to html --execute --ExecutePreprocessor.timeout=360 "$i";
+   if [ "$?" != "0" ]; then
+       echo -e "${RED}$FILE failed${NC}"
+       let NFAILS=NFAILS+1
+   else
+       echo -e "${GREEN}$FILE OK${NC}"
+   fi
+done
+
+if [ $NFAILS != "0" ]; then
+    exit 1
+fi
