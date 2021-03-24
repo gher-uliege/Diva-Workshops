@@ -7,7 +7,7 @@ This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and e
 
 [`Diva`](https://github.com/gher-ulg/DIVA) and [`DIVAnd`](https://github.com/gher-ulg/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
 
-Notebooks can be previewed with the service [nbviewer](https://nbviewer.jupyter.org/github/gher-ulg/Diva-Workshops/tree/master/notebooks/)
+Notebooks can be previewed with the service [nbviewer](https://nbviewer.jupyter.org/github/gher-ulg/Diva-Workshops/tree/master/notebooks/).
 
 ## Objectives
 
