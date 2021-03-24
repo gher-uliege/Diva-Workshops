@@ -7,6 +7,8 @@ This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and e
 
 [`Diva`](https://github.com/gher-ulg/DIVA) and [`DIVAnd`](https://github.com/gher-ulg/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
 
+Notebooks can be previewed with the service [nbviewer](https://nbviewer.jupyter.org/github/gher-ulg/Diva-Workshops/tree/master/notebooks/)
+
 ## Objectives
 
 * The [1st workshop](https://gher-ulg.github.io/Diva-Workshops/Previous/Diva-workshop-2018-Liege.html) (Liège, 3-6 April 2018) was focused on the creation of gridded products and climatologies using `DIVAnd`. The organizational details are available.
