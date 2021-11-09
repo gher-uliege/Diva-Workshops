@@ -1,7 +1,6 @@
 environment:
   matrix:
-  - julia_version: 1.0
-  - julia_version: 1.4
+  - julia_version: 1
 
 platform:
 #  - x86 # 32-bit
@@ -34,4 +33,4 @@ build_script:
 
 test_script:
   - ps: $env:Path = "C:\Python38-x64;C:\Users\appveyor\AppData\Roaming\Python\Python38\Scripts;C:\julia\bin\;$env:Path"
-  - bash utils/test-notebooks
+  - bash utils/ci-test
