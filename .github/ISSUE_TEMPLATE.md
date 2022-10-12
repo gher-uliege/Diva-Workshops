@@ -12,5 +12,6 @@ Please provide all the information requested here:
 It is very important to provide the full error message and the lines following the error message because it contains valuable information where the error/issue was produced.
 
 
-Windows users can have a look at this to [enable the quick edit mode](https://blogs.msdn.microsoft.com/adioltean/2004/12/27/useful-copypaste-trick-in-cmd-exe/) to facilitate copying and pasting commands and text in the terminal.
+Windows users can have a look at this link to enable the quick edit mode and to facilitate copying and pasting commands and text in the terminal.
 
+https://blogs.msdn.microsoft.com/adioltean/2004/12/27/useful-copypaste-trick-in-cmd-exe/
