@@ -4,12 +4,12 @@
 # optimally reconstruct the provided sea surface temperature anomaly using DIVAnd.
 # We use the Reynolds et al. 2002 [OI SST](https://www.psl.noaa.gov/data/gridded/data.noaa.oisst.v2.html) for the month January and remove the zonal average. This is assumed to be the "true field" in the followed.
 #
-# 1. You should work in groups. Choose a group name and adapt the `groupname` accordinly
+# 1. You should work in groups. Choose a group name and adapt the `groupname` accordingly
 # 2. Please change only the marked code (after "Your turn !" and before "Do not make any change below")
 # 3. You choose:
 #      * the location of 100 observations (the vectors `xobs` and `yobs` which corresponds to longitude in degrees East and latitude in degrees North)
 #      * the correlation length `len`
-#      * the ncertainty of the observation `epsilon2`
+#      * the uncertainty of the observation `epsilon2`
 # 4. You are allowed to guide your choice by using the true field `v` (the target variable)
 # 5. Your results must be reproducible (the locations of the observations are saved in a text file at the end of the notebook)
 # 6. You can submit as many test as you wish, only the best result with lowest root mean square (RMS) error is shown.
@@ -26,14 +26,14 @@ using Downloads: download
 using Interpolations
 using DelimitedFiles
 
-# download the data file if necessary
+# Download the data file if necessary
 
 filename = "sst.ltm.1961-1990.nc"
 if !isfile(filename)
     download("https://dox.ulg.ac.be/index.php/s/ptfCNIWGfJ247Gj/download",filename);
 end
 
-# load the data
+# Load the data
 
 ds = NCDataset(filename)
 vfull = reverse(nomissing(ds["sst"][:,:,1],NaN),dims=2)
@@ -41,11 +41,11 @@ lon = ds["lon"][:]
 lat = reverse(ds["lat"][:])
 close(ds);
 
-# mask is 1 on sea and 0 on land
+# The array `mask` is 1 on sea and 0 on land
 
 mask = isfinite.(vfull);
 
-# remove the zonal average
+# Remove the zonal average
 
 v0 = copy(vfull)
 v0[.!mask] .= 0
@@ -53,7 +53,7 @@ v = vfull .- sum(v0,dims=1) ./ sum(mask,dims=1)
 sz  = size(v)
 xi,yi =  DIVAnd.ndgrid(lon,lat);
 
-# the scale factors (inverse of the resolution)
+# The scale factors (inverse of the resolution)
 
 pm = ones(sz) ./ ((xi[2,1]-xi[1,1]) .* cosd.(yi));
 pn = ones(sz) / (yi[1,2]-yi[1,1]);
@@ -76,12 +76,13 @@ groupname = "Just-a-test"
 len = 20
 # Uncertainty of the observation [adimensional]
 epsilon2 = 0.001
-# choose random location (only sea points)
+# Choose 100 random location (only sea points)
+# Is there a better way?
 indexobs = shuffle(findall(mask[:] .== 1))[1:nobs];
 xobs = xi[indexobs];
 yobs = yi[indexobs];
 
-# # Do not make any change below
+# ## Do not make any change below
 
 # Extract the pseudo-observations
 
@@ -89,12 +90,12 @@ xobs = mod.(xobs,360)
 itp = interpolate((lon,lat), v, Gridded(Constant()))
 vobs = itp.(xobs,yobs);
 
-# add some noise
+# Add some noise
 
 Random.seed!(42)
 vobs_perturbed = vobs + noise * randn(nobs);
 
-# make the analysis
+# Make the analysis
 
 vi,s = DIVAndrun(
     mask,(pm,pn),(xi,yi),(xobs,yobs),
@@ -103,9 +104,8 @@ vi,s = DIVAndrun(
 );
 
 
-# plot the results
+# Plot the results
 
-close("all")
 figure(figsize = (7.8,5.6))
 function map(; cl = extrema(filter(isfinite,v)))
     axis("equal")
