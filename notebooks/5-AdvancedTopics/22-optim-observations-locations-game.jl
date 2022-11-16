@@ -145,7 +145,7 @@ function submit_results(groupname,rms_velocity)
         return str
     end
     myjson(data) = "{" * join(["\"$k\":$(string(v))" for (k,v) in data],",") * "}"
-    game = "DIVAnd2022-test"
+    game = "DIVAnd2022"
 
     data_dict = Dict()
     #=
