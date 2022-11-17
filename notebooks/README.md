@@ -11,7 +11,7 @@ The notebooks are now organised into 5 categories, separeted in folders:
 
 ### Download all files
 
-Follow [this link](https://github.com/gher-ulg/Diva-Workshops/archive/master.zip) and uncompress the zip file.
+Follow [this link](https://github.com/gher-uliege/Diva-Workshops/archive/master.zip) and uncompress the zip file.
 The notebooks are in the folder `Diva-Workshops-master/notebooks/`.
 
 ### Download individual files
@@ -28,7 +28,7 @@ The notebooks are in the folder `Diva-Workshops-master/notebooks/`.
 
 You can directly clone the whole project:
 ```bash
-git clone git@github.com:gher-ulg/Diva-Workshops.git
+git clone git@github.com:gher-uliege/Diva-Workshops.git
 ```
 and then navigate into the notebooks directory.
 
