@@ -30,16 +30,12 @@ from an ODV collection.
 
 ### Adding EDMO code and CDI to CORA data sets
 
-[Instructions](./tricks/ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
+[Instructions](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
 dataset.
 
 ### Manipulation of a netCDF with nco
 
 [Examples](./tricks/cutting_netcdf.md)
-
-### Viewing netCDF file
-
-[netCDF](./tricks/netCDV_viewing.md)
 
 ### Saving the attributes in a text file
 
