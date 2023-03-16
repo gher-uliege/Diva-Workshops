@@ -25,7 +25,7 @@ A list of [recommendations](./tricks/climato_recommendation.md) for the preparat
 
 ### Export ODV to netCDF
 
-[Instructions](./tricks/ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
+[Instructions](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
 from an ODV collection.
 
 ### Adding EDMO code and CDI to CORA data sets
@@ -44,7 +44,7 @@ dataset.
 ### Saving the attributes in a text file
 
 This is useful when working on a machine with no internet connexion:      
-[save_attributes_file.ipynb](notebooks/postprocessing/save_attributes_file.ipynb)
+[save_attributes_file.ipynb](notebooks/4-postprocessing/save_attributes_file.ipynb)
 
 # Binder
 
