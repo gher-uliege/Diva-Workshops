@@ -35,7 +35,7 @@ dataset.
 
 ### Manipulation of a netCDF with nco
 
-[Examples](./tricks/cutting_netcdf.md)
+[Examples](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/manipulate_netCDF.md)
 
 ### Saving the attributes in a text file
 
