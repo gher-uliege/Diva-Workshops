@@ -1,4 +1,5 @@
-[![Build Status](https://github.com/gher-uliege/Diva-Workshops/workflows/CI/badge.svg)](https://github.com/gher-uliege/Diva-Workshops/actions)
+[![Build Status](https://github.com/gher-uliege/Diva-Workshops/workflows/CI/badge.svg)](https://github.com/gher-uliege/Diva-Workshops/actions) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+![GitHub top language](https://img.shields.io/github/languages/top/gher-uliege/Diva-Workshops)
 [![DOI](https://zenodo.org/badge/108153788.svg)](https://zenodo.org/badge/latestdoi/108153788)
 
 # DIVA Workshops and training
@@ -25,26 +26,22 @@ A list of [recommendations](./tricks/climato_recommendation.md) for the preparat
 
 ### Export ODV to netCDF
 
-[Instructions](./tricks/ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
+[Instructions](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
 from an ODV collection.
 
 ### Adding EDMO code and CDI to CORA data sets
 
-[Instructions](./tricks/ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
+[Instructions](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
 dataset.
 
 ### Manipulation of a netCDF with nco
 
-[Examples](./tricks/cutting_netcdf.md)
-
-### Viewing netCDF file
-
-[netCDF](./tricks/netCDV_viewing.md)
+[Examples](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/manipulate_netCDF.md)
 
 ### Saving the attributes in a text file
 
 This is useful when working on a machine with no internet connexion:      
-[save_attributes_file.ipynb](notebooks/postprocessing/save_attributes_file.ipynb)
+[save_attributes_file.ipynb](notebooks/4-postprocessing/save_attributes_file.ipynb)
 
 # Binder
 
