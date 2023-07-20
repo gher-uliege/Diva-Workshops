@@ -4,17 +4,17 @@
 
 # DIVA Workshops and training
 
-This page provides the [Jupyter](https://jupyter.org/) notebooks (examples and exercises) for the `DIVAnd` user workshops and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project.     
+This page provides a set of [Jupyter](https://jupyter.org/) notebooks (examples and exercises) for the `DIVAnd` user workshops and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project.     
 
 [`Diva`](https://github.com/gher-uliege/DIVA) and [`DIVAnd`](https://github.com/gher-uliege/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
 
 Notebooks can be previewed with the service [nbviewer](https://nbviewer.jupyter.org/github/gher-uliege/Diva-Workshops/tree/master/notebooks/).
 
-## Objectives
+## Workshops
 
-* The [1st workshop](https://gher-uliege.github.io/Diva-Workshops/Previous/Diva-workshop-2018-Liege.html) (Liège, 3-6 April 2018) was focused on the creation of gridded products and climatologies using `DIVAnd`. The organizational details are available.
+* The [1st workshop](https://gher-uliege.github.io/Diva-Workshops/Previous/Diva-workshop-2018-Liege.html) (Liège, 3-6 April 2018) was focused on the creation of gridded products and climatologies using `DIVAnd`.
 
-* Within the 2nd SeaDataCloud training course (19-26 June 2019), the objective is to introduce participants to the `Julia` language, the Jupyter notebooks and the new Virtual Research Environment.
+* Within the 2nd SeaDataCloud training course (Ostend, 19-26 June 2019), the objective was to introduce participants to the `Julia` language, the Jupyter notebooks and the Virtual Research Environment deployed in the frame of the project.
 
 * The [2nd workshop](https://gher-uliege.github.io/Diva-Workshops/2020/) (Bologna, 27-30 January 2020) was attended by beginners, intermediate and advanced users, and the goal was to help them create new products with `DIVAnd`.
 
