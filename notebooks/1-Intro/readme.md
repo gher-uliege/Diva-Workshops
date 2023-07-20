@@ -2,7 +2,7 @@
 
 This directory contains the basic notebooks that explains:
 - what is the `Julia` language,
-- what is a notebook,
+- what is a Jupyter notebook,
 - how to deal with `netCDF` files.
 
 ### Content
