@@ -1,6 +1,7 @@
 ## Analysis
 
 This directory provides examples of how to:
+- see the effect of the analysis parameters (correlation length and noise-to-signal ratio).
 - perform an analysis and create a climatology,
 - generate an error field.
 
@@ -11,4 +12,4 @@ This directory provides examples of how to:
 1. [13-processing-parameter-optimization.ipynb](13-processing-parameter-optimization.ipynb): how to further optimise the analysis parameters.
 1. [14-cpme-demo.ipynb](14-cpme-demo.ipynb): computation of the error field using the so-called CPME method.
 1. [15-example-analysis.ipynb](15-example-analysis.ipynb): how to run a simple analysis?
-1.	[90-full-analysis.ipynb](90-full-analysis.ipynb): a full example, from data to 4D netCDF and XML for the catalog.
+1. [90-full-analysis.ipynb](90-full-analysis.ipynb): a full example, from data to 4D netCDF and XML for the Sextant catalog.
