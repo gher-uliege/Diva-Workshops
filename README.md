@@ -4,7 +4,7 @@
 
 # DIVA Workshops and training
 
-This page provides a set of [Jupyter](https://jupyter.org/) notebooks (examples and exercises) for the `DIVAnd` user workshops and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project.     
+This page provides a set of [Jupyter](https://jupyter.org/) notebooks (examples and exercises) for the `DIVAnd` user workshops and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project. The notebooks are also used in the [FAIR-EASE](https://fairease.eu/) project.    
 
 [`Diva`](https://github.com/gher-uliege/DIVA) and [`DIVAnd`](https://github.com/gher-uliege/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
 
@@ -18,30 +18,23 @@ Notebooks can be previewed with the service [nbviewer](https://nbviewer.jupyter.
 
 * The [2nd workshop](https://gher-uliege.github.io/Diva-Workshops/2020/) (Bologna, 27-30 January 2020) was attended by beginners, intermediate and advanced users, and the goal was to help them create new products with `DIVAnd`.
 
-## Recommendation for the products
+## Installation
 
-A list of [recommendations](./tricks/climato_recommendation.md) for the preparation of products.
+### Jupyter
 
-## Tips and tricks
+Jupyter has to be installed in order to have a notebook interface.
 
-### Export ODV to netCDF
+### Extensions
 
-[Instructions](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/ODV_netCDF_export.md) and screen-shots detailing how to create a netCDF
-from an ODV collection.
+It is also recommended to install the following modules which allow, for example, to have the sections automatically numbered:
+- https://github.com/ipython-contrib/jupyter_contrib_nbextensions
+- https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator
 
-### Adding EDMO code and CDI to CORA data sets
+## Other relevant repositories
 
-[Instructions](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/ODV_EDMO_CDI.md) and screen-shots to show how to add metadata to a CORA
-dataset.
+### [EMODnet-Chemistry-GriddedMaps](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps)
 
-### Manipulation of a netCDF with nco
-
-[Examples](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps/blob/main/doc/manipulate_netCDF.md)
-
-### Saving the attributes in a text file
-
-This is useful when working on a machine with no internet connexion:      
-[save_attributes_file.ipynb](notebooks/4-postprocessing/save_attributes_file.ipynb)
+This project stores the notebooks and the instructions to produce the EMODnet Chemistry products (climatologies).
 
 # Binder
 
