@@ -7,7 +7,7 @@
 
 This repository provides a set of [Jupyter](https://jupyter.org/) notebooks (examples and exercises) for the `DIVAnd` user workshops and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project. The notebooks are also used in the [FAIR-EASE](https://fairease.eu/) project.    
 
-[`Diva`](https://github.com/gher-uliege/DIVA) and [`DIVAnd`](https://github.com/gher-uliege/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
+[`DIVA`](https://github.com/gher-uliege/DIVA) and [`DIVAnd`](https://github.com/gher-uliege/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
 
 ## Workshops
 
