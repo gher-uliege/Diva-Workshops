@@ -1,5 +1,7 @@
 datadir = "../data"
+figdir = "../figures"
 isdir(datadir) ? @debug("Directory already exists") : mkpath(datadir)
+isdir(figdir) ? @debug("Directory already exists") : mkpath(figdir)
 
 function make_dox_url(fileid::AbstractString)
     doxurl = "https://dox.uliege.be/index.php/s/$(fileid)/download"
@@ -15,7 +17,8 @@ function download_check(datafile::AbstractString, datafileURL::AbstractString)
     end
 end
 
-
+OIfile = joinpath(datadir, "dan_field_obs.nc")
+OIfileURL = make_dox_url("96B8MOQeIcaRUoV")
 salinityprovencalfile = joinpath(datadir, "WOD-Salinity-Provencal.nc")
 salinityprovencalfileURL = make_dox_url("PztJfSEnc8Cr3XN")
 salinitybigfile = joinpath(datadir, "Salinity.bigfile")
