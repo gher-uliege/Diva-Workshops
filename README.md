@@ -27,7 +27,7 @@ language.
 
 ### Let's compare apples and oranges
 
-![](./notebooks/Images/appels_and_oranges.jpg)
+![](./notebooks/1-Intro/Images/appels_and_oranges.jpg)
 * _Äpfel mit Birnen vergleichen_
 * _Comparer des choux et des carottes_
 * _Paragonare cavoli e patate_ (compare cabbages and potatoes)
