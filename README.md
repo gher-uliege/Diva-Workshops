@@ -17,6 +17,49 @@ This repository provides a set of [Jupyter](https://jupyter.org/) notebooks (exa
 |  2nd SeaDataCloud training course | Ostend 🇧🇪 | 19-26 June 2019 | 
 | [2nd workshop](https://gher-uliege.github.io/Diva-Workshops/2020/) | Bologna 🇮🇹 | 27-30 January 2020 |
 
+## About DIVAnd
+
+`DIVAnd` is **not** a new release of [`DIVA`](https://github.com/gher-uliege/DIVA), it is another software tool with different 
+
+algorithms,      
+functionalities and     
+language.
+
+### Let's compare apples and oranges
+
+![](./notebooks/Images/appels_and_oranges.jpg)
+* _Äpfel mit Birnen vergleichen_
+* _Comparer des choux et des carottes_
+* _Paragonare cavoli e patate_ (compare cabbages and potatoes)
+
+For a single 2D analysis (surface salinity in the Black Sea) on Intel Xeon CPU E5-2650.     
+DIVA was compiled with the Intel Fortran Compiler.
+
+|     | DIVA - Fortran | DIVAnd - julia |
+|----|----------------|----------------|
+| mesh             | triangular | structured | 
+| deg. of freedom  |    236296 |  236317 |
+| correlation length | 0.19    | 0.19 |
+| CPU time | 43.8 s | 8.7 s |
+
+* However, a triangular mesh is greatly more flexible than a structured mesh and has $C_1$ continuity
+* The main advantage of `DIVAnd` is that it can work on more than just 2 dimensions (but the requirements of RAM memory increase also).
+
+### On public servers (cloud)
+
+`DIVAnd` has been made available in Virtual Research Environments (VRE) in the frame of European projects.     
+The deployment is performed using a Docker container.  
+
+For instance `DIVAnd` can used in projects such as:
+- FAIR-EASE: https://fairease.eu/
+- Blue-Cloud 2026: https://blue-cloud.org/ 
+
+### Primary functions
+
+* `DIVAndrun`: Implements the DIVA algorithm in N dimensions on a structured grid.
+* `DIVAndgo`: Split the domain in overlapping subdomains and calls `DIVAndrun` on every subdomain (to reduce the memory consumption).
+* `diva`: High-level function which selects the appropriate data.
+
 ## Installation
 
 ### Jupyter
