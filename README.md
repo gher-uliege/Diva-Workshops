@@ -82,8 +82,8 @@ The main advantage of `DIVAnd` is that it can work on more than just 2 dimension
 The deployment is performed using a Docker container.  
 
 For instance `DIVAnd` can used in projects such as:
-- [FAIR-EASE](https://fairease.eu/): the tool can be accessed from [Galaxy]().
-- Blue-Cloud 2026: https://blue-cloud.org/ 
+- [FAIR-EASE](https://fairease.eu/): the tool can be accessed from [Galaxy](https://earth-system.usegalaxy.eu/).
+- [Blue Cloud 2026](https://blue-cloud.org/): the tool is available though [D4Science](https://www.d4science.org/). 
 
 ### Binder
 
