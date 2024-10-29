@@ -30,6 +30,20 @@ gebco08file = joinpath(datadir, "gebco_30sec_8.nc")
 gebco08fileURL = make_dox_url("U0pqyXhcQrXjEUX")
 gebco16file = joinpath(datadir, "gebco_30sec_16.nc")
 gebco16fileURL = make_dox_url("U0pqyXhcQrXjEUX")
+emodnetfile = joinpath(datadir, "combined_emodnet_bathymetry.nc")
+emodnetfileURL = make_dox_url("pujUAyo9kTPO8oF")
 
 adriaticfile = joinpath(datadir, "AdriaticSea_SDC.nc")
 adriaticfileURL = make_dox_url("IRYJyNZ5KuKVoQL")
+
+naodatafile = joinpath(datadir, "nao_station_annual.txt")
+naodatafileURL = make_dox_url("zYVldQgtso1nMZg")
+
+danfile = joinpath(datadir, "dan_field.mat")
+danfileURL = make_dox_url("KLuPQ848PdMBz1J")
+gribfile = joinpath(datadir, "test.grib")
+gribfileURL = "https://github.com/weech/GRIB.jl/raw/master/test/samples/regular_latlon_surface.grib2"
+geojsonfile = joinpath(datadir, "contour.json")
+geojsonfileURL = make_dox_url("4vPeJM9NiIqPDuu")
+geotifffile = joinpath(datadir, "Adriatic-2024-09-16T00_00_00Z.tif")
+geotifffileURL = make_dox_url("tz9lCANaNIj3iG2")

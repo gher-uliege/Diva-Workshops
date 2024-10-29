@@ -11,4 +11,3 @@ This directory contains the basic notebooks that explains:
 1. [02-Julia-introduction.ipynb](02-Julia-introduction.ipynb): starting with the Julia language.
 1. [03-netCDF.ipynb](03-netCDF.ipynb): reading and writing a netCDF file with Julia.
 1. [04-OI-variational-analysis-introduction.ipynb](04-OI-variational-analysis-introduction.ipynb): an intro to variational analysis.
-1. [05-DIVAnd-overview.ipynb](05-DIVAnd-overview.ipynb): an overview on the `DIVAnd` interpolation tool.
