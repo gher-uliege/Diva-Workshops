@@ -5,19 +5,55 @@
 
 # DIVA Workshops and training
 
-This repository provides a set of [Jupyter](https://jupyter.org/) notebooks (examples and exercises) for the `DIVAnd` user workshops and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project. The notebooks are also used in the [FAIR-EASE](https://fairease.eu/) project.    
+<div align="center"> <img src="./figures/divand_logo.png"></img></div>
 
-[`DIVA`](https://github.com/gher-uliege/DIVA) and [`DIVAnd`](https://github.com/gher-uliege/divand.jl) are software tools designed to generate gridded fields from in-situ observations.
+The [Jupyter](https://jupyter.org/) notebooks contained in this repository are designed to explain users how to create gridded fields from in situ observations using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool.
 
-## Workshops
+The repository was firstly created to store the material for the [workshops](https://gher-uliege.github.io/Diva-Workshops/Previous-workshops.html) and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project. The notebooks are also used in the [FAIR-EASE](https://fairease.eu/) project.   
 
-| Event      | Location      | Dates      |
-| ------------- | ------------- | ------------- |
-|  [1st workshop](https://gher-uliege.github.io/Diva-Workshops/Previous/Diva-workshop-2018-Liege.html) | Liège 🇧🇪 | 3-6 April 2018 |
-|  2nd SeaDataCloud training course | Ostend 🇧🇪 | 19-26 June 2019 | 
-| [2nd workshop](https://gher-uliege.github.io/Diva-Workshops/2020/) | Bologna 🇮🇹 | 27-30 January 2020 |
+## Installation
 
-## About DIVAnd
+### Julia language
+
+Julia language can be installed using `juliaup`, as detailed in the "Download" section of the Julia web: https://julialang.org/downloads/.     
+A Julia session is started by typing `julia` in the terminal or by clicking on the Julia shortcut in Windows.
+
+```bash
+$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.11.1 (2024-10-16)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> 
+```
+
+### Jupyter
+
+Jupyter has to be installed in order to have a notebook interface.        
+It can be installed and launched (in Julia) with the following command in the Pkg REPL     
+(Enter the Pkg REPL by pressing ] from the Julia session):
+
+```julia
+(@v1.11) pkg> add IJulia
+```
+
+## Running the notebooks
+
+In a Julia session, execute the following commands:
+
+```julia
+using IJulia
+notebook()
+```
+This will start a Jupyter session within your browser.      
+Select the notebook located in `Diva-Workshops/notebooks/`.
+
+## ℹ️ About DIVAnd
 
 `DIVAnd` is **not** a new release of [`DIVA`](https://github.com/gher-uliege/DIVA), it is another software tool with different 
 
@@ -25,68 +61,43 @@ algorithms,
 functionalities and     
 language.
 
-### Let's compare apples and oranges
-
-![](./notebooks/1-Intro/Images/appels_and_oranges.jpg)
-* _Äpfel mit Birnen vergleichen_
-* _Comparer des choux et des carottes_
-* _Paragonare cavoli e patate_ (compare cabbages and potatoes)
-
 For a single 2D analysis (surface salinity in the Black Sea) on Intel Xeon CPU E5-2650.     
 DIVA was compiled with the Intel Fortran Compiler.
 
-|     | DIVA - Fortran | DIVAnd - julia |
+|     | DIVA - Fortran | DIVAnd - Julia |
 |----|----------------|----------------|
 | mesh             | triangular | structured | 
 | deg. of freedom  |    236296 |  236317 |
 | correlation length | 0.19    | 0.19 |
 | CPU time | 43.8 s | 8.7 s |
 
-* However, a triangular mesh is greatly more flexible than a structured mesh and has $C_1$ continuity
-* The main advantage of `DIVAnd` is that it can work on more than just 2 dimensions (but the requirements of RAM memory increase also).
+However, a triangular mesh is greatly more flexible than a structured mesh and has $C_1$ continuity.       
+The main advantage of `DIVAnd` is that it can work on more than just 2 dimensions (but the requirements of RAM memory increase also).
+
+## Using DIVAnd without installing
 
 ### On public servers (cloud)
 
-`DIVAnd` has been made available in Virtual Research Environments (VRE) in the frame of European projects.     
+`DIVAnd` has been made available in _Virtual Research Environments_ (VRE) in European projects.     
 The deployment is performed using a Docker container.  
 
 For instance `DIVAnd` can used in projects such as:
-- FAIR-EASE: https://fairease.eu/
+- [FAIR-EASE](https://fairease.eu/): the tool can be accessed from [Galaxy]().
 - Blue-Cloud 2026: https://blue-cloud.org/ 
 
-### Primary functions
-
-* `DIVAndrun`: Implements the DIVA algorithm in N dimensions on a structured grid.
-* `DIVAndgo`: Split the domain in overlapping subdomains and calls `DIVAndrun` on every subdomain (to reduce the memory consumption).
-* `diva`: High-level function which selects the appropriate data.
-
-## Installation
-
-### Jupyter
-
-Jupyter has to be installed in order to have a notebook interface.    
-It can be installed and launched (in Julia) with the following commands
-
-```julia
-using Pkg
-Pkg.add("IJulia")
-using IJulia
-notebook()
-```
-
-### Extensions [optional]
-
-It is also recommended to install the following modules which allow, for example, to have the sections automatically numbered:
-- https://github.com/ipython-contrib/jupyter_contrib_nbextensions
-- https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator
-
-## Other relevant repositories
-
-### [EMODnet-Chemistry-GriddedMaps](https://github.com/gher-uliege/EMODnet-Chemistry-GriddedMaps)
-
-This repository aims to store the notebooks and the instructions to produce the EMODnet Chemistry products (climatologies).
-
-# Binder
+### Binder
 
 Most notebooks need more resources that what is can currently available on Binder. The introduction notebooks (introduction to OI and variationa analysis) however work
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gher-uliege/Diva-Workshops/master?filepath=notebooks%2F1-Intro%2F04-OI-variational-analysis-introduction.ipynb).
+
+## 🆘 Troubleshooting
+
+### LoadError: ArgumentError: Package IJulia ... is required but does not seem to be installed
+
+After an update of the Julia version, one can face an error message related to the Kernel.     
+This can be solved with the command:
+
+```
+using IJulia
+installkernel("Julia")
+```
