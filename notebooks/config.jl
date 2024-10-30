@@ -21,17 +21,21 @@ function download_check(datafile::AbstractString, datafileURL::AbstractString)
     end
 end
 
+# Data files
 OIfile = joinpath(datadir, "dan_field_obs.nc")
 OIfileURL = make_dox_url("96B8MOQeIcaRUoV")
 salinityprovencalfile = joinpath(datadir, "WOD-Salinity-Provencal.nc")
 salinityprovencalfileURL = make_dox_url("PztJfSEnc8Cr3XN")
 salinitybigfile = joinpath(datadir, "Salinity.bigfile")
 salinitybigfileURL = make_dox_url("k0f7FxA7l5FIgu9")
+adriaticfile = joinpath(datadir, "AdriaticSea_SDC.nc")
+adriaticfileURL = make_dox_url("IRYJyNZ5KuKVoQL")
 
+# Bathymetry files
 gebco04file = joinpath(datadir, "gebco_30sec_4.nc")
 gebco04fileURL = make_dox_url("RSwm4HPHImdZoQP")
 gebco08file = joinpath(datadir, "gebco_30sec_8.nc")
-gebco08fileURL = make_dox_url("U0pqyXhcQrXjEUX")
+gebco08fileURL = make_dox_url("wS6Y8P8NhIF60eG")
 gebco16file = joinpath(datadir, "gebco_30sec_16.nc")
 gebco16fileURL = make_dox_url("U0pqyXhcQrXjEUX")
 emodnetfile = joinpath(datadir, "combined_emodnet_bathymetry.nc")
