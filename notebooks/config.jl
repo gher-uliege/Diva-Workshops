@@ -11,6 +11,7 @@ end
 function download_check(datafile::AbstractString, datafileURL::AbstractString)
 
     if !isfile(datafile)    
+        @info("Download file $(datafile)")
         download(datafileURL, datafile)
     else
         @info "File already downloaded"
@@ -47,3 +48,11 @@ geojsonfile = joinpath(datadir, "contour.json")
 geojsonfileURL = make_dox_url("4vPeJM9NiIqPDuu")
 geotifffile = joinpath(datadir, "Adriatic-2024-09-16T00_00_00Z.tif")
 geotifffileURL = make_dox_url("tz9lCANaNIj3iG2")
+
+smallODVfile = joinpath(datadir, "small_ODV_sample.txt")
+smallODVfileURL = make_dox_url("n7wDAB7G6IWWZtl")
+smallODVncfile = joinpath(datadir, "small_ODV_sample.nc")
+smallODVncfileURL = make_dox_url("ugfCUjKlUollczU")
+
+WODdatafile = joinpath(datadir, "WOD-temporary-dir.tar.gz")
+WODdatafileURL = make_dox_url("8tRk0NAStr2P70j")
