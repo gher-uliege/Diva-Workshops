@@ -1,7 +1,10 @@
+using Downloads
+
+
 datadir = "../data"
 figdir = "../figures"
-isdir(datadir) ? @debug("Directory already exists") : mkpath(datadir)
-isdir(figdir) ? @debug("Directory already exists") : mkpath(figdir)
+outputdir = "../output/"
+mkpath.([datadir, figdir, outputdir])
 
 function make_dox_url(fileid::AbstractString)
     doxurl = "https://dox.uliege.be/index.php/s/$(fileid)/download"
@@ -12,7 +15,7 @@ function download_check(datafile::AbstractString, datafileURL::AbstractString)
 
     if !isfile(datafile)    
         @info("Download file $(datafile)")
-        download(datafileURL, datafile)
+        Downloads.download(datafileURL, datafile)
     else
         @info "File already downloaded"
     end
@@ -36,6 +39,8 @@ emodnetfileURL = make_dox_url("pujUAyo9kTPO8oF")
 
 adriaticfile = joinpath(datadir, "AdriaticSea_SDC.nc")
 adriaticfileURL = make_dox_url("IRYJyNZ5KuKVoQL")
+balticfile = joinpath(datadir, "Baltic_obs.nc")
+balticfileURL = make_dox_url("h0KlmTNzEp76ari")
 
 naodatafile = joinpath(datadir, "nao_station_annual.txt")
 naodatafileURL = make_dox_url("zYVldQgtso1nMZg")
