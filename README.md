@@ -76,7 +76,7 @@ The main advantage of `DIVAnd` is that it can work on more than just 2 dimension
 
 ## Using DIVAnd without installing
 
-### On public servers (cloud)
+### ☁️ On public servers (cloud)
 
 `DIVAnd` has been made available in _Virtual Research Environments_ (VRE) in European projects.     
 The deployment is performed using a Docker container.  

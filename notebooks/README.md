@@ -1,6 +1,6 @@
 ## Content
 
-The notebooks are now organised into 5 categories, separeted in folders:
+The notebooks are now organised into 5 categories, separated in folders:
 * [1-Intro](./1-Intro/readme.md)
 * [2-Preprocessing](./2-Preprocessing/readme.md)
 * [3-Analysis](./3-Analysis/readme.md)
@@ -67,6 +67,7 @@ To update all the Julia packages, use the following command:
 using Pkg
 Pkg.update()
 ```
+
 ## Need help?
 
 If you have a problem when running these notebooks, please make sure that you are using the latest version of `DIVAnd` (see section [Upgrade DIVAnd](#upgrade-DIVAnd)) and include a sufficient amount of information that would allow somebody else to reproduce the issue, in particular:
