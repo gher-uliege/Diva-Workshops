@@ -29,3 +29,10 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
 Makie = "0.21"
+DataStructures = "0.18"
+DelimitedFiles = "1"
+CairoMakie = "0.12"
+MAT = "0.10"
+GeoMakie = "0.7"
+IJulia = "1"
+PyPlot = "2"
