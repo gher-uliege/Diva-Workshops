@@ -17,11 +17,6 @@ jobs:
         arch:
           - x64
     steps:
-      - if: runner.os == 'macOS-latest'
-        run: |
-          brew update
-          brew install jupyter
-          brew upgrade
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
         with:
@@ -37,6 +32,11 @@ jobs:
             ${{ runner.os }}-test-${{ env.cache-name }}-
             ${{ runner.os }}-test-
             ${{ runner.os }}-
+      - if: runner.os == 'macOS-latest'
+        run: |
+          brew update
+          brew install jupyter
+          brew upgrade
       - run: |
           #git config --global user.name Tester
           #git config --global user.email te@st.er
