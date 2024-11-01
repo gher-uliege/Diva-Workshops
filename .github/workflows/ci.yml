@@ -35,7 +35,9 @@ jobs:
       - if: runner.os == 'macOS-latest'
         run: |
           brew update
-          brew install jupyter
+          brew install pipx
+          pipx install jupyter
+          pipx install nbconvert
           brew upgrade
       - run: |
           #git config --global user.name Tester
