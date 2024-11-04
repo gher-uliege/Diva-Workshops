@@ -19,12 +19,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13' 
-      - run: |
-          brew update
-          brew install pipx
-          pipx install jupyter --include-deps
-          pipx install nbconvert
-          brew upgrade
       - uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}
