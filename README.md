@@ -1,15 +1,13 @@
+# DIVA Workshops and training
+
+<div align="center"> <img src="./figures/divand_logo.png" alt="DIVAnd logo" width="200"></img></div>
+
 [![Build Status](https://github.com/gher-uliege/Diva-Workshops/workflows/CI/badge.svg)](https://github.com/gher-uliege/Diva-Workshops/actions) [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![GitHub top language](https://img.shields.io/github/languages/top/gher-uliege/Diva-Workshops)
 [![DOI](https://zenodo.org/badge/108153788.svg)](https://zenodo.org/badge/latestdoi/108153788)          
-[![Static Badge](https://img.shields.io/badge/Project-FAIR--EASE-blue)](https://www.fairease.eu/) ![Static Badge](https://img.shields.io/badge/Project-SeaDataCloud-blue)
-
-# DIVA Workshops and training
-
-<div align="center"> <img src="./figures/divand_logo.png"></img></div>
+[![Static Badge](https://img.shields.io/badge/Project-FAIR--EASE-blue)](https://www.fairease.eu/) [![Static Badge](https://img.shields.io/badge/Project-SeaDataCloud-blue)](https://www.seadatanet.org) [![Static Badge](https://img.shields.io/badge/Project-AQUARIUS-blue)](https://aquarius-ri.eu/)
 
 The [Jupyter](https://jupyter.org/) notebooks contained in this repository are designed to explain users how to create gridded fields from in situ observations using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool.
-
-The repository was firstly created to store the material for the [workshops](https://gher-uliege.github.io/Diva-Workshops/Previous-workshops.html) and training sessions organised in the frame of H2020 [SeaDataCloud](https://www.seadatanet.org/) project. The notebooks are also used in the [FAIR-EASE](https://fairease.eu/) project.   
 
 ## Installation
 
