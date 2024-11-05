@@ -21,6 +21,26 @@ function download_check(datafile::AbstractString, datafileURL::AbstractString)
     end
 end
 
+function plot_bathy(bx, by, b; xticks=2.:1.:14, yticks=42.:1.:45.)
+    fig = GeoMakie.Figure()
+    ga = GeoAxis(fig[1, 1];  dest = "+proj=merc", title = "GEBCO bathymetry", xticks=xticks, yticks=yticks)
+    hm = GeoMakie.heatmap!(ga, bx, by, b, interpolate = false)
+    GeoMakie.xlims!(ga, (bx[1], bx[end]))
+    GeoMakie.ylims!(ga, (by[1], by[end]))
+    GeoMakie.contour!(ga, bx, by, b, levels=[0.], color=:black)
+    Colorbar(fig[2, 1], hm, vertical = false, label = "(m)")
+    fig
+end
+
+function plot_mask(bx, by, mask, depth; xticks=2.:1.:14, yticks=42.:1.:45.)
+    fig = GeoMakie.Figure()
+    ga = GeoAxis(fig[1, 1];  dest = "+proj=merc", title = "Land-sea mask at depth $(depth) m", xticks=xticks, yticks=yticks)
+    hm = GeoMakie.heatmap!(ga, bx, by, mask, colormap=Reverse(:binary))
+    GeoMakie.xlims!(ga, (bx[1], bx[end]))
+    GeoMakie.ylims!(ga, (by[1], by[end]))
+    fig
+end
+
 # Data files
 OIfile = joinpath(datadir, "dan_field_obs.nc")
 OIfileURL = make_dox_url("96B8MOQeIcaRUoV")
@@ -62,6 +82,8 @@ smallODVfile = joinpath(datadir, "small_ODV_sample.txt")
 smallODVfileURL = make_dox_url("n7wDAB7G6IWWZtl")
 smallODVncfile = joinpath(datadir, "small_ODV_sample.nc")
 smallODVncfileURL = make_dox_url("ugfCUjKlUollczU")
+smallODVsamplefile = joinpath(datadir, "small_ODV_sample.txt")
+smallODVsamplefileURL = make_dox_url("5FdKh6Md0VAjsIU")
 
 WODdatafile = joinpath(datadir, "WOD-temporary-dir.tar.gz")
 WODdatafileURL = make_dox_url("8tRk0NAStr2P70j")
