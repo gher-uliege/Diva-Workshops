@@ -1,7 +1,4 @@
 using Downloads
-using Makie
-using CairoMakie
-using GeoMakie
 
 datadir = "../data"
 figdir = "../figures"
