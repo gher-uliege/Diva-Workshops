@@ -32,9 +32,19 @@ function plot_bathy(bx, by, b; xticks=2.:1.:14, yticks=42.:1.:45.)
     fig
 end
 
-function plot_mask(bx, by, mask, depth; xticks=2.:1.:14, yticks=42.:1.:45.)
+"""
+    plot_mask(bx, by, mask, depth)
+
+Plot the land-sea mask `mask` on the grid defined by `bx` and `by`, at the depth level `depth` (in meters).
+"""
+function plot_mask(bx, by, mask; xticks=2.:1.:14, yticks=42.:1.:45., depth="")
     fig = GeoMakie.Figure()
-    ga = GeoAxis(fig[1, 1];  dest = "+proj=merc", title = "Land-sea mask at depth $(depth) m", xticks=xticks, yticks=yticks)
+    if length(depth) == 0
+        figtitle = "Land-sea mask"
+    else
+        figtitle = "Land-sea mask at depth $(depth) m"
+    end
+    ga = GeoAxis(fig[1, 1];  dest = "+proj=merc", title = figtitle, xticks=xticks, yticks=yticks)
     hm = GeoMakie.heatmap!(ga, bx, by, mask, colormap=Reverse(:binary))
     GeoMakie.xlims!(ga, (bx[1], bx[end]))
     GeoMakie.ylims!(ga, (by[1], by[end]))
