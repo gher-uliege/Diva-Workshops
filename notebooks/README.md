@@ -1,6 +1,6 @@
 ## Content
 
-The notebooks are now organised into 5 categories, separated in folders:
+The notebooks are organised into 5 categories, separated in folders:
 * [1-Intro](./1-Intro/readme.md)
 * [2-Preprocessing](./2-Preprocessing/readme.md)
 * [3-Analysis](./3-Analysis/readme.md)
@@ -83,7 +83,7 @@ versioninfo()
 ```julia
 print(join(["$p: $v\n" for (p,v) in Pkg.installed()]))
 ```
-- [x] Your .ipynb file that produces the issue (unless it is an unmodified version of the sample notebooks).
+- [x] Your `.ipynb` file that produces the issue (unless it is an unmodified version of the sample notebooks).
 - [x] A subset of your data to reproduce the problem (unless it is an example data set).
 
 - [x] From which directory are you running the script and do you have permission to write to this directory (and enough disk space)? Please include the output of:
@@ -94,7 +94,7 @@ pwd()
 
 ### GitHub users
 
-Submit an issue with the details mentioned in the previous sections.
+[Submit an issue](https://github.com/gher-uliege/Diva-Workshops/issues/new) with the details mentioned in the previous sections.
 
 <!--  LocalWords:  ODV JMB lon ipynb GitHub ctrl jupyter
  -->
