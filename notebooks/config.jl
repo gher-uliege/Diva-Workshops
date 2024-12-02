@@ -96,6 +96,8 @@ smallODVsamplefileURL = make_dox_url("5FdKh6Md0VAjsIU")
 
 WODdatafile = joinpath(datadir, "WOD-temporary-dir.tar.gz")
 WODdatafileURL = make_dox_url("8tRk0NAStr2P70j")
+WODadriaticfile = joinpath(datadir, "WOD-Adriatic.tar.gz")
+WODadriaticfileURL = make_dox_url("Px6r7MPlpXAePB2")
 
 outputsalinity = joinpath(outputdir, "Water_body_Salinity.4Danl.nc")
 outputsalinityURL = make_dox_url("h8d3pyqmuea6J9H")
