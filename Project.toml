@@ -26,6 +26,7 @@ PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Roots = "f2b01f46-fcfa-551c-844a-d8ac1e96c665"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+TIFFDatasets = "8d837e6f-fc51-4c76-affd-c130faf94be7"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 VectorizationBase = "3d5dd08c-fd9d-11e8-17fa-ed2836048c2f"
 
