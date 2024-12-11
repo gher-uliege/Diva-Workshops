@@ -1,6 +1,7 @@
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
+ColorSchemes = "35d6a980-a343-548e-a6ea-1d62b119f2f4"
 Compat = "34da2185-b29b-5c13-b0c7-acf172513d20"
 DIVAnd = "efc8151c-67de-5a8f-9a35-d8f54746ae9d"
 DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
