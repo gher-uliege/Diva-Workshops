@@ -33,6 +33,7 @@ VectorizationBase = "3d5dd08c-fd9d-11e8-17fa-ed2836048c2f"
 [compat]
 CSV = "0.10"
 CairoMakie = "0.12"
+ColorSchemes = "3"
 Compat = "4"
 DIVAnd = "2"
 DataStructures = "0.18"
