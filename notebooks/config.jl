@@ -101,3 +101,6 @@ WODadriaticfileURL = make_dox_url("Px6r7MPlpXAePB2")
 
 outputsalinity = joinpath(outputdir, "Water_body_Salinity.4Danl.nc")
 outputsalinityURL = make_dox_url("h8d3pyqmuea6J9H")
+
+turtlefile = joinpath(datadir, "turtles.dat")
+turtlefileURL = make_dox_url("IsWWlNxWeQDuarJ")
