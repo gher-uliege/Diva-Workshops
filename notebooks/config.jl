@@ -72,6 +72,13 @@ emodnetfileURL = make_dox_url("pujUAyo9kTPO8oF")
 
 adriaticfile = joinpath(datadir, "AdriaticSea_SDC.nc")
 adriaticfileURL = make_dox_url("IRYJyNZ5KuKVoQL")
+
+smalladriaticfile = joinpath(datadir, "AdriaticSea_SDC_1000.txt")
+largeadriaticfile = joinpath(datadir, "AdriaticSea_SDC.txt")
+smalladriaticfileURL = make_dox_url("FtJdbLDk11buP47")
+largeadriaticfileURL = make_dox_url("A4Eu9nEoovYLtGr")
+
+
 balticfile = joinpath(datadir, "Baltic_obs.nc")
 balticfileURL = make_dox_url("h0KlmTNzEp76ari")
 
@@ -103,4 +110,10 @@ outputsalinity = joinpath(outputdir, "Water_body_Salinity.4Danl.nc")
 outputsalinityURL = make_dox_url("h8d3pyqmuea6J9H")
 
 turtlefile = joinpath(datadir, "turtles.dat")
-turtlefileURL = make_dox_url("IsWWlNxWeQDuarJ")
+turtlefileURL = make_dox_url("IsWWlNxWeQDuarJ") 
+
+sstfile = joinpath(datadir, "sst.ltm.1961-1990.nc")
+sstfileURL = make_dox_url("ptfCNIWGfJ247Gj")
+velfilename = joinpath(datadir, "all-monthly-currents-2018.nc")
+velfilenameURL = make_dox_url("qJtEotmkCZVqcx8")    
+
