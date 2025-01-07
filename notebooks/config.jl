@@ -44,7 +44,7 @@ function plot_mask(bx, by, mask; xticks=2.:1.:14, yticks=42.:1.:45., depth="")
         figtitle = "Land-sea mask at depth $(depth) m"
     end
     ga = GeoAxis(fig[1, 1];  dest = "+proj=merc", title = figtitle, xticks=xticks, yticks=yticks)
-    hm = GeoMakie.heatmap!(ga, bx, by, mask, colormap=Reverse(:binary))
+    hm = GeoMakie.heatmap!(ga, bx, by, mask, colormap=Reverse(:binary), interpolate = false)
     GeoMakie.xlims!(ga, (bx[1], bx[end]))
     GeoMakie.ylims!(ga, (by[1], by[end]))
     fig
