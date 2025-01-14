@@ -26,18 +26,36 @@ bibliography: paper.bib
 
 # Summary
 
-The gridding of in situ measurements is a common task in Oceanography. It consists of generated one or several fields on a regular grid using the information contained in a set of observations, generally sparsely distributed.
+
 
 
 # Statement of need
 
-While the main [DIVAnd]() code has been published [@barth:]
+The gridding of in situ measurements is a common task in Oceanography. It consists of the generation of one or several fields on a regular grid using the information contained in a set of observations, generally sparsely distributed. The combination of such fields produced at different depth levels and for different time periods is often referred to as a climatology. 
+
+This problem is not new and many methods have been developed during the last decades. DIVA stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climamatologies were obtained by assembling 2D fields produced at specified depths and periods.
+
+DIVAnd (DIVA in n dimensions) is based on the same mathematical idea (the minimisation of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it can run on MATLAB and GNU Octave. Its performances were further improved thanks to the transition to the Julia language [@bezanson:2017].   
+
+Without reviewing the full developement history of the gridding and interpolation algorithms, we underline two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques:
+1. The management of large datasets: the computation time is almost independent of the number of observations, making it possible to perform gridding with millions of data points.
+2. The consideration of natural boundaries (coastlines, bottom topography) during the interpolation, hence avoiding the artificial mixing of water masses that are geographically close but separated by a physical obstacle.
+
+The [DIVAnd](https://github.com/gher-uliege/DIVAnd.jl/) code is published on GitHub along with its documentation and examples, and the underlying theory has been published in @barth:2014. However, in order to ensure that users are able to create their own climatologies, with a rather recent programming language, additional teaching resources were necessary. This is the main motivation behind the creation and the maintenance of the [Diva-Workshops](https://github.com/gher-uliege/Diva-Workshops) repository.
 
 # The DIVAnd learning module
 
 ## The story 
 
-The first DIVA workshop was organised in Liège, Belgium, in 2006, in the frame of the European project [Seadatanet](). The goal was to teach (to be continued) 
+The first DIVA workshop was organised in Liège, Belgium, in 2006, in the frame of the European project [Seadatanet](https://www.seadatanet.org/). The goal was to teach users how to create climatologies by applying the DIVA (the two-dimensional, Fortran version) on their own dataset. Those training sessions were organised yearly until 2016 and allowed the creation of regional climatologies, published in the frame of European initiatives (SeaDataNet, EMODnet).
+
+Taking advantage of the Jupyter interface [@kluyver:2016] and transition to Julia for the new version of DIVAnd, a set of notebooks was created as the main material for the user training. The first `DIVAnd` workshop took place in April 2018 in Liège. Since then, other training events were organised, while the training material is regularly used as the basis for the creation of gridded products for EMODnet Chemistry [@giorgetti:2018].
+
+The participant feedback is particularly appreciated, as it guide the development of new functionalities in the code, but also the creation of new notebooks describing a specific workflow (for instance the consideration of geostrophy) or the use of particular functions (for instance the use of an advection constrain in the interpolation). 
+
+## Goal of the module
+
+The goal of the this module is twofold: firstly we strive to ensure that users have a basic knowledge of the Julia language. This means that they should be able to read the code presented in the notebooks, but also install new modules, write basic functions for processing or create basic plots. Secondly, we expect the users to able to create their own products (i.e. climatologies) by combininig their own datasets with those from other sources (for instance the World Ocean Database).
 
 ## Instructional design
 
@@ -45,17 +63,6 @@ For learning modules, describe the learning objectives, content, instructional d
 - Tell us the “story” of the project: how did it come to be?
 - Cite key references, including a link to the open archive of the sofware or the learning module.
 
-
-# Citations
-
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
 
 # Figures
 
