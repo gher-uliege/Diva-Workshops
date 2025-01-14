@@ -9,23 +9,16 @@ NOTEBOOKS=( )
 for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
              $NOTEBOOKS_DIR/2-Preprocessing/*.ipynb \
              $NOTEBOOKS_DIR/3-Analysis/*.ipynb \
-             $NOTEBOOKS_DIR/4-Postprocessing/*.ipynb \
              $NOTEBOOKS_DIR/5-AdvancedTopics/*.ipynb; do
 
        FNAME=$(basename "$FILE")
 
        if [ $FNAME != "91-AtlanticTest.ipynb"          ] && # too long
-          [ $FNAME != "HeatmapsCV.ipynb"               ] &&
-          [ $FNAME != "Heatmaps.ipynb"                 ] &&
-          [ $FNAME != "analysis-with-cycles.ipynb"     ] &&
-          [ $FNAME != "BigBlackSea.ipynb"              ] &&
           [ $FNAME != "02-Julia-introduction.ipynb"    ] && # to be completed by the user
-          [ $FNAME != "03-netCDF-2Dimensions.ipynb"    ] &&
+          [ $FNAME != "03-netCDF-2Dimensions.ipynb"    ] && # to be completed by the user
           [ $FNAME != "08-data-downloading.ipynb"      ] && # requires email from user
-          [ $FNAME != "20-Turtles-Density-map.ipynb"   ] && # file missing
           [ $FNAME != "90-full-analysis.ipynb"         ] && # too long
           [ $FNAME != "open-boundary-conditions.ipynb" ] && # too long
-          [ $FNAME != "19_plot_results_basemap.ipynb"  ]; then # requires basemap
            NOTEBOOKS+=("$FILE")
        fi
 done
