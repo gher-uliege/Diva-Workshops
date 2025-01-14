@@ -49,15 +49,24 @@ The [DIVAnd](https://github.com/gher-uliege/DIVAnd.jl/) code is published on Git
 
 The first DIVA workshop was organised in Liège, Belgium, in 2006, in the frame of the European project [Seadatanet](https://www.seadatanet.org/). The goal was to teach users how to create climatologies by applying the DIVA (the two-dimensional, Fortran version) on their own dataset. Those training sessions were organised yearly until 2016 and allowed the creation of regional climatologies, published in the frame of European initiatives (SeaDataNet, EMODnet).
 
-Taking advantage of the Jupyter interface [@kluyver:2016] and transition to Julia for the new version of DIVAnd, a set of notebooks was created as the main material for the user training. The first `DIVAnd` workshop took place in April 2018 in Liège. Since then, other training events were organised, while the training material is regularly used as the basis for the creation of gridded products for EMODnet Chemistry [@giorgetti:2018].
+Taking advantage of the Jupyter interface [@kluyver:2016] and transition to Julia for the new version of DIVAnd, a set of notebooks was created as the main material for the user training. The first `DIVAnd` workshop took place in April 2018 in Liège. Since then, other training events were organised, while the training material is regularly used as the basis for the creation of gridded products for EMODnet Chemistry [@giorgetti:2018]. The choice of the Jupyter notebooks format was motivated by the interacticity and the step-by-step, documented approach. 
 
-The participant feedback is particularly appreciated, as it guide the development of new functionalities in the code, but also the creation of new notebooks describing a specific workflow (for instance the consideration of geostrophy) or the use of particular functions (for instance the use of an advection constrain in the interpolation). 
+The participant feedback is particularly valued, considering that it guide the development of new functionalities in the DIVAnd source code, but also the creation of new notebooks describing a specific workflow (for instance the consideration of geostrophy) or the use of particular functions (for instance the use of an advection constrain in the interpolation). 
 
 ## Goal of the module
 
-The goal of the this module is twofold: firstly we strive to ensure that users have a basic knowledge of the Julia language. This means that they should be able to read the code presented in the notebooks, but also install new modules, write basic functions for processing or create basic plots. Secondly, we expect the users to able to create their own products (i.e. climatologies) by combininig their own datasets with those from other sources (for instance the World Ocean Database).
+The goal of the training material module is twofold: firstly we strive to ensure that users have a basic knowledge of Julia. They should be able to read the code presented in the notebooks, but also install new modules, write basic functions for processing or create basic plots. Secondly, we expect the users to able to create their own products (i.e. climatologies) by combininig their own datasets with those from other sources (for instance the World Ocean Database).
+
+Julia syntax bear similarities with other widespread languages, for instance MATLAB, yet some specificities have to explained in order to make sure users take advantage of it. 
 
 ## Instructional design
+
+The notebooks have been organised by subfolders according to their objectives:
+1. Introduction: brief introdiction to the Julia language and to the Jupyter notebook, how to deal with netCDF files (reading and writing) and how to generate figures (maps, sections, ...). 
+2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided.
+
+
+
 
 For learning modules, describe the learning objectives, content, instructional design, and experience of use in teaching and learning situations.
 - Tell us the “story” of the project: how did it come to be?
