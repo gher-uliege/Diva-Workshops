@@ -1,9 +1,10 @@
 ## Introduction
 
-This directory contains the basic notebooks that explains:
+This directory contains the basic notebooks that explain:
 - what is the `Julia` language,
 - what is a Jupyter notebook,
-- how to deal with `netCDF` files.
+- how to deal with `netCDF` files,
+- how to generate figures (maps, sections, ...).
 
 ### Content
 
