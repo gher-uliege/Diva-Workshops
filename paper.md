@@ -61,21 +61,16 @@ Julia syntax bear similarities with other widespread languages, for instance MAT
 
 ## Instructional design
 
-The notebooks have been organised by subfolders according to their objectives:
+The notebooks have been organised by sub-folders according to their objectives:
 1. Introduction: brief introduction to the Julia language and to the Jupyter notebooks, how to deal with netCDF files (reading and writing) and how to generate figures (maps, sections, ...). 
 2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.
 3. Analysis: creating of gridded fields with DIVAnd, influence of the analysis parameters, and interpolation with different coordinate systems.
 4. Advanced topics: this folder contains less frequently used notebooks, dealing with the generation of density maps, relative correlation length, background fields, advection constraints.
 5. Under development: notebooks that need additional testing and documentation, but can be useful for certain users. Those notebooks, once fulled checked, will be moved to the "Advanced topics" folder.
 
-Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we 
+Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure those files are available from an OwnCloud instance and downloaded locally whenever necessary. 
 
-
-
-
-For learning modules, describe the learning objectives, content, instructional design, and experience of use in teaching and learning situations.
-- Tell us the “story” of the project: how did it come to be?
-- Cite key references, including a link to the open archive of the sofware or the learning module.
+For the plotting tasks, the notebooks were recently rewritten to use the Makie module (along with CairoMakie and GeoMakie for the maps)
 
 
 # Figures
