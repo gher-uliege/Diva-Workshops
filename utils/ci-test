@@ -18,6 +18,9 @@ for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
           [ $FNAME != "03-netCDF-2Dimensions.ipynb"    ] && # to be completed by the user
           [ $FNAME != "08-data-downloading.ipynb"      ] && # requires email from user
           [ $FNAME != "90-full-analysis.ipynb"         ] && # too long
+          [ $FNAME != "20-Turtles-Density-map.ipynb"   ] && # too long
+          [ $FNAME != "BigBlackSea.ipynb"              ] && # too long
+          [ $FNAME != "HeatmapsCV.ipynb"               ] && # too long
           [ $FNAME != "open-boundary-conditions.ipynb" ]; then  # too long
            NOTEBOOKS+=("$FILE")
        fi
