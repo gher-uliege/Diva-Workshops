@@ -1,10 +1,11 @@
 ---
-title: 'DIVAnd training: producing climatolies with Jupyter notebooks'
+title: 'DIVAnd training: producing climatologies with Jupyter notebooks'
 tags:
-  - Julia
   - oceanography
   - data analysis
   - spatial interpolation
+  - Julia
+  - Jupyter
 authors:
   - name: Charles Troupin
     orcid: 0000-0002-0265-1021
@@ -26,18 +27,20 @@ bibliography: paper.bib
 
 # Summary
 
+The DIVA-workshops project consists of a set of Jupyter notebooks, focused on creation of gridded field using the DIVAnd software. The notebooks address the different stages for the climatology generation: data reading and prepar
 
+The target audience is wide as it includes: data analysts, who wish to create climatologies; physical oceanographers,  who want to grid their observations for visualisation and potentially for uality control, programmers, who want to include the DIVand interpolation in a larger workflow involving other processing steps. 
 
 
 # Statement of need
 
 The gridding of in situ measurements is a common task in Oceanography. It consists of the generation of one or several fields on a regular grid using the information contained in a set of observations, generally sparsely distributed. The combination of such fields produced at different depth levels and for different time periods is often referred to as a climatology. 
 
-This problem is not new and many methods have been developed during the last decades. DIVA stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climamatologies were obtained by assembling 2D fields produced at specified depths and periods.
+This problem is not new and many methods have been developed during the last decades. DIVA stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
 
 DIVAnd (DIVA in n dimensions) is based on the same mathematical idea (the minimisation of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it can run on MATLAB and GNU Octave. Its performances were further improved thanks to the transition to the Julia language [@bezanson:2017].   
 
-Without reviewing the full developement history of the gridding and interpolation algorithms, we underline two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques:
+Without reviewing the full development history of the gridding and interpolation algorithms, we underline two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques:
 1. The management of large datasets: the computation time is almost independent of the number of observations, making it possible to perform gridding with millions of data points.
 2. The consideration of natural boundaries (coastlines, bottom topography) during the interpolation, hence avoiding the artificial mixing of water masses that are geographically close but separated by a physical obstacle.
 
@@ -70,8 +73,7 @@ The notebooks have been organised by sub-folders according to their objectives:
 
 Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure those files are available from an OwnCloud instance and downloaded locally whenever necessary. 
 
-For the plotting tasks, the notebooks were recently rewritten to use the Makie module (along with CairoMakie and GeoMakie for the maps)
-
+Following our experience with users, for the creation of plots, the Makie module [@danisch:2021] (along with `GeoMakie` for the maps) was selected to replce `PyPlot` (along with `Cartopy` [@Cartopy:2010] for the maps), which is based on the Python Matplotlib module [@hunter:2007]. Indeed, the import of PyPlot in the notebooks often generated errors on the user's machine, with sensitivity to the operating system and the pre-existing Python installation(s).
 
 # Figures
 
@@ -79,7 +81,8 @@ Figures can be included like this: ![Example figure.](figure.png)
 
 # Acknowledgements
 
-We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project under grant agreement number 730960.
-We wish to acknowledge the participants to the different editions of the DIVA workshops, since their feedback really contribued to improve the content of the training sessions.
+We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innnovation FAIR-EASE project (grant agreement No. 101058785) and Blue-Cloud 2026 (grant agreement No. 101094227).
+
+We wish to acknowledge the participants to the different editions of the DIVA workshops, since their feedback was essential to improve the content of the training sessions.
 
 # References
