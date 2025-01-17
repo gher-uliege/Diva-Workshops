@@ -75,6 +75,13 @@ Since the notebooks require input data files (mainly bathymetry and observations
 
 Following our experience with users, for the creation of plots, the Makie module [@danisch:2021] (along with `GeoMakie` for the maps) was selected to replce `PyPlot` (along with `Cartopy` [@Cartopy:2010] for the maps), which is based on the Python Matplotlib module [@hunter:2007]. Indeed, the import of PyPlot in the notebooks often generated errors on the user's machine, with sensitivity to the operating system and the pre-existing Python installation(s).
 
+## Users
+
+Scientists, data analysis and experts, hence the content has to be taylored.
+Among the applications: EMODnet products (link to Chemistry + link Tom's paper 2025)
++ applications 
+https://doi.org/10.5194/essd-15-225-2023
+
 # Figures
 
 Figures can be included like this: ![Example figure.](figure.png)
