@@ -57,6 +57,8 @@ salinityprovencalfile = joinpath(datadir, "WOD-Salinity-Provencal.nc")
 salinityprovencalfileURL = make_dox_url("PztJfSEnc8Cr3XN")
 salinitybigfile = joinpath(datadir, "Salinity.bigfile")
 salinitybigfileURL = make_dox_url("k0f7FxA7l5FIgu9")
+temperaturebigfile = joinpath(datadir, "Temperature.bigfile")
+temperaturebigfileURL = make_dox_url("RZ9OZlLkir4CnHg")
 adriaticfile = joinpath(datadir, "AdriaticSea_SDC.nc")
 adriaticfileURL = make_dox_url("IRYJyNZ5KuKVoQL")
 
@@ -77,7 +79,6 @@ smalladriaticfile = joinpath(datadir, "AdriaticSea_SDC_1000.txt")
 largeadriaticfile = joinpath(datadir, "AdriaticSea_SDC.txt")
 smalladriaticfileURL = make_dox_url("FtJdbLDk11buP47")
 largeadriaticfileURL = make_dox_url("A4Eu9nEoovYLtGr")
-
 
 balticfile = joinpath(datadir, "Baltic_obs.nc")
 balticfileURL = make_dox_url("h0KlmTNzEp76ari")
