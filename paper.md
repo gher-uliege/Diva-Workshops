@@ -40,6 +40,8 @@ The gridding of in situ measurements is a common task in oceanography. It consis
 
 This gridding problem is not new and many methods have been developed during the last decades.
 <!---can you cite some other techniques? like OI?-->
+<!---(Gandin, 1965; Bretherton et al., 1976)-->
+
 `DIVA` stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
 
 `DIVAnd` (DIVA in n dimensions) is based on the same mathematical idea (the minimisation of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it can run on MATLAB and GNU Octave. Its performances were further improved thanks to the transition to the Julia language [@bezanson:2017].   
@@ -78,8 +80,7 @@ The notebooks have been organised by sub-folders according to their objectives:
 <!---should be remove them? or put in the separate branch?-->
 6. Under development: notebooks that need additional testing and documentation, but can be useful for certain users. Those notebooks, once fulled checked, will be moved to the "Advanced topics" folder.
 
-<!-- OwnCloud: actually it can be any file server -->
-Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure those files are available from an OwnCloud instance and downloaded locally whenever necessary. 
+Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure those files are available from a public file server and downloaded locally whenever necessary. 
 
 Following our experience with users, for the creation of plots, the Makie module [@danisch:2021] (along with `GeoMakie` for the maps) was selected to replce `PyPlot` (along with `Cartopy` [@Cartopy:2010] for the maps), which is based on the Python Matplotlib module [@hunter:2007]. Indeed, the import of PyPlot in the notebooks often generated errors on the user's machine, with sensitivity to the operating system and the pre-existing Python installation(s).
 
@@ -94,7 +95,7 @@ temperature and salinity [@Shahzadi:2021] and nutrients [@Belgacem:2021].
 
 # Acknowledgements
 
-We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innnovation FAIR-EASE project (grant agreement No. 101058785) and Blue-Cloud 2026 (grant agreement No. 101094227).
+We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innnovation FAIR-EASE project (grant agreement No. 101058785, DOI: [10.3030/101058785](https://doi.org/10.3030/101058785)), Blue-Cloud 2026 (grant agreement No. 101094227, DOI: [10.3030/101094227](https://doi.org/10.3030/101094227)) and IRISCC (grant agreement No. 101131261, DOI: [10.3030/101131261](https://doi.org/10.3030/101131261)).
 
 We wish to acknowledge the participants to the different editions of the DIVA workshops, since their feedback was essential to build and improve the content of the training sessions.
 
