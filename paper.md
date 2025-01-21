@@ -31,14 +31,16 @@ The DIVA-workshops project consists of a set of Jupyter notebooks, focused on cr
 
 The notebooks address the different stages of the climatology generation: data reading and preparation, extraction of the topography and creation of a land-sea mask, setting of the spatial resolution and the time periods, estimation of the analysis parameters, analysis and creation of the metadata.
 
-The target audience is wide as it includes: data analysts, who wish to create climatologies; physical oceanographers, who want to grid their observations for visualisation and potentially for quality control, programmers, who want to include the DIVand interpolation in a larger workflow involving other processing steps. 
+The target audience is wide as it includes: data analysts, who wish to create climatologies; physical oceanographers, who want to grid their observations for visualisation and potentially for quality control, programmers, who want to include the DIVAnd interpolation in a larger workflow involving other processing steps. 
 
 
 # Statement of need
 
 The gridding of in situ measurements is a common task in oceanography. It consists of the generation of one or several fields on a regular grid, using the information contained in a set of observations, generally sparsely distributed. The combination of such fields, produced at different depth levels and for different time periods, is often referred to as a climatology. 
 
-This gridding problem is not new and many methods have been developed during the last decades. `DIVA` stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
+This gridding problem is not new and many methods have been developed during the last decades.
+<!---can you cite some other techniques? like OI?-->
+`DIVA` stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
 
 `DIVAnd` (DIVA in n dimensions) is based on the same mathematical idea (the minimisation of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it can run on MATLAB and GNU Octave. Its performances were further improved thanks to the transition to the Julia language [@bezanson:2017].   
 
@@ -73,8 +75,10 @@ The notebooks have been organised by sub-folders according to their objectives:
 2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.
 3. Analysis: creating of gridded fields with DIVAnd, influence of the analysis parameters, and interpolation with different coordinate systems.
 4. Advanced topics: this folder contains less frequently used notebooks, dealing with the generation of density maps, relative correlation length, background fields, advection constraints.
-5. Under development: notebooks that need additional testing and documentation, but can be useful for certain users. Those notebooks, once fulled checked, will be moved to the "Advanced topics" folder.
+<!---should be remove them? or put in the separate branch?-->
+6. Under development: notebooks that need additional testing and documentation, but can be useful for certain users. Those notebooks, once fulled checked, will be moved to the "Advanced topics" folder.
 
+<!-- OwnCloud: actually it can be any file server -->
 Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure those files are available from an OwnCloud instance and downloaded locally whenever necessary. 
 
 Following our experience with users, for the creation of plots, the Makie module [@danisch:2021] (along with `GeoMakie` for the maps) was selected to replce `PyPlot` (along with `Cartopy` [@Cartopy:2010] for the maps), which is based on the Python Matplotlib module [@hunter:2007]. Indeed, the import of PyPlot in the notebooks often generated errors on the user's machine, with sensitivity to the operating system and the pre-existing Python installation(s).
