@@ -27,24 +27,26 @@ bibliography: paper.bib
 
 # Summary
 
-The DIVA-workshops project consists of a set of Jupyter notebooks, focused on creation of gridded field using the DIVAnd software. The notebooks address the different stages for the climatology generation: data reading and prepar
+The DIVA-workshops project consists of a set of Jupyter notebooks, focused on creation of gridded fields from in situ observations using the `DIVAnd`. `DIVAnd` is a software tool, written in Julia, which perform interpolation in an arbitrary number of dimensions. 
 
-The target audience is wide as it includes: data analysts, who wish to create climatologies; physical oceanographers,  who want to grid their observations for visualisation and potentially for uality control, programmers, who want to include the DIVand interpolation in a larger workflow involving other processing steps. 
+The notebooks address the different stages of the climatology generation: data reading and preparation, extraction of the topography and creation of a land-sea mask, setting of the spatial resolution and the time periods, estimation of the analysis parameters, analysis and creation of the metadata.
+
+The target audience is wide as it includes: data analysts, who wish to create climatologies; physical oceanographers, who want to grid their observations for visualisation and potentially for quality control, programmers, who want to include the DIVand interpolation in a larger workflow involving other processing steps. 
 
 
 # Statement of need
 
-The gridding of in situ measurements is a common task in Oceanography. It consists of the generation of one or several fields on a regular grid using the information contained in a set of observations, generally sparsely distributed. The combination of such fields produced at different depth levels and for different time periods is often referred to as a climatology. 
+The gridding of in situ measurements is a common task in oceanography. It consists of the generation of one or several fields on a regular grid, using the information contained in a set of observations, generally sparsely distributed. The combination of such fields, produced at different depth levels and for different time periods, is often referred to as a climatology. 
 
-This problem is not new and many methods have been developed during the last decades. DIVA stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
+This gridding problem is not new and many methods have been developed during the last decades. `DIVA` stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
 
-DIVAnd (DIVA in n dimensions) is based on the same mathematical idea (the minimisation of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it can run on MATLAB and GNU Octave. Its performances were further improved thanks to the transition to the Julia language [@bezanson:2017].   
+`DIVAnd` (DIVA in n dimensions) is based on the same mathematical idea (the minimisation of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it can run on MATLAB and GNU Octave. Its performances were further improved thanks to the transition to the Julia language [@bezanson:2017].   
 
 Without reviewing the full development history of the gridding and interpolation algorithms, we underline two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques:
 1. The management of large datasets: the computation time is almost independent of the number of observations, making it possible to perform gridding with millions of data points.
 2. The consideration of natural boundaries (coastlines, bottom topography) during the interpolation, hence avoiding the artificial mixing of water masses that are geographically close but separated by a physical obstacle.
 
-The [DIVAnd](https://github.com/gher-uliege/DIVAnd.jl/) code is published on GitHub along with its documentation and examples, and the underlying theory has been published in @barth:2014. However, in order to ensure that users are able to create their own climatologies, with a rather recent programming language, additional teaching resources were necessary. This is the main motivation behind the creation and the maintenance of the [Diva-Workshops](https://github.com/gher-uliege/Diva-Workshops) repository.
+The [`DIVAnd`](https://github.com/gher-uliege/DIVAnd.jl/) code is published on GitHub along with its documentation and examples, and the underlying theory has been published in @barth:2014. However, in order to ensure that users are able to create their own climatologies, with a rather recent programming language, additional teaching resources were necessary. This is the main motivation behind the creation and the maintenance of the [Diva-Workshops](https://github.com/gher-uliege/Diva-Workshops) repository.
 
 # The DIVAnd learning module
 
@@ -54,13 +56,15 @@ The first DIVA workshop was organised in Liège, Belgium, in 2006, in the frame 
 
 Taking advantage of the Jupyter interface [@kluyver:2016] and transition to Julia for the new version of DIVAnd, a set of notebooks was created as the main material for the user training. The first `DIVAnd` workshop took place in April 2018 in Liège. Since then, other training events were organised, while the training material is regularly used as the basis for the creation of gridded products for EMODnet Chemistry [@giorgetti:2018]. The choice of the Jupyter notebooks format was motivated by the interactivity and the step-by-step, documented approach. 
 
-The participant feedback is particularly valued, considering that it guide the development of new functionalities in the DIVAnd source code, but also the creation of new notebooks describing a specific workflow (for instance the consideration of geostrophy) or the use of particular functions (for instance the use of an advection constrain in the interpolation). 
+The participant feedback is particularly valued, considering that it guide the development of new functionalities in the `DIVAnd` source code, but also the creation of new notebooks describing specific workflows (for instance the consideration of geostrophy) or the use of particular functions (for instance the use of an advection constrain in the interpolation). 
 
 ## Goal of the module
 
-The goal of the training material module is twofold: firstly we strive to ensure that users have a basic knowledge of Julia. They should be able to read the code presented in the notebooks, but also install new modules, write basic functions for processing or create basic plots. Secondly, we expect the users to able to create their own products (i.e. climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database).
+The goal of the training material module is twofold: 
+1. provide the users with a basic knowledge of Julia, meaning they are capable of reading the code presented in the notebooks, but also install new modules, write basic functions for processing or create basic plots. 
+2. endure that the users to able to create their own products (i.e. climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.
 
-Julia syntax bear similarities with other widespread languages, for instance MATLAB, yet some specificities have to explained to make sure users can take advantage of it. 
+Julia syntax bear similarities with other widespread languages, for instance MATLAB, yet some specificities have to explained to make sure users can make the most of it. 
 
 ## Instructional design
 
@@ -75,21 +79,19 @@ Since the notebooks require input data files (mainly bathymetry and observations
 
 Following our experience with users, for the creation of plots, the Makie module [@danisch:2021] (along with `GeoMakie` for the maps) was selected to replce `PyPlot` (along with `Cartopy` [@Cartopy:2010] for the maps), which is based on the Python Matplotlib module [@hunter:2007]. Indeed, the import of PyPlot in the notebooks often generated errors on the user's machine, with sensitivity to the operating system and the pre-existing Python installation(s).
 
-## Users
+## Users and applications
 
-Scientists, data analysis and experts, hence the content has to be taylored.
-Among the applications: EMODnet products (link to Chemistry + link Tom's paper 2025)
-+ applications 
-https://doi.org/10.5194/essd-15-225-2023
+The user community mainly consists of scientists, data analysists and experts. This diversity implies that the content has to be taylored and sufficient to ensure users without any prior knowledge of Julia and Jupyter are able to run and modify the notebooks. 
 
-# Figures
+Among the applications we can mention de EMODnet products [@Webb:2025]. 
+Other recent applications include the creation of climatologies and gridded fields for sea surface height [@Doglioni:2023]
+temperature and salinity [@Shahzadi:2021] and nutrients [@Belgacem:2021].
 
-Figures can be included like this: ![Example figure.](figure.png)
 
 # Acknowledgements
 
 We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innnovation FAIR-EASE project (grant agreement No. 101058785) and Blue-Cloud 2026 (grant agreement No. 101094227).
 
-We wish to acknowledge the participants to the different editions of the DIVA workshops, since their feedback was essential to improve the content of the training sessions.
+We wish to acknowledge the participants to the different editions of the DIVA workshops, since their feedback was essential to build and improve the content of the training sessions.
 
 # References
