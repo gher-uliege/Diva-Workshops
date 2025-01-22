@@ -77,8 +77,6 @@ The notebooks have been organised by sub-folders according to their objectives:
 2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.
 3. Analysis: creating of gridded fields with DIVAnd, influence of the analysis parameters, and interpolation with different coordinate systems.
 4. Advanced topics: this folder contains less frequently used notebooks, dealing with the generation of density maps, relative correlation length, background fields, advection constraints.
-<!---should be remove them? or put in the separate branch?-->
-6. Under development: notebooks that need additional testing and documentation, but can be useful for certain users. Those notebooks, once fulled checked, will be moved to the "Advanced topics" folder.
 
 Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure those files are available from a public file server and downloaded locally whenever necessary. 
 
