@@ -7,22 +7,21 @@ NOTEBOOKS_DIR="$DIR/../notebooks"
 NOTEBOOKS=( )
 
 for FILE in $NOTEBOOKS_DIR/1-Intro/*.ipynb \
-             $NOTEBOOKS_DIR/2-Preprocessing/*.ipynb \
-             $NOTEBOOKS_DIR/3-Analysis/*.ipynb \
-             $NOTEBOOKS_DIR/5-AdvancedTopics/*.ipynb; do
+            $NOTEBOOKS_DIR/2-Preprocessing/*.ipynb \
+            $NOTEBOOKS_DIR/3-Analysis/*.ipynb \
+            $NOTEBOOKS_DIR/4-AdvancedTopics/*.ipynb; do
 
        FNAME=$(basename "$FILE")
 
-       if [ $FNAME != "91-AtlanticTest.ipynb"          ] && # too long
-          [ $FNAME != "02-Julia-introduction.ipynb"    ] && # to be completed by the user
-          [ $FNAME != "03-netCDF-2Dimensions.ipynb"    ] && # to be completed by the user
-          [ $FNAME != "08-data-downloading.ipynb"      ] && # requires email from user
-          [ $FNAME != "90-full-analysis.ipynb"         ] && # too long
-          [ $FNAME != "20-Turtles-Density-map.ipynb"   ] && # too long
-          [ $FNAME != "BigBlackSea.ipynb"              ] && # too long
-          [ $FNAME != "HeatmapsCV.ipynb"               ] && # too long
-          [ $FNAME != "source-term.ipynb"              ] && # Kernel problem
-          [ $FNAME != "open-boundary-conditions.ipynb" ]; then  # too long
+       if [ $FNAME != "1-02-Julia-introduction.ipynb"    ] && # to be completed by the user
+          [ $FNAME != "1-03-netCDF-2Dimensions.ipynb"    ] && # to be completed by the user
+          [ $FNAME != "2-03-data-downloading.ipynb"      ] && # requires email from user
+          [ $FNAME != "3-09-full-analysis.ipynb"         ] && # too long
+          [ $FNAME != "4-05-turtles-tensity-map.ipynb"   ] && # too long
+          [ $FNAME != "4-13-BlackSea-detrend-geostrophic.ipynb"   ] && # too long
+          [ $FNAME != "4-04-heatmapsCV.ipynb"               ] && # too long
+          [ $FNAME != "4-08-source-term.ipynb"              ] && # Kernel problem
+          [ $FNAME != "4-09-open-boundary-conditions.ipynb" ]; then  # too long
            NOTEBOOKS+=("$FILE")
        fi
 done
