@@ -38,9 +38,7 @@ The target audience is wide as it includes: data analysts, who wish to create cl
 
 The gridding of in situ measurements is a common task in oceanography. It consists of the generation of one or several fields on a regular grid, using the information contained in a set of observations, generally sparsely distributed. The combination of such fields, produced at different depth levels and for different time periods, is often referred to as a climatology. 
 
-This gridding problem is not new and many methods have been developed during the last decades.
-<!---can you cite some other techniques? like OI?-->
-<!---(Gandin, 1965; Bretherton et al., 1976)-->
+This gridding problem is not new and many methods have been developed during the last decades. One of the most widespread method is the Optimal Interpolation [@gandin:1965,@Bretherton:1976], where analytical functions are used to specify the first guess error covariance. Since then, the method has been adapted and improved, yet it cannot easily address the decoupling of water masses separated a physical obstacle.  
 
 `DIVA` stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
 
@@ -56,7 +54,7 @@ The [`DIVAnd`](https://github.com/gher-uliege/DIVAnd.jl/) code is published on G
 
 ## The story 
 
-The first DIVA workshop was organised in Liège, Belgium, in 2006, in the frame of the European project [Seadatanet](https://www.seadatanet.org/). The goal was to teach users how to create climatologies by applying the DIVA (the two-dimensional, Fortran version) on their own dataset. Those training sessions were organised yearly until 2016 and allowed the creation of regional climatologies, published in the frame of European initiatives (SeaDataNet, EMODnet).
+The first DIVA workshop was organised in Liège, Belgium, in 2006, in the frame of the European project [Seadatanet](https://www.seadatanet.org/) [@Schaap:2010]. The goal was to teach users how to create climatologies by applying the DIVA (the two-dimensional, Fortran version) on their own dataset. Those training sessions were organised yearly until 2016 and allowed the creation of regional climatologies, published in the frame of European initiatives such as SeaDataNet or EMODnet [@MartinMiguez:2019].
 
 Taking advantage of the Jupyter interface [@kluyver:2016] and transition to Julia for the new version of DIVAnd, a set of notebooks was created as the main material for the user training. The first `DIVAnd` workshop took place in April 2018 in Liège. Since then, other training events were organised, while the training material is regularly used as the basis for the creation of gridded products for EMODnet Chemistry [@giorgetti:2018]. The choice of the Jupyter notebooks format was motivated by the interactivity and the step-by-step, documented approach. 
 
@@ -84,9 +82,9 @@ Following our experience with users, for the creation of plots, the Makie module
 
 ## Users and applications
 
-The user community mainly consists of scientists, data analysists and experts. This diversity implies that the content has to be taylored and sufficient to ensure users without any prior knowledge of Julia and Jupyter are able to run and modify the notebooks. 
+The user community mainly consists of scientists, data analysists and experts. This diversity implies that the content has to be taylored and sufficient to ensure users without any prior experience with Julia or Jupyter are able to run and modify the notebooks. 
 
-Among the applications we can mention de EMODnet products [@Webb:2025]. 
+Among the applications, we can mention de EMODnet products [@Webb:2025]. 
 Other recent applications include the creation of climatologies and gridded fields for sea surface height [@Doglioni:2023]
 temperature and salinity [@Shahzadi:2021] and nutrients [@Belgacem:2021].
 
