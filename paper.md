@@ -42,6 +42,8 @@ This gridding problem is not new and many methods have been developed during the
 
 `DIVA` stands for Data-Interpolating Variational Analysis [@troupin:2012] and is a analysis method based on the minimisation of a cost function. This cost function takes into account different constraint, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and periods.
 
+![Example of salinity measurements and the corresponding analysed field.](salinity_gridded.png)
+
 `DIVAnd` (DIVA in n dimensions) is based on the same mathematical idea (the minimisation of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it can run on MATLAB and GNU Octave. Its performances were further improved thanks to the transition to the Julia language [@bezanson:2017].   
 
 Without reviewing the full development history of the gridding and interpolation algorithms, we underline two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques:
