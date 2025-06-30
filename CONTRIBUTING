@@ -37,7 +37,7 @@ Pkg.status("DIVAnd")
 ```
 ✅ The name of the notebook that lead to the problem.      
 ✅ The full screen output, preferably obtained after setting `ENV["JULIA_DEBUG"] = "DIVAnd"`.        
-✅ Full stack strace with error message.              
+✅ Full stack trace with error message.              
 
 ### Seeking support
 
