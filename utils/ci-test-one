@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+NOTEBOOKS_DIR="$DIR/../notebooks"
+echo testing "$NOTEBOOKS_DIR/2-Preprocessing/2-04-ODV-data-import.ipynb"
+"$DIR/nbtest" "$NOTEBOOKS_DIR/2-Preprocessing/2-04-ODV-data-import.ipynb"
+
+
+

@@ -44,5 +44,5 @@ jobs:
       - run: |
           #git config --global user.name Tester
           #git config --global user.email te@st.er
-          bash utils/ci-test
+          bash utils/ci-test-one
 
