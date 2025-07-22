@@ -11,3 +11,8 @@ notebook/Adriatic/
 Menu/
 Certificats/
 *~
+*.bak
+*.sav
+*.pdf
+*.zip
+
