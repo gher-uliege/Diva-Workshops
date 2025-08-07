@@ -26,14 +26,6 @@
   "upload_type": "software",
   "access_right": "open",
   "license": "MIT",
-  "contributors": [
-   {
-      "name": "Leinweber, Katrien",
-      "affiliation": "Technische Informationsbibliothek (TIB)",
-      "role": "DOI cleaning",
-      "orcid": "https://orcid.org/0000-0002-3838-5976"
-    }
-  ],
   "funding": [
       {
         "award": {
