@@ -1,0 +1,39 @@
+{
+    "creators": [
+        {
+            "name": "Carberry, Josiah",
+            "orcid": "0000-0002-1825-0097",
+            "affiliation": "Brown University",
+            "type": "ProjectMember"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Lovelace, Ada",
+            "type": "Researcher"
+        },
+        {
+            "name": "Babbage, Charles",
+            "affiliation": "University of Cambridge",
+            "type": "ProjectLeader"
+        }
+    ],
+    "title": "Memory bus simulation scripts",
+    "version": "1.8.0",
+    "access_right": "open",
+    "related_identifiers": [
+        {
+            "identifier": "https://doi.org/10.5555/666655554444",
+            "relation": "isSupplementTo",
+            "resource_type": "publication-article"
+        }
+    ],
+    "keywords": [
+        "computer science",
+        "psychoceramics",
+        "journaling filesystems"
+    ],
+    "license": "mit",
+    "upload_type": "software",
+    "language": "eng"
+}
