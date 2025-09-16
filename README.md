@@ -8,11 +8,33 @@
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/gher-uliege/Diva-Workshops) ![GitHub contributors](https://img.shields.io/github/contributors/gher-uliege/Diva-Workshops) ![GitHub last commit](https://img.shields.io/github/last-commit/gher-uliege/Diva-Workshops)     
 [![Static Badge](https://img.shields.io/badge/Project-FAIR--EASE-blue)](https://www.fairease.eu/) [![Static Badge](https://img.shields.io/badge/Project-SeaDataCloud-blue)](https://www.seadatanet.org) [![Static Badge](https://img.shields.io/badge/Project-IRISCC-blue)](https://www.iriscc.eu/) [![Static Badge](https://img.shields.io/badge/Project-AQUARIUS-blue)](https://aquarius-ri.eu/)
 
+## Objective
+
 The [Jupyter](https://jupyter.org/) notebooks contained in this repository are designed to explain users how to create gridded fields from in situ observations using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool.
+
+## Content
+
+The notebooks are organised into 5 categories, separated in folders:
+* [1-Intro](./notebooks/1-Intro/): know the basics commands in Julia, read/write netCDF files and create different types of plots (scatter, histograms, maps, ...).
+* [2-Preprocessing](./notebooks/2-Preprocessing): learn about the input file preparation: observations (download and reading), bathymetry and mask, time periods, ...
+* [3-Analysis](./notebooks/3-Analysis/): perform different types of analysis, optimise the analysis parameters and work with different coordinate systems.
+* [4-AdvancedTopics](./notebooks/4-AdvancedTopics/): discover more complex types of analysis, using for instance advection or inequality constraints.
+
+## How to use the notebooks?
+
+Different paths can be taken, depending on your experience.
+
+| Experience in Julia | Experience with DIVAnd | Recommendation |
+|:-------------------:|:----------------------:|----------------|
+|         No          |           No           | Start from the beginning! |
+|         Yes         |           No           | Start with the [2-Preprocessing](./notebooks/2-Preprocessing) notebooks, then try an analysis (for instance [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb)) |
+|         No          |           Yes          | Check the [1-Intro](./notebooks/1-Intro/) notebooks to get familiar with Julia, then play with the [analysis](./notebooks/3-Analysis/3-09-full-analysis.ipynb)             |
+|         Yes         |           Yes          | Use the notebook [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb) as a starting point for your analysis, then play with the [4-AdvancedTopics](./notebooks/4-AdvancedTopics/) |
+
 
 ## Installation
 
-### Julia language
+### Julia 
 
 Julia language can be installed using `juliaup`, as detailed in the "Download" section of the Julia web: https://julialang.org/downloads/.     
 A Julia session is started by typing `julia` in the terminal or by clicking on the Julia shortcut in Windows.
