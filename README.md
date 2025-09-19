@@ -10,19 +10,23 @@
 
 ## Objective
 
-The [Jupyter](https://jupyter.org/) notebooks contained in this repository are designed to explain users how to create gridded fields from in situ observations using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool.
+The [Jupyter](https://jupyter.org/) notebooks contained in this repository help users to create gridded fields from in situ observations using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool.     
+More information about `DIVAnd` is available in the package [documentation](https://gher-uliege.github.io/DIVAnd.jl/stable/).
 
-## Content
+### Content
 
-The notebooks are organised into 5 categories, separated in folders:
-* [1-Intro](./notebooks/1-Intro/): know the basics commands in Julia, read/write netCDF files and create different types of plots (scatter, histograms, maps, ...).
-* [2-Preprocessing](./notebooks/2-Preprocessing): learn about the input file preparation: observations (download and reading), bathymetry and mask, time periods, ...
-* [3-Analysis](./notebooks/3-Analysis/): perform different types of analysis, optimise the analysis parameters and work with different coordinate systems.
-* [4-AdvancedTopics](./notebooks/4-AdvancedTopics/): discover more complex types of analysis, using for instance advection or inequality constraints.
+The notebooks are organised into 4 categories, according to their main objectives.
 
-## How to use the notebooks?
+| Folder | Content | Recommended duration |
+|:-------------------|:----------------------:|----------------|
+[1-Intro](./notebooks/1-Intro/) | Know the basics commands in Julia, read/write netCDF files and create different types of plots (scatter, histograms, maps, ...) |  |
+[2-Preprocessing](./notebooks/2-Preprocessing) | Learn about the input file preparation: observations (download and reading), bathymetry and mask, time periods, ... |  |
+[3-Analysis](./notebooks/3-Analysis/) | Perform different types of analysis, optimise the analysis parameters and work with different coordinate systems |   |
+[4-AdvancedTopics](./notebooks/4-AdvancedTopics/) | Discover more complex types of analysis, using for instance advection or inequality constraints. |   |
 
-Different paths can be taken, depending on your experience.
+### How to use the notebooks?
+
+Different paths can be taken, depending on your experience with Julia and with `DIVAnd`.
 
 | Experience in Julia | Experience with DIVAnd | Recommendation |
 |:-------------------:|:----------------------:|----------------|
@@ -36,88 +40,43 @@ Different paths can be taken, depending on your experience.
 
 ### Julia 
 
-Julia language can be installed using `juliaup`, as detailed in the "Download" section of the Julia web: https://julialang.org/downloads/.     
-A Julia session is started by typing `julia` in the terminal or by clicking on the Julia shortcut in Windows.
-
-```bash
-$ julia
-               _
-   _       _ _(_)_     |  Documentation: https://docs.julialang.org
-  (_)     | (_) (_)    |
-   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
-  | | | | | | |/ _` |  |
-  | | |_| | | | (_| |  |  Version 1.11.3 (2025-01-21)
- _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
-|__/                   |
-julia> 
-```
+Julia language can be installed using `juliaup`, as detailed in the [Download](https://julialang.org/downloads/) section of Julia.
 
 ### Jupyter
 
-Jupyter has to be installed in order to have a notebook interface.        
-It can be installed and launched (in Julia) with the following command in the Pkg REPL     
-(Enter the Pkg REPL by pressing ] from the Julia session):
-
+Jupyter has to be installed in order to have a notebook interface. It can be installed and launched (in Julia) with the following command in the Pkg REPL      
+(Enter the Pkg REPL by pressing `]` from the Julia session):
 ```julia
 (@v1.11) pkg> add IJulia
 ```
-
-## Running the notebooks
-
-In a Julia session, execute the following commands:
-
-```julia
-using IJulia
-notebook()
-```
-This will start a Jupyter session within your browser.      
-Select the notebook located in `Diva-Workshops/notebooks/`.
-
-## ℹ️ About DIVAnd
-
-`DIVAnd` is **not** a new release of [`DIVA`](https://github.com/gher-uliege/DIVA), it is another software tool with different 
-
-algorithms,      
-functionalities and     
-language.
-
-For a single 2D analysis (surface salinity in the Black Sea) on Intel Xeon CPU E5-2650.     
-DIVA was compiled with the Intel Fortran Compiler.
-
-|     | DIVA - Fortran | DIVAnd - Julia |
-|----|----------------|----------------|
-| mesh             | triangular | structured | 
-| deg. of freedom  |    236296 |  236317 |
-| correlation length | 0.19    | 0.19 |
-| CPU time | 43.8 s | 8.7 s |
-
-However, a triangular mesh is greatly more flexible than a structured mesh and has $C_1$ continuity.       
-The main advantage of `DIVAnd` is that it can work on more than just 2 dimensions (but the requirements of RAM memory increase also).
-
-## Using DIVAnd without installing
-
-### ☁️ On public servers (cloud)
-
-`DIVAnd` has been made available in _Virtual Research Environments_ (VRE) in European projects.     
-The deployment is performed using a Docker container.  
-
-For instance `DIVAnd` can used in projects such as:
-- [FAIR-EASE](https://fairease.eu/): the tool can be accessed from [Galaxy](https://earth-system.usegalaxy.eu/).
-- [Blue Cloud 2026](https://blue-cloud.org/): the tool is available though [D4Science](https://www.d4science.org/). 
-
-### Binder
-
-Most notebooks need more resources that what is can currently available on Binder. The introduction notebooks (introduction to OI and variationa analysis) however work
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gher-uliege/Diva-Workshops/master?filepath=notebooks%2F1-Intro%2F1-04-OI-variational-analysis-introduction.ipynb).
-
-## 🆘 Troubleshooting
-
-### LoadError: ArgumentError: Package IJulia ... is required but does not seem to be installed
-
-After an update of the Julia version, one can face an error message related to the Kernel.     
+> [!WARNING]
+> After an update of the Julia version, one can face an error message related to the Kernel:<br>
+`LoadError: ArgumentError: Package IJulia ... is required but does not seem to be installed` <br>
 This can be solved with the command:
-
 ```
 using IJulia
 installkernel("Julia")
 ```
+
+### The notebooks 
+
+To get the notebooks on your computer you can either:
+1. Download a [zipped archive](https://github.com/gher-uliege/Diva-Workshops/archive/master.zip) and uncompress it [for any user].
+2. Clone the whole directory: `git clone git@github.com:gher-uliege/Diva-Workshops.git` (for git users).
+> [!NOTE] 
+> The notebooks will get dependencies via the file `Project.toml`. This is why all the notebooks start with the commands<br>
+<code>
+import Pkg<br>
+Pkg.activate("../..")<br>
+Pkg.instantiate()<br>
+</code> 
+
+The Jupyter session is started with:
+```julia
+using IJulia
+notebook()
+```
+
+## Community guidelines
+
+Please refer to the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
