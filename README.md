@@ -10,12 +10,17 @@
 
 ## Objective
 
-The [Jupyter](https://jupyter.org/) notebooks contained in this repository help users to create gridded fields from in situ observations using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool.     
+The goal of the training material module, made up of [Jupyter](https://jupyter.org/) notebooks, is twofold: 
+1. provide the users with a basic knowledge of Julia, meaning they are capable of reading the code presented in the notebooks, but also install new modules, write basic functions for processing or create basic plots. 
+2. endure that the users to able to create their own products (i.e. climatologies) using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool, by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.
+
 More information about `DIVAnd` is available in the package [documentation](https://gher-uliege.github.io/DIVAnd.jl/stable/).
 
 ### Content
 
-The notebooks are organised into 4 categories, according to their main objectives.
+The notebooks are organised into 4 categories, according to their main objectives and following the "Instructional design" described in the paper.    
+The different notebook folders can be covered independently, depending on the experise of the users.       
+Suggestions for the number of sessions and time to be dedicated for each category are provide below.
 
 | Folder | Content | Recommended duration |
 |:-------------------|:----------------------:|----------------|
@@ -27,7 +32,7 @@ The notebooks are organised into 4 categories, according to their main objective
 ### How to use or adopt the notebooks?
 
 Different paths can be taken, depending on your experience with Julia and with `DIVAnd`.   
-First follow the instructions for the installation, then 
+First follow the instructions for the installation, then decide from where to start according to your experience or your audience.      
 
 | Experience in Julia | Experience with DIVAnd | Recommendation |
 |:-------------------:|:----------------------:|----------------|
@@ -36,6 +41,9 @@ First follow the instructions for the installation, then
 |         No          |           Yes          | Check the [1-Intro](./notebooks/1-Intro/) notebooks to get familiar with Julia, then play with the [analysis](./notebooks/3-Analysis/3-09-full-analysis.ipynb)             |
 |         Yes         |           Yes          | Use the notebook [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb) as a starting point for your analysis, then play with the [4-AdvancedTopics](./notebooks/4-AdvancedTopics/) |
 
+### How to contribute?
+
+Please refer to the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Installation
 
@@ -78,6 +86,3 @@ using IJulia
 notebook()
 ```
 
-## Community guidelines
-
-Please refer to the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
