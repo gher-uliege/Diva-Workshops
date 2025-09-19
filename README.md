@@ -19,14 +19,15 @@ The notebooks are organised into 4 categories, according to their main objective
 
 | Folder | Content | Recommended duration |
 |:-------------------|:----------------------:|----------------|
-[1-Intro](./notebooks/1-Intro/) | Know the basics commands in Julia, read/write netCDF files and create different types of plots (scatter, histograms, maps, ...) |  |
-[2-Preprocessing](./notebooks/2-Preprocessing) | Learn about the input file preparation: observations (download and reading), bathymetry and mask, time periods, ... |  |
-[3-Analysis](./notebooks/3-Analysis/) | Perform different types of analysis, optimise the analysis parameters and work with different coordinate systems |   |
-[4-AdvancedTopics](./notebooks/4-AdvancedTopics/) | Discover more complex types of analysis, using for instance advection or inequality constraints. |   |
+[1-Intro](./notebooks/1-Intro/) | Know the basics commands in Julia, read/write netCDF files and create different types of plots (scatter, histograms, maps, ...) | 2 hours |
+[2-Preprocessing](./notebooks/2-Preprocessing) | Learn about the input file preparation: observations (download and reading), bathymetry and mask, time periods, ... | 4 hours |
+[3-Analysis](./notebooks/3-Analysis/) | Perform different types of analysis, optimise the analysis parameters and work with different coordinate systems | 2 sessions of 4 hours   |
+[4-AdvancedTopics](./notebooks/4-AdvancedTopics/) | Discover more complex types of analysis, using for instance advection or inequality constraints. | 4 hours  |
 
-### How to use the notebooks?
+### How to use or adopt the notebooks?
 
-Different paths can be taken, depending on your experience with Julia and with `DIVAnd`.
+Different paths can be taken, depending on your experience with Julia and with `DIVAnd`.   
+First follow the instructions for the installation, then 
 
 | Experience in Julia | Experience with DIVAnd | Recommendation |
 |:-------------------:|:----------------------:|----------------|
