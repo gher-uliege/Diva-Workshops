@@ -18,7 +18,7 @@ More information about `DIVAnd` is available in the package [documentation](http
 
 ### Content
 
-The notebooks are organised into 4 categories, according to their main objectives and following the "Instructional design" described in the paper.    
+The notebooks are organised into 4 categories, according to their main objectives and following the "Instructional design" described in the associated paper in JOSE.    
 The different notebook folders can be covered independently, depending on the experise of the users.       
 Suggestions for the number of sessions and time to be dedicated for each category are provide below.
 
@@ -29,6 +29,56 @@ Suggestions for the number of sessions and time to be dedicated for each categor
 [3-Analysis](./notebooks/3-Analysis/) | Perform different types of analysis, optimise the analysis parameters and work with different coordinate systems | 2 sessions of 4 hours   |
 [4-AdvancedTopics](./notebooks/4-AdvancedTopics/) | Discover more complex types of analysis, using for instance advection or inequality constraints. | 4 hours  |
 
+<details>
+
+<summary><h3>Full list of notebooks</h3></summary>
+
+[1-01-notebooks-basics.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/1-Intro/1-01-notebooks-basics.ipynb)         
+[1-02-Julia-introduction.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/1-Intro/1-02-Julia-introduction.ipynb)          
+[1-03-netCDF.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/1-Intro/1-03-netCDF.ipynb)           
+[1-04-OI-variational-analysis-introduction.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/1-Intro/1-04-OI-variational-analysis-introduction.ipynb)        
+[1-05-plots-maps.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/1-Intro/1-05-plots-maps.ipynb)           
+[2-01-topography.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/2-Preprocessing/2-01-topography.ipynb)              
+[2-02-reading-data.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/2-Preprocessing/2-02-reading-data.ipynb)           
+[2-03-data-downloading.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/2-Preprocessing/2-03-data-downloading.ipynb)           
+[2-04-ODV-data-import.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/2-Preprocessing/2-04-ODV-data-import.ipynb)              
+[2-05-defining-time-periods.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/2-Preprocessing/2-05-defining-time-periods.ipynb)         
+[3-01-L-and-epsilon-effect.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-01-L-and-epsilon-effect.ipynb)          
+[3-02-correlation-length.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-02-correlation-length.ipynb)          
+[3-03-processing-parameter-optimization.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-03-processing-parameter-optimization.ipynb)         
+[3-04-processing-quality-check.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-04-processing-quality-check.ipynb)       
+[3-05-cpme-demo.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-05-cpme-demo.ipynb)        
+[3-06-errormaps-demo.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-06-errormaps-demo.ipynb)        
+[3-07-example-analysis.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-07-example-analysis.ipynb)          
+[3-08-background-field.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-08-background-field.ipynb)          
+[3-09-full-analysis.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-09-full-analysis.ipynb)           
+[3-10-save_attributes_EMODnet.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-10-save_attributes_EMODnet.ipynb)        
+[3-11-generalized-vertical-coordinates.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-11-generalized-vertical-coordinates.ipynb)          
+[3-12-sigma-layers.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-12-sigma-layers.ipynb)         
+[3-13-polar-coordinates.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-13-polar-coordinates.ipynb)         
+[3-14-Sphericalcoordinates.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-14-Sphericalcoordinates.ipynb)          
+[3-15-analysis-datapoints.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/3-Analysis/3-15-analysis-datapoints.ipynb)        
+[4-01-relative-correlation-length.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-01-relative-correlation-length.ipynb)          
+[4-02-average-background.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-02-average-background.ipynb)          
+[4-03-heatmaps.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-03-heatmaps.ipynb)           
+[4-04-heatmapsCV.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-04-heatmapsCV.ipynb)         
+[4-05-turtles-tensity-map.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-05-turtles-tensity-map.ipynb)           
+[4-06-advection_constrain.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-06-advection_constrain.ipynb)         
+[4-07-advection_constraint_Adriatic.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-07-advection_constraint_Adriatic.ipynb)           
+[4-08-source-term.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-08-source-term.ipynb)          
+[4-09-open-boundary-conditions.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-09-open-boundary-conditions.ipynb)          
+[4-10-multivariate-EOF.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-10-multivariate-EOF.ipynb)           
+[4-11-multivariate-Jacobian.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-11-multivariate-Jacobian.ipynb)         
+[4-12-analysis-with-cycles.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-12-analysis-with-cycles.ipynb)          
+[4-13-BlackSea-detrend-geostrophic.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-13-BlackSea-detrend-geostrophic.ipynb)           
+[4-14-inequalities-constrains.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-14-inequalities-constrains.ipynb)       
+[4-15-geostrophytest.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-15-geostrophytest.ipynb)       
+[4-16-Lshape.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-16-Lshape.ipynb)          
+[4-17-interp-section.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-17-interp-section.ipynb)         
+[4-18-make-paper-figure.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-18-make-paper-figure.ipynb)          
+[4-19-optim-observations-locations-game.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-19-optim-observations-locations-game.ipynb)          
+</details>
+
 ### How to use or adopt the notebooks?
 
 Different paths can be taken, depending on your experience with Julia and with `DIVAnd`.   
@@ -37,9 +87,13 @@ First follow the instructions for the installation, then decide from where to st
 | Experience in Julia | Experience with DIVAnd | Recommendation |
 |:-------------------:|:----------------------:|----------------|
 |         No          |           No           | Start from the beginning! |
-|         Yes         |           No           | Start with the [2-Preprocessing](./notebooks/2-Preprocessing) notebooks, then try an analysis (for instance [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb)) |
+|         Yes         |           No           | Start with the [2-Preprocessing](./notebooks/2-Preprocessing) notebooks, then try an analysis (for instance [3-07-example-analysis.ipynb](./notebooks/3-Analysis/3-07-example-analysis.ipynb)) |
 |         No          |           Yes          | Check the [1-Intro](./notebooks/1-Intro/) notebooks to get familiar with Julia, then play with the [analysis](./notebooks/3-Analysis/3-09-full-analysis.ipynb)             |
 |         Yes         |           Yes          | Use the notebook [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb) as a starting point for your analysis, then play with the [4-AdvancedTopics](./notebooks/4-AdvancedTopics/) |
+
+#### 🚀 Fast start
+
+If you had to use only one notebook, it should be this one: [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb)
 
 ### How to contribute?
 
