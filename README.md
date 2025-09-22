@@ -116,7 +116,7 @@ Jupyter has to be installed in order to have a notebook interface. It can be ins
 > After an update of the Julia version, one can face an error message related to the Kernel:<br>
 `LoadError: ArgumentError: Package IJulia ... is required but does not seem to be installed` <br>
 This can be solved with the command:
-```
+```julia
 using IJulia
 installkernel("Julia")
 ```
@@ -127,12 +127,12 @@ To get the notebooks on your computer you can either:
 1. Download a [zipped archive](https://github.com/gher-uliege/Diva-Workshops/archive/master.zip) and uncompress it [for any user].
 2. Clone the whole directory: `git clone git@github.com:gher-uliege/Diva-Workshops.git` (for git users).
 > [!NOTE] 
-> The notebooks will get dependencies via the file `Project.toml`. This is why all the notebooks start with the commands<br>
-<code>
-import Pkg<br>
-Pkg.activate("../..")<br>
-Pkg.instantiate()<br>
-</code> 
+> The notebooks will get dependencies via the file `Project.toml`. This is why all the notebooks start with the commands
+```julia
+import Pkg
+Pkg.activate("../..")
+Pkg.instantiate()
+```
 
 The Jupyter session is started with:
 ```julia
