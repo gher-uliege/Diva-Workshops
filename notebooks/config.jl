@@ -1,10 +1,5 @@
 using Downloads
 
-datadir = "../data"
-figdir = "../figures"
-outputdir = "../output/"
-mkpath.([datadir, figdir, outputdir])
-
 function make_dox_url(fileid::AbstractString)
     doxurl = "https://dox.uliege.be/index.php/s/$(fileid)/download"
     return doxurl::String
@@ -51,70 +46,70 @@ function plot_mask(bx, by, mask; xticks=2.:1.:14, yticks=42.:1.:45., depth="")
 end
 
 # Data files
-OIfile = joinpath(datadir, "dan_field_obs.nc")
+OIfile = joinpath(datadir(), "dan_field_obs.nc")
 OIfileURL = make_dox_url("96B8MOQeIcaRUoV")
-salinityprovencalfile = joinpath(datadir, "WOD-Salinity-Provencal.nc")
+salinityprovencalfile = joinpath(datadir(), "WOD-Salinity-Provencal.nc")
 salinityprovencalfileURL = make_dox_url("PztJfSEnc8Cr3XN")
-salinitybigfile = joinpath(datadir, "Salinity.bigfile")
+salinitybigfile = joinpath(datadir(), "Salinity.bigfile")
 salinitybigfileURL = make_dox_url("k0f7FxA7l5FIgu9")
-temperaturebigfile = joinpath(datadir, "Temperature.bigfile")
+temperaturebigfile = joinpath(datadir(), "Temperature.bigfile")
 temperaturebigfileURL = make_dox_url("RZ9OZlLkir4CnHg")
-adriaticfile = joinpath(datadir, "AdriaticSea_SDC.nc")
+adriaticfile = joinpath(datadir(), "AdriaticSea_SDC.nc")
 adriaticfileURL = make_dox_url("IRYJyNZ5KuKVoQL")
 
 # Bathymetry files
-gebco04file = joinpath(datadir, "gebco_30sec_4.nc")
+gebco04file = joinpath(datadir(), "gebco_30sec_4.nc")
 gebco04fileURL = make_dox_url("RSwm4HPHImdZoQP")
-gebco08file = joinpath(datadir, "gebco_30sec_8.nc")
+gebco08file = joinpath(datadir(), "gebco_30sec_8.nc")
 gebco08fileURL = make_dox_url("wS6Y8P8NhIF60eG")
-gebco16file = joinpath(datadir, "gebco_30sec_16.nc")
+gebco16file = joinpath(datadir(), "gebco_30sec_16.nc")
 gebco16fileURL = make_dox_url("U0pqyXhcQrXjEUX")
-emodnetfile = joinpath(datadir, "combined_emodnet_bathymetry.nc")
+emodnetfile = joinpath(datadir(), "combined_emodnet_bathymetry.nc")
 emodnetfileURL = make_dox_url("pujUAyo9kTPO8oF")
 
-adriaticfile = joinpath(datadir, "AdriaticSea_SDC.nc")
+adriaticfile = joinpath(datadir(), "AdriaticSea_SDC.nc")
 adriaticfileURL = make_dox_url("IRYJyNZ5KuKVoQL")
 
-smalladriaticfile = joinpath(datadir, "AdriaticSea_SDC_1000.txt")
-largeadriaticfile = joinpath(datadir, "AdriaticSea_SDC.txt")
+smalladriaticfile = joinpath(datadir(), "AdriaticSea_SDC_1000.txt")
+largeadriaticfile = joinpath(datadir(), "AdriaticSea_SDC.txt")
 smalladriaticfileURL = make_dox_url("FtJdbLDk11buP47")
 largeadriaticfileURL = make_dox_url("A4Eu9nEoovYLtGr")
 
-balticfile = joinpath(datadir, "Baltic_obs.nc")
+balticfile = joinpath(datadir(), "Baltic_obs.nc")
 balticfileURL = make_dox_url("h0KlmTNzEp76ari")
 
-naodatafile = joinpath(datadir, "nao_station_annual.txt")
+naodatafile = joinpath(datadir(), "nao_station_annual.txt")
 naodatafileURL = make_dox_url("zYVldQgtso1nMZg")
 
-danfile = joinpath(datadir, "dan_field.mat")
+danfile = joinpath(datadir(), "dan_field.mat")
 danfileURL = make_dox_url("KLuPQ848PdMBz1J")
-gribfile = joinpath(datadir, "test.grib")
+gribfile = joinpath(datadir(), "test.grib")
 gribfileURL = "https://github.com/weech/GRIB.jl/raw/master/test/samples/regular_latlon_surface.grib2"
-geojsonfile = joinpath(datadir, "contour.json")
+geojsonfile = joinpath(datadir(), "contour.json")
 geojsonfileURL = make_dox_url("4vPeJM9NiIqPDuu")
-geotifffile = joinpath(datadir, "Adriatic-2024-09-16T00_00_00Z.tif")
+geotifffile = joinpath(datadir(), "Adriatic-2024-09-16T00_00_00Z.tif")
 geotifffileURL = make_dox_url("tz9lCANaNIj3iG2")
 
-smallODVfile = joinpath(datadir, "small_ODV_sample.txt")
+smallODVfile = joinpath(datadir(), "small_ODV_sample.txt")
 smallODVfileURL = make_dox_url("n7wDAB7G6IWWZtl")
-smallODVncfile = joinpath(datadir, "small_ODV_sample.nc")
+smallODVncfile = joinpath(datadir(), "small_ODV_sample.nc")
 smallODVncfileURL = make_dox_url("ugfCUjKlUollczU")
-smallODVsamplefile = joinpath(datadir, "small_ODV_sample.txt")
+smallODVsamplefile = joinpath(datadir(), "small_ODV_sample.txt")
 smallODVsamplefileURL = make_dox_url("5FdKh6Md0VAjsIU")
 
-WODdatafile = joinpath(datadir, "WOD-temporary-dir.tar.gz")
+WODdatafile = joinpath(datadir(), "WOD-temporary-dir.tar.gz")
 WODdatafileURL = make_dox_url("8tRk0NAStr2P70j")
-WODadriaticfile = joinpath(datadir, "WOD-Adriatic.tar.gz")
+WODadriaticfile = joinpath(datadir(), "WOD-Adriatic.tar.gz")
 WODadriaticfileURL = make_dox_url("Px6r7MPlpXAePB2")
 
-outputsalinity = joinpath(outputdir, "Water_body_Salinity.4Danl.nc")
+outputsalinity = joinpath(datadir(), "Water_body_Salinity.4Danl.nc")
 outputsalinityURL = make_dox_url("h8d3pyqmuea6J9H")
 
-turtlefile = joinpath(datadir, "turtles.dat")
+turtlefile = joinpath(datadir(), "turtles.dat")
 turtlefileURL = make_dox_url("IsWWlNxWeQDuarJ") 
 
-sstfile = joinpath(datadir, "sst.ltm.1961-1990.nc")
+sstfile = joinpath(datadir(), "sst.ltm.1961-1990.nc")
 sstfileURL = make_dox_url("ptfCNIWGfJ247Gj")
-velfilename = joinpath(datadir, "all-monthly-currents-2018.nc")
+velfilename = joinpath(datadir(), "all-monthly-currents-2018.nc")
 velfilenameURL = make_dox_url("qJtEotmkCZVqcx8")    
 
