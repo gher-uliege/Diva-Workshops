@@ -1,3 +1,6 @@
+name = "Diva-Workshops"
+authors = ["ctroupin", "Alexander-Barth", "jmbeckers", "swatelet", "katrinleinweber"]
+
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
@@ -8,6 +11,7 @@ DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
 GRIB = "b16dfd50-4035-11e9-28d4-9dfe17e6779b"
 GeoArrays = "2fb1d81b-e6a0-5fc5-82e6-8e06903437ab"
 GeoDatasets = "ddc7317b-88db-5cb5-a849-8449e5df04f9"
