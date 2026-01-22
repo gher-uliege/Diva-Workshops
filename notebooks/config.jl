@@ -1,5 +1,9 @@
 using Downloads
 
+figdir = plotsdir()
+outputdir = joinpath(datadir(), "output/")
+mkpath.([datadir(), figdir, outputdir])
+
 function make_dox_url(fileid::AbstractString)
     doxurl = "https://dox.uliege.be/index.php/s/$(fileid)/download"
     return doxurl::String
