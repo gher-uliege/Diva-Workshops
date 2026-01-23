@@ -30,22 +30,23 @@ end
 md"""
 # DIVAnd full analysis
 
-This notebook presents the different steps necessary for the creation of a
-climatology:
+This [Pluto](https://plutojl.org/) notebook presents the different steps necessary for the creation of a climatology:
  
 1. ODV data reading.
-2. Extraction of bathymetry and creation of mask
+2. Extraction of bathymetry and creation of land-sea mask
 3. Data download from other sources and duplicate removal.
 4. Quality control.
 5. Parameter optimisation.
 6. Spatio-temporal interpolation with DIVAnd.
 
-## Import packages
+This workflow is similar to the one from the Jupyter notebook `3-09-full-analysis.ipynb`.
+
+## 📦📦 Import packages
 """
 
 # ╔═╡ 55f04355-fabf-4ace-bba5-048b07c2abf2
 md"""
-## Configuration
+## ⚙️ Configuration
 - Create the grid (`lonr`, `latr`)
 - Define the vertical (depth) levels (`depthr`)
 - Define the time periods (`yearlist` and `monthlist`).
@@ -87,7 +88,7 @@ end
 
 # ╔═╡ bde1f534-318b-4709-b817-9dc4dfe2bd4c
 md"""
-##  Read the (input) ODV file
+## 📁 Read the (input) ODV file
 
 Adapt the datadir and datafile values. The example is based on a sub-setting
 of the Mediterranean Sea aggregated dataset. The dataset has been extracted
@@ -105,7 +106,7 @@ end
 
 # ╔═╡ 0434458f-ce8c-4814-a8aa-de6fc35c21e0
 md"""
-### Read the data from the file
+### Read  and plot the observations
 """
 
 # ╔═╡ 3d41230e-1452-4d25-bf64-a317d755227c
@@ -129,7 +130,7 @@ checkobs((obslon, obslat, obsdepth, obstime), obsval, obsid)
 
 # ╔═╡ 74ec774c-f4ad-42f3-84ea-e3897ef20d96
 md"""
-## Extract the bathymetry
+## 🌏 Extract the bathymetry
 It is used to delimit the domain where the interpolation is performed.
  
 ### Choice of bathymetry
@@ -161,11 +162,10 @@ begin
 end
 
 # ╔═╡ 384b3601-056b-4213-a0d9-581659c18eed
-#   Edit the mask
-#   –––––––––––––
-# 
-#   As an example we will remove the Tyrrhenian Sea from the domain.
-
+md"""
+### ✏️ Edit the mask
+As an example we will remove the Tyrrhenian Sea from the domain.
+"""
 
 # ╔═╡ 7094f94b-fec9-40e7-aaa5-198067036eda
 begin
@@ -180,23 +180,23 @@ begin
 end
 
 # ╔═╡ 9c9899eb-0392-4b41-bf8f-ffcd9d26348a
-#   The edited mask now looks like this:
-
+md"""
+The edited mask now looks like this:
+"""
 
 # ╔═╡ a20ea670-e39a-4216-8595-d2e843c9d0ea
 plot_mask(bx, by, mask_edit[:, :, 1], xticks = 10.0:2.0:20.0, yticks = 39.0:2:48.0)
 
 # ╔═╡ 88a66795-e486-4770-9c02-f6bf91769913
-#   Extract data from other sources
-#   ===============================
-# 
-#   As an illustration we use the World Ocean Database, among other
-#   possibilities.
-# 
-#   World Ocean Database
-#   ––––––––––––––––––––
+md"""
+## Extract data from other sources
 
-# Configuration
+As an illustration we use the [World Ocean Database](https://www.ncei.noaa.gov/products/world-ocean-database), among other possibilities.
+
+### Configuration
+
+For this example it is necessary to use your email address:
+"""
 
 # ╔═╡ c334599b-15fe-4f80-b6b8-5af932fa48ba
 begin 
@@ -205,15 +205,20 @@ begin
 	    print("getting email address from email.txt")
 	end
 	# Or create the variable here:
-	email = "ctroupin@uliege.be"
+	email = "...."
 	
 	woddatadir = joinpath(datadir(), "AdriaticTest/")
 	mkpath(woddatadir);
 	@info(woddatadir);
 end
 
+# ╔═╡ 88644eb0-b0c9-45a5-831b-08a9e80c6860
+md"""
+!!! note
+     Uncomment the next cell if you have to download the data for your region.  Otherwise you can download an archive already containing a sample of observations from the World Ocean Atlas.
+"""
+
 # ╔═╡ 4ef702f9-4a00-46b6-8190-50b60e075c79
-# Uncomment the next line if you have to download the data
 # WorldOceanDatabase.download(lonr,latr,timerange,varname,email,woddatadir);
 
 #   The following will download an example file and extract its content in
@@ -228,26 +233,26 @@ begin
 	download_check(WODadriaticfile, WODadriaticfileURL)
 	extractcommand = `tar -C $(woddatadir) -xzf $(WODadriaticfile)`
 	run(extractcommand);
-end
 
-# ╔═╡ 1b2e33a0-f3cd-4779-958f-c41bc1aeff39
-if isfile(joinpath(woddatadir, "WOD-Adriatic/WOD/GLD", "ocldb1560025519.12915.GLD.nc"))
-    @info("Files have been sucessfully decompressed")
-else
-    @warn("Please decompress the file manually")
+		if isfile(joinpath(woddatadir, "WOD-Adriatic/WOD/GLD", "ocldb1560025519.12915.GLD.nc"))
+	    @info("Files have been sucessfully decompressed")
+	else
+	    @warn("Please decompress the file manually")
+	end
 end
 
 # ╔═╡ 9b34d0e9-2723-4312-8033-7f473a444634
-#   ⌛⌛ Read the data. This can also take up to a few minutes, depending on the
-#   size of the domain.
-# 
-#   <div class="alert alert-block alert-warning"> ⚠️ The WOD observations IDs
-#   have to be modified in order to be ingested by the XML generation:<br> to
-#   this end, we add the EDMO code of the U.S. NODC, which is 1977. </div>
+md"""
+### ⌛⌛ Read the data. 
+This can also take up to a few minutes, depending on the
+size of the domain.
+"""
 
-
-# ╔═╡ f7ce1ee8-b222-4d9e-ac57-dfbe184f2267
-isdir(joinpath(woddatadir, "WOD"))
+# ╔═╡ dc982b14-45ce-4d65-8902-38b21b54dbe4
+md"""
+!!! warning 
+    The WOD observations IDs have to be modified in order to be ingested by the XML generation: we haver to append the EDMO code of the U.S. NODC, which is 1977.
+"""
 
 # ╔═╡ 3896b207-4adb-4100-8082-110be890a4f9
 begin
@@ -258,7 +263,7 @@ end
 
 # ╔═╡ 95ef106f-2978-4c15-9e5d-b4d7f6993136
 md"""
-##   Remove the data outside Adriatic (similar to mask editing)
+###   Remove the data outside Adriatic (similar to mask editing)
 """
 
 # ╔═╡ 6a8cc095-1db8-421f-b36f-76095e78537e
@@ -276,6 +281,11 @@ begin
 	obsvalwod_sel = obsvalwod[sel_data];
 	obsidwod_sel = obsidwod[sel_data];
 end
+
+# ╔═╡ 36d68bbe-ecae-4625-b565-aa9814bffa15
+md"""
+### Plot of the 2 datasets
+"""
 
 # ╔═╡ bb8b4704-2c04-44d4-8a24-2fdd274bca5c
 begin
@@ -746,26 +756,27 @@ end
 # ╠═2ecb1ee7-1fec-40f9-bdfe-6f854b651732
 # ╟─f837f963-a4f2-48d5-b167-34fcef7ec33a
 # ╠═cb4592a2-c372-45c6-8146-91b9c9f726d6
-# ╠═384b3601-056b-4213-a0d9-581659c18eed
+# ╟─384b3601-056b-4213-a0d9-581659c18eed
 # ╠═7094f94b-fec9-40e7-aaa5-198067036eda
-# ╠═9c9899eb-0392-4b41-bf8f-ffcd9d26348a
+# ╟─9c9899eb-0392-4b41-bf8f-ffcd9d26348a
 # ╠═a20ea670-e39a-4216-8595-d2e843c9d0ea
-# ╠═88a66795-e486-4770-9c02-f6bf91769913
+# ╟─88a66795-e486-4770-9c02-f6bf91769913
 # ╠═c334599b-15fe-4f80-b6b8-5af932fa48ba
+# ╟─88644eb0-b0c9-45a5-831b-08a9e80c6860
 # ╠═4ef702f9-4a00-46b6-8190-50b60e075c79
 # ╠═feb4fc78-b96e-4476-a46a-a604e91b0aae
-# ╠═1b2e33a0-f3cd-4779-958f-c41bc1aeff39
-# ╠═9b34d0e9-2723-4312-8033-7f473a444634
-# ╠═f7ce1ee8-b222-4d9e-ac57-dfbe184f2267
+# ╟─9b34d0e9-2723-4312-8033-7f473a444634
+# ╟─dc982b14-45ce-4d65-8902-38b21b54dbe4
 # ╠═3896b207-4adb-4100-8082-110be890a4f9
-# ╠═95ef106f-2978-4c15-9e5d-b4d7f6993136
+# ╟─95ef106f-2978-4c15-9e5d-b4d7f6993136
 # ╠═6a8cc095-1db8-421f-b36f-76095e78537e
+# ╟─36d68bbe-ecae-4625-b565-aa9814bffa15
 # ╠═bb8b4704-2c04-44d4-8a24-2fdd274bca5c
 # ╠═b9db095e-3426-445a-9685-fd5fdaf07391
 # ╠═e7be077a-a392-4633-9695-3eac8415c3c3
 # ╠═c4fc3808-a19d-45c5-8603-242050c82d40
 # ╠═f088b184-ff5f-486b-9c2c-4a83144de059
-# ╠═2289bdcb-7638-40d8-b038-90e569d012f4
+# ╟─2289bdcb-7638-40d8-b038-90e569d012f4
 # ╠═619c1f4a-d077-4dee-b518-a2d4ace663e2
 # ╠═030576a1-1cf7-4173-880e-d1b36fa7bb33
 # ╠═a84d6b23-91f7-4206-b98c-21a0b2f24628
