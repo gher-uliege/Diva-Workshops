@@ -302,39 +302,44 @@ begin
 end
 
 # ╔═╡ b9db095e-3426-445a-9685-fd5fdaf07391
-#   Extract from another source (optional)
-#   ––––––––––––––––––––––––––––––––––––––
-# 
-#   Add here the code to read data from another file.
+md"""
+### Extract from another source (optional)
 
-#   Remove duplicates
-#   =================
-# 
-#   ⌛ The idea here to remove the duplicates coming from the combination of two
-#   datasets: SeaDataNet and World Ocean Database. If one has to perform a
-#   duplicate detection on a unique dataset (for instance SeaDataNet only), a
-#   similar procedure can be applied, as explained below.
-# 
-#   Criteria
-#   ––––––––
-# 
-#   Some values have to be set for the tolerance concerning the positions, times
-#   and values of the observations:
-# 
-#     •  Horizontal distance: 0.01 degree (about 1km)
-#     •  Vertical separation: 0.01 m depth
-#     •  Time separation: 1 minute.
-#     •  Salinity difference: 0.01 psu.
-# 
-#   Such values can be tested and adapted according to the application, the
-#   dataset etc. Once the parameters have been set, the following command allows
-#   one to identify the potential duplicates:
+Add in the cell below the code to read data from another file.
+"""
+
+# ╔═╡ 037e9dfa-7518-4774-824f-b5aa57a47771
+
+
+# ╔═╡ 307299f2-3ef4-41b5-91e7-a341b895434f
+md"""
+##  Remove duplicates
+
+⌛ The idea here to remove the duplicates coming from the combination of two
+datasets: SeaDataNet and World Ocean Database. If one has to perform a
+duplicate detection on a unique dataset (for instance SeaDataNet only), a
+similar procedure can be applied, as explained below.
+
+### Criteria
+Some values have to be set for the tolerance concerning the positions, times
+and values of the observations:
+- Horizontal distance: 0.05 degree (about 5 km)
+- Vertical separation: 0.05 m depth
+- Time separation: 1 minute.
+- Salinity difference: 0.1 psu.
+"""
 
 # ╔═╡ e7be077a-a392-4633-9695-3eac8415c3c3
 @time dupl = DIVAnd.Quadtrees.checkduplicates(
     (obslon,obslat,obsdepth,obstime), obsval, 
-    (obslonwod,obslatwod, obsdepthwod, obstimewod), obsvalwod,
-    (0.01,0.01,0.01,1/(24*60)),0.01);
+    (obslonwod_sel, obslatwod_sel, obsdepthwod_sel, obstimewod_sel), obsvalwod_sel,
+    (0.05, 0.05, 0.05, 1/(24*60)), 0.1);
+
+# ╔═╡ db532ce4-d4ba-44ee-9037-d00fe0116df5
+md"""
+!!! note
+      The values in the previous cell were set to ensure some duplicates are identified. In a realistic application, they have to be adapted according to the datasets, the variables etc. Once the parameters have been set, the following command allows one to identify the _potential_ duplicates:
+"""
 
 # ╔═╡ c4fc3808-a19d-45c5-8603-242050c82d40
 md"""
@@ -377,12 +382,12 @@ begin
 	newpoints = isempty.(dupl);
 	@info("Number of new points: $(sum(newpoints)))")
 	
-	obslon_merged = [obslon; obslonwod[newpoints]];
-	obslat_merged = [obslat; obslatwod[newpoints]];
-	obsdepth_merged = [obsdepth; obsdepthwod[newpoints]];
-	obstime_merged = [obstime; obstimewod[newpoints]];
-	obsval_merged = [obsval; obsvalwod[newpoints]];
-	obsid_merged = [obsid; obsidwod[newpoints]];
+	obslon_merged = [obslon; obslonwod_sel[newpoints]];
+	obslat_merged = [obslat; obslatwod_sel[newpoints]];
+	obsdepth_merged = [obsdepth; obsdepthwod_sel[newpoints]];
+	obstime_merged = [obstime; obstimewod_sel[newpoints]];
+	obsval_merged = [obsval; obsvalwod_sel[newpoints]];
+	obsid_merged = [obsid; obsidwod_sel[newpoints]];
 end
 
 # ╔═╡ 9c0e1f07-b185-4f22-9e73-ad29e1fa71b9
@@ -397,17 +402,17 @@ begin
 	ax = GeoAxis(f[1,1], dest = "+proj=merc", title="Observations")
 	GeoMakie.heatmap!(ax, collect(lonr), collect(latr), mask_edit[:,:,1], colormap=Reverse(:binary))
 	GeoMakie.scatter!(ax, obslon, obslat; markersize=2, color=:blue, label="SeaDataNet")
-	GeoMakie.scatter!(ax, obslonwod[newpoints], obslatwod[newpoints]; markersize=2, color=:green, 
+	GeoMakie.scatter!(ax, obslonwod_sel[newpoints], obslatwod_sel[newpoints]; markersize=2, color=:green, 
 	    label="Additional data\nfrom World Ocean Database")
 	GeoMakie.Legend(f[1, 2], ax, "Datasets")
 	f
 end
 
 # ╔═╡ 83f759da-8023-4143-9697-5d2e20165855
-#   Quality control
-#   ===============
-# 
-#   We check the salinity value. Adapt the criteria to your region and variable.
+md"""
+### Quality control
+We check the salinity value. Adapt the criteria to your region and variable.
+"""
 
 # ╔═╡ 2cc9548e-548b-4c02-a7a7-602a0f64675a
 begin
@@ -422,20 +427,20 @@ begin
 end
 
 # ╔═╡ 3e4cde73-bc96-4efa-b92e-b77dab0ec289
-#   Analysis parameters
-#   ===================
-# 
-#   Modify data weight
-#   ––––––––––––––––––
-# 
-#   The new weights are computed in order to take into account the distance
-#   between points. <div class="alert alert-block alert-info"> ℹ️ If the dataset
-#   is large, this can take a few minutes. </div>
-# 
-#   The maximal and mean values provide an indication of the spatial proximity
-#   between the data. If you apply this technique, you need to adapt epsilon2 as
-#   epsilon2 = epsilon2 * rdiag.
+md"""
+## Analysis parameters
+### Modify data weight
+The new weights are computed in order to take into account the distance
+between points. 
 
+!!! info 
+    If the dataset
+    is large, this can take a few minutes. 
+
+The maximal and mean values provide an indication of the spatial proximity
+between the data. If you apply this technique, you need to adapt epsilon2 as
+`epsilon2 = epsilon2 * rdiag`.
+"""
 
 # ╔═╡ 9e1b95cd-fe58-4f8f-9d5d-712d5506ec1d
 begin
@@ -444,13 +449,12 @@ begin
 end
 
 # ╔═╡ 0f7e15a1-32c4-45e9-9597-d4f419e35045
-#   Correlation lengths and noise-to-signal ratio
-#   –––––––––––––––––––––––––––––––––––––––––––––
-# 
-#   We will use the function diva3D for the calculations. With this function,
-#   the correlation length has to be defined in meters, not in degrees.
+md"""
+### Set correlation lengths and noise-to-signal ratio
 
-
+We will use the function `diva3d` for the calculations. With this function,
+the correlation length has to be defined in meters, not in degrees.
+"""
 
 # ╔═╡ e991be2e-57cf-4046-973d-04bf9e149748
 begin
@@ -464,23 +468,22 @@ begin
 end
 
 # ╔═╡ 5bb55687-5c76-438c-808e-8434a730b4af
-#   Output file name
-#   ––––––––––––––––
+md"""
+Set the output file name
+"""
 
 # ╔═╡ 6a155fc1-b19e-485e-a3e9-345a1e7d77e9
-begin
-	filename = joinpath(outputdir, "Water_body_$(replace(varname," "=>"_"))_Adriatic.4Danl.nc")
-end
+filename = joinpath(outputdir, "Water_body_$(replace(varname," "=>"_"))_Adriatic.4Danl.nc")
+
 
 # ╔═╡ 019efea3-5307-4f5a-985c-63f66dfa07f2
-#   Metadata and attributes
-#   =======================
-# 
-#   Edit the different fields according to the project, the authors etc. This is
-#   used for the netCDF file but also for the XML needed for the Sextant catalog.
+md"""
+### Metadata and attributes
+Edit the different fields according to the project, the authors etc. This is
+used for the netCDF file but also for the XML needed for the Sextant catalog.
+"""
 
 # ╔═╡ ff21999a-5087-43d7-8c0f-189891cebad0
-
 metadata = OrderedDict(
     # Name of the project (SeaDataCloud, SeaDataNet, EMODNET-chemistry, ...)
     "project" => "SeaDataCloud",
@@ -556,21 +559,19 @@ metadata = OrderedDict(
 
 
 # ╔═╡ 8e23ac6b-37ae-4dd7-ba5b-8c9fca8ddbf5
-#   SeaDataNet global attributes:
-
+md"""
+#### Add the SeaDataNet global attributes
+"""
 
 # ╔═╡ 4a391071-c222-4afb-9a70-0bf69d6aa484
 ncglobalattrib, ncvarattrib = SDNMetadata(metadata, filename, varname, lonr, latr)
 
 # ╔═╡ 80ce6471-57f0-40a9-9d40-d441d6f591da
-#   Analysis
-#   ========
-# 
-#   Remove the result file before running the analysis, otherwise you'll get the
-#   message 
-# 
-#   NCDatasets.NetCDFError(13, "Permission denied")
-#   
+md"""
+## Analysis
+Remove the result file before running the analysis, otherwise you'll get the   message 
+`NCDatasets.NetCDFError(13, "Permission denied")`
+"""
 
 # ╔═╡ 9286eb7f-9c04-4a7e-bcc7-c554f2e32efe
 if isfile(filename)
@@ -579,11 +580,12 @@ if isfile(filename)
 end
 
 # ╔═╡ c487f35f-856d-40a8-ae0d-916868354085
-#   Plotting function
-#   –––––––––––––––––
-# 
-#   Define a plotting function that will be applied for each time index and
-#   depth level. All the figures will be saved in a selected directory.
+md"""
+### Plotting function
+Define a plotting function that will be applied for each time index and
+depth level.      
+All the figures will be saved in a selected directory.
+"""
 
 # ╔═╡ dc0e8f83-09e7-4213-a2dc-e9d9ffe44776
 begin 
@@ -592,7 +594,6 @@ begin
 end
 
 # ╔═╡ 416229ec-1c47-4a9c-9e35-fddac62fd8a9
-
 function plotres(timeindex, sel, fit, erri; vmin = 33, vmax = 40)
     tmp = copy(fit)
     nx, ny, nz = size(tmp)
@@ -630,11 +631,12 @@ function plotres(timeindex, sel, fit, erri; vmin = 33, vmax = 40)
 end
 
 # ╔═╡ 888481aa-3a21-43fd-ac7a-ccaed2c4ee68
-#   Create the gridded fields using diva3d
-#   ––––––––––––––––––––––––––––––––––––––
-# 
-#   Here only the noise-to-signal ratio is estimated. Set fitcorrlen to true to
-#   also optimise the correlation length.
+md"""
+### Create the gridded fields using `diva3d`
+
+Here only the noise-to-signal ratio is estimated. Set `fitcorrlen` to `true` to
+also optimise the correlation length.
+"""
 
 # ╔═╡ d9397dbb-39f3-4e52-8071-53d9fa696f56
 begin
@@ -655,21 +657,12 @@ begin
 	    ncglobalattrib = ncglobalattrib,
 	    surfextend = true,
 	);
-
-	
 end
 
-# ╔═╡ a0990f11-20dd-4e61-87c8-2077f269f1bd
-	
-	#   Example of results: salinity at 20 meters for the April-May-June period.
-	
-	#   <img src="./Adriatic/figures/Salinity02002.png" width="450px">
-
 # ╔═╡ f1c970d7-6dbb-4c0c-a19f-54e5a084de68
-#   Save the observation metadata
-#   –––––––––––––––––––––––––––––
-
-
+md"""
+### Save the observation metadata
+"""
 
 # ╔═╡ 5ee99a09-7ef2-4168-8247-46d9ca01d8f4
 begin
@@ -681,26 +674,19 @@ begin
 	    obsid,
 	    used = dbinfo[:used],
 	)
-	#DIVAnd.saveobs(filename, "Oxygen data", obsval, (obslon,obslat,obsdepth,obstime),obsid)
 end
 
-# ╔═╡ 4169554b-90e9-47d2-968d-3a1965cf8b23
-#   Apply a posteriori quality control
-#   ==================================
-# 
-#   We can use the structure dbinfo. histogram for quality flags
-
 # ╔═╡ 81548ef0-b785-4fc1-8fcd-b470202dd1e9
-#   XML metadata
-#   ============
-# 
-#   For DIVAnd analysis using SeaDataCloud/EMODnet-Chemistry data, one can
-#   create a XML description for the product for Sextant
-# 
-#   Name of the project:
-# 
-#     •  "SeaDataCloud" or
-#     •  "EMODNET-chemistry"
+md"""
+### XML metadata
+
+or DIVAnd analysis using SeaDataCloud/EMODnet-Chemistry data, one can
+create a XML description for the product for Sextant
+
+Name of the project:
+- "SeaDataCloud" or
+- "EMODNET-chemistry"
+"""
 
 # ╔═╡ cd18c65c-ba69-4d42-9ad0-81ecb232fa77
 begin
@@ -772,39 +758,40 @@ end
 # ╠═6a8cc095-1db8-421f-b36f-76095e78537e
 # ╟─36d68bbe-ecae-4625-b565-aa9814bffa15
 # ╠═bb8b4704-2c04-44d4-8a24-2fdd274bca5c
-# ╠═b9db095e-3426-445a-9685-fd5fdaf07391
+# ╟─b9db095e-3426-445a-9685-fd5fdaf07391
+# ╠═037e9dfa-7518-4774-824f-b5aa57a47771
+# ╟─307299f2-3ef4-41b5-91e7-a341b895434f
 # ╠═e7be077a-a392-4633-9695-3eac8415c3c3
-# ╠═c4fc3808-a19d-45c5-8603-242050c82d40
+# ╟─db532ce4-d4ba-44ee-9037-d00fe0116df5
+# ╟─c4fc3808-a19d-45c5-8603-242050c82d40
 # ╠═f088b184-ff5f-486b-9c2c-4a83144de059
 # ╟─2289bdcb-7638-40d8-b038-90e569d012f4
 # ╠═619c1f4a-d077-4dee-b518-a2d4ace663e2
-# ╠═030576a1-1cf7-4173-880e-d1b36fa7bb33
+# ╟─030576a1-1cf7-4173-880e-d1b36fa7bb33
 # ╠═a84d6b23-91f7-4206-b98c-21a0b2f24628
 # ╟─9c0e1f07-b185-4f22-9e73-ad29e1fa71b9
 # ╠═87a2ca37-5b49-4006-abbd-6d7f30faaaac
-# ╠═83f759da-8023-4143-9697-5d2e20165855
+# ╟─83f759da-8023-4143-9697-5d2e20165855
 # ╠═2cc9548e-548b-4c02-a7a7-602a0f64675a
-# ╠═3e4cde73-bc96-4efa-b92e-b77dab0ec289
+# ╟─3e4cde73-bc96-4efa-b92e-b77dab0ec289
 # ╠═9e1b95cd-fe58-4f8f-9d5d-712d5506ec1d
-# ╠═0f7e15a1-32c4-45e9-9597-d4f419e35045
+# ╟─0f7e15a1-32c4-45e9-9597-d4f419e35045
 # ╠═e991be2e-57cf-4046-973d-04bf9e149748
-# ╠═5bb55687-5c76-438c-808e-8434a730b4af
+# ╟─5bb55687-5c76-438c-808e-8434a730b4af
 # ╠═6a155fc1-b19e-485e-a3e9-345a1e7d77e9
-# ╠═019efea3-5307-4f5a-985c-63f66dfa07f2
+# ╟─019efea3-5307-4f5a-985c-63f66dfa07f2
 # ╠═ff21999a-5087-43d7-8c0f-189891cebad0
-# ╠═8e23ac6b-37ae-4dd7-ba5b-8c9fca8ddbf5
+# ╟─8e23ac6b-37ae-4dd7-ba5b-8c9fca8ddbf5
 # ╠═4a391071-c222-4afb-9a70-0bf69d6aa484
-# ╠═80ce6471-57f0-40a9-9d40-d441d6f591da
+# ╟─80ce6471-57f0-40a9-9d40-d441d6f591da
 # ╠═9286eb7f-9c04-4a7e-bcc7-c554f2e32efe
-# ╠═c487f35f-856d-40a8-ae0d-916868354085
+# ╟─c487f35f-856d-40a8-ae0d-916868354085
 # ╠═dc0e8f83-09e7-4213-a2dc-e9d9ffe44776
 # ╠═416229ec-1c47-4a9c-9e35-fddac62fd8a9
-# ╠═888481aa-3a21-43fd-ac7a-ccaed2c4ee68
+# ╟─888481aa-3a21-43fd-ac7a-ccaed2c4ee68
 # ╠═d9397dbb-39f3-4e52-8071-53d9fa696f56
-# ╠═a0990f11-20dd-4e61-87c8-2077f269f1bd
-# ╠═f1c970d7-6dbb-4c0c-a19f-54e5a084de68
+# ╟─f1c970d7-6dbb-4c0c-a19f-54e5a084de68
 # ╠═5ee99a09-7ef2-4168-8247-46d9ca01d8f4
-# ╠═4169554b-90e9-47d2-968d-3a1965cf8b23
-# ╠═81548ef0-b785-4fc1-8fcd-b470202dd1e9
+# ╟─81548ef0-b785-4fc1-8fcd-b470202dd1e9
 # ╠═cd18c65c-ba69-4d42-9ad0-81ecb232fa77
 # ╟─1332d3e2-4926-4779-be5b-147b5539a8eb

@@ -470,9 +470,11 @@ version = "1.2.7"
 
 [[deps.DIVAnd]]
 deps = ["AlgebraicMultigrid", "DataStructures", "Dates", "DelimitedFiles", "Distributed", "EzXML", "HTTP", "Interpolations", "IterativeSolvers", "LinearAlgebra", "Missings", "Mustache", "NCDatasets", "NetCDF_jll", "Printf", "Random", "SharedArrays", "SparseArrays", "SpecialFunctions", "Statistics", "SuiteSparse", "Test", "UUIDs", "ZipFile"]
-git-tree-sha1 = "95a825790765d39301f2c6cc4f9faa82930524a0"
+git-tree-sha1 = "2c646e5795a03b84787db4964de7bc9baa35f94c"
+repo-rev = "master"
+repo-url = "https://github.com/gher-uliege/DIVAnd.jl"
 uuid = "efc8151c-67de-5a8f-9a35-d8f54746ae9d"
-version = "2.7.13"
+version = "2.7.14"
 
 [[deps.DataAPI]]
 git-tree-sha1 = "abe83f3a2f1b857aac70ef8b269080af17764bbe"
