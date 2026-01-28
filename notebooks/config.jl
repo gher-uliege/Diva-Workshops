@@ -1,5 +1,8 @@
 using Downloads
-
+using DrWatson
+using Pkg
+@quickactivate("Diva-Workshops")
+Pkg.instantiate()
 outputdir = joinpath(datadir(), "output/")
 mkpath.([datadir(), plotsdir(), outputdir])
 
