@@ -140,3 +140,11 @@ using IJulia
 notebook()
 ```
 
+> [!IMPORTANT]
+> A notebook in [Pluto](https://plutojl.org/) was recently added to the repository. To run it, you have to execute:
+```julia
+import Pluto
+Pluto.run()
+```
+then you have to open the file `3-09-full-analysis.jl` in your browser.
+
