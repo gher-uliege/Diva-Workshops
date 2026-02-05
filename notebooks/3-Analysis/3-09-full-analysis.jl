@@ -221,12 +221,16 @@ md"""
 # ╔═╡ 4ef702f9-4a00-46b6-8190-50b60e075c79
 # WorldOceanDatabase.download(lonr,latr,timerange,varname,email,woddatadir);
 
-#   The following will download an example file and extract its content in
-#   Diva-Workshops/notebooks/3-Analysis/Adriatic. If this fails, the data has to
-#   be downloaded manuary (in zip format or tar.gz format)
-# 
-#   Make sure to have a file at the path
-#   Diva-Workshops/notebooks/3-Analysis/Adriatic/WOD/GLD/ocldb1560025519.12915.GLD.nc.
+
+
+# ╔═╡ 499c7403-f4a6-4a5a-aba0-949f528b3311
+md"""
+The following will download an example file and extract its content in
+the selected directory (`Diva-Workshops/data/AdriaticTest/`). If this fails, the data has to be downloaded manualy (in zip format or tar.gz format)
+
+Make sure to have a file at the path
+`Diva-Workshops/data/AdriaticTest/WOD/GLD/ocldb1560025519.12915.GLD.nc`.
+"""
 
 # ╔═╡ feb4fc78-b96e-4476-a46a-a604e91b0aae
 begin 
@@ -429,7 +433,7 @@ end
 # ╔═╡ 3e4cde73-bc96-4efa-b92e-b77dab0ec289
 md"""
 ## Analysis parameters
-### Modify data weight
+### Modify data weights
 The new weights are computed in order to take into account the distance
 between points. 
 
@@ -589,7 +593,7 @@ All the figures will be saved in a selected directory.
 
 # ╔═╡ dc0e8f83-09e7-4213-a2dc-e9d9ffe44776
 begin 
-	figdir = "../figures/Adriatic/"
+	figdir = joinpath(plotsdir(), "Adriatic/")
 	isdir(figdir) ? @info("Figure directory already exists") : mkdir(figdir)
 end
 
@@ -750,6 +754,7 @@ end
 # ╠═c334599b-15fe-4f80-b6b8-5af932fa48ba
 # ╟─88644eb0-b0c9-45a5-831b-08a9e80c6860
 # ╠═4ef702f9-4a00-46b6-8190-50b60e075c79
+# ╠═499c7403-f4a6-4a5a-aba0-949f528b3311
 # ╠═feb4fc78-b96e-4476-a46a-a604e91b0aae
 # ╟─9b34d0e9-2723-4312-8033-7f473a444634
 # ╟─dc982b14-45ce-4d65-8902-38b21b54dbe4
