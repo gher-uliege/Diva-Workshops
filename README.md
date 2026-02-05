@@ -141,7 +141,7 @@ notebook()
 ```
 
 > [!IMPORTANT]
-> A notebook in [Pluto](https://plutojl.org/) was recently added to the repository. To run it, you have to execute:
+> A notebook in [Pluto](https://plutojl.org/), `3-09-full-analysis.jl`, was recently added to the repository. To run it, you have to execute:
 ```julia
 import Pluto
 Pluto.run()
