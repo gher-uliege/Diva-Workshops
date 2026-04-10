@@ -93,7 +93,7 @@ temperature and salinity [@Shahzadi:2021] and nutrients [@Belgacem:2021].
 
 # Acknowledgements
 
-We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innnovation FAIR-EASE project (grant agreement No. 101058785, DOI: [10.3030/101058785](https://doi.org/10.3030/101058785)), Blue-Cloud 2026 (grant agreement No. 101094227, DOI: [10.3030/101094227](https://doi.org/10.3030/101094227)) and IRISCC (grant agreement No. 101131261, DOI: [10.3030/101131261](https://doi.org/10.3030/101131261)).
+We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innnovation FAIR-EASE project (grant agreement No. 101058785, DOI: [10.3030/101058785](https://doi.org/10.3030/101058785)), Blue-Cloud 2026 (grant agreement No. 101094227, DOI: [10.3030/101094227](https://doi.org/10.3030/101094227)), IRISCC (grant agreement No. 101131261, DOI: [10.3030/101131261](https://doi.org/10.3030/101131261)) and AQUARIUS (grant agreement No. 101130915, DOI: [10.3030/101130915](https://doi.org/10.3030/101130915)).
 
 We wish to acknowledge the participants to the different editions of the DIVA workshops, since their feedback was essential to build and improve the content of the training sessions.
 
