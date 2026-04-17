@@ -33,7 +33,7 @@ jobs:
           arch: ${{ matrix.arch }}
       - name: Install IJulia and register kernel
         run: |
-          julia -e 'using Pkg; Pkg.add("IJulia"); using IJulia; installkernel("Julia")'
+          julia -e 'using Pkg; Pkg.add("DrWatson"); Pkg.add("IJulia"); using IJulia; installkernel("Julia")'
       - uses: actions/cache@v4
         env:
           cache-name: cache-artifacts
