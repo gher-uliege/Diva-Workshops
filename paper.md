@@ -1,5 +1,5 @@
 ---
-title: 'DIVAnd training: producing oceanographic climatologies with Jupyter notebooks'
+title: 'DIVAnd training: producing ocean climatologies with Jupyter notebooks'
 tags:
   - oceanography
   - data analysis
