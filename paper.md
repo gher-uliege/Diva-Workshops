@@ -65,15 +65,15 @@ Participant feedback is particularly valuable. It not only guides the developmen
 ## Goal of the module
 
 The goal of the training material module is twofold: 
-1. to provide users with a basic knowledge of Julia, meaning they are not only capable of reading the code presented in the notebooks, but also able install new modules, write basic functions for processing or create basic plots. 
-2. to ensure that users are to able to create their own products (i.e. climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.
+1. to provide users with a basic knowledge of Julia, meaning they are not only capable of reading the code presented in the notebooks, but also able install new modules, write basic functions for processing or create basic plots.          
+2. to ensure that users are to able to create their own products (i.e. climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.          
 
 Julia syntax is similar to other widespread languages, for instance MATLAB, yet some specificities have to be explained to make sure users can take advantage of its full functionality. 
 
 ## Instructional design
 
 The notebooks have been organized by sub-folders according to their objectives:           
-1. Introduction: brief introduction to the Julia language and to the Jupyter notebooks, how to deal with netCDF files (reading and writing) and how to generate figures (maps, sections, ...).        
+1. Introduction: brief introduction to the Julia language and to the Jupyter notebooks, how to deal with netCDF files (reading and writing) and how to generate figures (maps, sections, ...).            
 2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.                     
 3. Analysis: creating of gridded fields with DIVAnd, the influence of the analysis parameters, and interpolation with different coordinate systems.      
 4. Advanced topics: this folder contains less frequently used notebooks, dealing with the generation of density maps, relative correlation length, background fields, and advection constraints.           
