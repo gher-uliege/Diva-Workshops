@@ -27,28 +27,28 @@ bibliography: paper.bib
 
 # Summary
 
-The DIVA-workshops project consists of a set of Jupyter notebooks, focused on creation of gridded fields from in-situ observations using the `DIVAnd`. `DIVAnd` is a software tool, written in Julia, which performs interpolation in an arbitrary number of dimensions. 
+The DIVA-workshops project consists of a set of Jupyter notebooks, focused on creation of gridded fields from in-situ observations using `DIVAnd`. `DIVAnd` is a software tool, written in Julia, which performs interpolation in an arbitrary number of dimensions. 
 
 The notebooks address the different stages of oceanographic climatology generation: data reading and preparation, extraction of the topography and creation of a land-sea mask, setting of the spatial resolution and the time periods, estimation of the analysis parameters, analysis and creation of the metadata.
 
-The target audience is broad as it includes: data analysts, who wish to create climatologies; physical oceanographers, who want to grid their observations for visualisation and potentially for quality control, and programmers, who want to include the DIVAnd interpolation in a larger workflow involving other processing steps. 
+The target audience is broad as it includes: data analysts, who wish to create climatologies; physical oceanographers, who want to grid their observations for visualisation and potentially for quality control, and programmers, who want to include DIVAnd interpolation in a larger workflow involving other processing steps. 
 
 
 # Statement of need
 
 The gridding of in-situ measurements is a common task in oceanography. It consists of the generation of one or several fields on a regular grid, using the information contained in a set of observations, generally sparsely distributed. The combination of such fields, produced at different depths and for different time periods, is often referred to as a climatology. 
 
-This gridding problem is not new and many methods have been developed in recent decades. One of the most widespread method is Optimal Interpolation [@gandin:1965,@Bretherton:1976], where analytical functions are used to specify a first guess error covariance. Since then, the method has been adapted and improved, yet it cannot easily address the decoupling of water masses separated by a physical obstacle.  
+This gridding problem is not new and many methods have been developed in recent decades. One of the most widespread methods is Optimal Interpolation [@gandin:1965,@Bretherton:1976], where analytical functions are used to specify a first guess error covariance. Since then, the method has been adapted and improved, yet it cannot easily address the decoupling of water masses separated by a physical obstacle.  
 
-`DIVA` stands for Data-Interpolating Variational Analysis [@troupin:2012] and is an analysis method based on the minimization of a cost function. This cost function takes into account different constraints, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and time periods.
+DIVA (Data-Interpolating Variational Analaysis; @troupin:2012) is comparable to optimal interpolation, but it takes coastlines, sub-basins and advection into account. DIVA is based on the minimization of a cost function which takes into account different constraints, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and time periods.
 
 ![Example of salinity measurements and the corresponding analysed field.](salinity_gridded.png)
 
 `DIVAnd` (DIVA in n dimensions) is based on the same mathematical idea (the minimization of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it could run on MATLAB and GNU Octave. Its performance was further improved thanks to the transition to the Julia language [@bezanson:2017].   
 
-Without reviewing the full development history of the gridding and interpolation algorithms, we highlight two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques:
-1. The management of large datasets: the computation time is almost independent of the number of observations, making it possible to perform gridding with millions of data points.
-2. The consideration of natural boundaries (coastlines, bottom topography) during the interpolation: the artificial mixing of water masses that are geographically close but separated by a physical obstacle is avoided.
+Without reviewing the full development history of the gridding and interpolation algorithms, we highlight two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques: 
+1. The management of large datasets: the computation time is almost independent of the number of observations, making it possible to perform gridding with millions of data points.      
+2. The consideration of natural boundaries (coastlines, bottom topography) during the interpolation: the artificial mixing of water masses that are geographically close but separated by a physical obstacle is avoided.         
 
 The [`DIVAnd`](https://github.com/gher-uliege/DIVAnd.jl/) code is published on GitHub along with its documentation and examples, and the underlying theory has been published in @barth:2014. However, in order to ensure that users are able to create their own climatologies, with a relatively new programming language, additional teaching resources were necessary. This is the main motivation behind the creation and the maintenance of the [Diva-Workshops](https://github.com/gher-uliege/Diva-Workshops) repository.
 
@@ -72,11 +72,11 @@ Julia syntax is similar to other widespread languages, for instance MATLAB, yet 
 
 ## Instructional design
 
-The notebooks have been organized by sub-folders according to their objectives:
-1. Introduction: brief introduction to the Julia language and to the Jupyter notebooks, how to deal with netCDF files (reading and writing) and how to generate figures (maps, sections, ...). 
-2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.
-3. Analysis: creating of gridded fields with DIVAnd, the influence of the analysis parameters, and interpolation with different coordinate systems.
-4. Advanced topics: this folder contains less frequently used notebooks, dealing with the generation of density maps, relative correlation length, background fields, and advection constraints.
+The notebooks have been organized by sub-folders according to their objectives:           
+1. Introduction: brief introduction to the Julia language and to the Jupyter notebooks, how to deal with netCDF files (reading and writing) and how to generate figures (maps, sections, ...).        
+2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.                     
+3. Analysis: creating of gridded fields with DIVAnd, the influence of the analysis parameters, and interpolation with different coordinate systems.      
+4. Advanced topics: this folder contains less frequently used notebooks, dealing with the generation of density maps, relative correlation length, background fields, and advection constraints.           
 
 Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure that those files are available from a public file server and can be downloaded locally whenever necessary. 
 
