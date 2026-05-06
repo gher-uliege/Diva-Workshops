@@ -38,7 +38,7 @@ The target audience is broad as it includes: data analysts, who wish to create c
 
 The gridding of in-situ measurements is a common task in oceanography. It consists of the generation of one or several fields on a regular grid, using the information contained in a set of observations, generally sparsely distributed. The combination of such fields, produced at different depths and for different time periods, is often referred to as a climatology. 
 
-This gridding problem is not new and many methods have been developed in recent decades. One of the most widespread methods is Optimal Interpolation [@gandin:1965,@Bretherton:1976], where analytical functions are used to specify a first guess error covariance. Since then, the method has been adapted and improved, yet it cannot easily address the decoupling of water masses separated by a physical obstacle.  
+This gridding problem is not new and many methods have been developed in recent decades. One of the most widespread methods is Optimal Interpolation [@gandin:1965, @Bretherton:1976], where analytical functions are used to specify a first guess error covariance. Since then, the method has been adapted and improved, yet it cannot easily address the decoupling of water masses separated by a physical obstacle.  
 
 DIVA (Data-Interpolating Variational Analaysis; @troupin:2012) is comparable to optimal interpolation, but it takes coastlines, sub-basins and advection into account. DIVA is based on the minimization of a cost function which takes into account different constraints, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and time periods.
 
@@ -46,7 +46,7 @@ DIVA (Data-Interpolating Variational Analaysis; @troupin:2012) is comparable to 
 
 `DIVAnd` (DIVA in n dimensions) is based on the same mathematical idea (the minimization of a cost function) but extended to an arbitrary number of dimensions, typically longitude, latitude, depth and time [@barth:2014]. The code was first rewritten so that it could run on MATLAB and GNU Octave. Its performance was further improved thanks to the transition to the Julia language [@bezanson:2017].   
 
-Without reviewing the full development history of the gridding and interpolation algorithms, we highlight two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques: 
+Without reviewing the full development history of the gridding and interpolation algorithms, we highlight two specific aspects that are adequately addressed by DIVAnd (and DIVA) with respect to existing techniques:         
 1. The management of large datasets: the computation time is almost independent of the number of observations, making it possible to perform gridding with millions of data points.      
 2. The consideration of natural boundaries (coastlines, bottom topography) during the interpolation: the artificial mixing of water masses that are geographically close but separated by a physical obstacle is avoided.         
 
@@ -64,8 +64,8 @@ Participant feedback is particularly valuable. It not only guides the developmen
 
 ## Goal of the module
 
-The goal of the training material module is twofold: 
-1. to provide users with a basic knowledge of Julia, meaning they are not only capable of reading the code presented in the notebooks, but also able install new modules, write basic functions for processing or create basic plots.          
+The goal of the training material module is twofold:           
+1. to provide users with a basic knowledge of Julia, meaning they are not only capable of reading the code presented in the notebooks, but also able install new modules, write basic functions for processing or create basic plots.               
 2. to ensure that users are to able to create their own products (i.e. climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.          
 
 Julia syntax is similar to other widespread languages, for instance MATLAB, yet some specificities have to be explained to make sure users can take advantage of its full functionality. 
