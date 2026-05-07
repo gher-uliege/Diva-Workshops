@@ -40,7 +40,7 @@ The gridding of in-situ measurements is a common task in oceanography. It consis
 
 This gridding problem is not new and many methods have been developed in recent decades. One of the most widespread methods is Optimal Interpolation [@gandin:1965;@Bretherton:1976], where analytical functions are used to specify a first guess error covariance. Since then, the method has been adapted and improved, yet it cannot easily address the decoupling of water masses separated by a physical obstacle.  
 
-DIVA (Data-Interpolating Variational Analysis; @troupin:2012) is comparable to optimal interpolation, but it takes coastlines, sub-basins and advection into account. DIVA is based on the minimization of a cost function which takes into account different constraints, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and time periods.
+DIVA (Data-Interpolating Variational Analysis; @troupin:2012) is comparable to optimal interpolation, but it takes coastlines, sub-basins and advection into account. Mathematically, the method is based on the minimization of a cost function which includes different constraints, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and time periods.
 
 ![Example of salinity measurements and the corresponding analysed field.](salinity_gridded.png)
 
