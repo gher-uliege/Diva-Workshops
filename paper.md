@@ -40,7 +40,7 @@ The gridding of in-situ measurements is a common task in oceanography. It consis
 
 This gridding problem is not new and many methods have been developed in recent decades. One of the most widespread methods is Optimal Interpolation [@gandin:1965;@Bretherton:1976], where analytical functions are used to specify a first guess error covariance. Since then, the method has been adapted and improved, yet it cannot easily address the decoupling of water masses separated by a physical obstacle.  
 
-DIVA (Data-Interpolating Variational Analaysis; @troupin:2012) is comparable to optimal interpolation, but it takes coastlines, sub-basins and advection into account. DIVA is based on the minimization of a cost function which takes into account different constraints, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and time periods.
+DIVA (Data-Interpolating Variational Analysis; @troupin:2012) is comparable to optimal interpolation, but it takes coastlines, sub-basins and advection into account. DIVA is based on the minimization of a cost function which takes into account different constraints, typically the closeness to observations and the regularity (or smoothness) of the gridded field. DIVA, written in Fortran, was based on a finite-element solver and limited to two-dimensional applications. Climatologies were obtained by assembling 2D fields produced at specified depths and time periods.
 
 ![Example of salinity measurements and the corresponding analysed field.](salinity_gridded.png)
 
@@ -68,23 +68,23 @@ The goal of the training material module is twofold:
 1. to provide users with a basic knowledge of Julia, meaning they are not only capable of reading the code presented in the notebooks, but also able install new modules, write basic functions for processing or create basic plots.               
 2. to ensure that users are to able to create their own products (i.e. climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.          
 
-Julia syntax is similar to other widespread languages, for instance MATLAB, yet some specificities have to be explained to make sure users can take advantage of its full functionality. 
+Julia syntax is similar to other widespread languages, for instance MATLAB, yet some peculiarities have to be explained to make sure users can take advantage of its full functionality. 
 
 ## Instructional design
 
 The notebooks have been organized by sub-folders according to their objectives:           
 1. Introduction: brief introduction to the Julia language and to the Jupyter notebooks, how to deal with netCDF files (reading and writing) and how to generate figures (maps, sections, ...).            
-2. Preprocessing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.                     
+2. Pre-processing: preparation of the input required by `DIVAnd` (grid, time periods, bathymetry, observations) and estimation of the main analysis parameters (correlation length and noise-to-signal ratio). Code fragments dealing with various file formats (CSV, netCDF, TIFF, ...) are also provided to help users work with the most frequent types of data.                     
 3. Analysis: creating of gridded fields with DIVAnd, the influence of the analysis parameters, and interpolation with different coordinate systems.      
 4. Advanced topics: this folder contains less frequently used notebooks, dealing with the generation of density maps, relative correlation length, background fields, and advection constraints.           
 
 Since the notebooks require input data files (mainly bathymetry and observations) to be executed, we ensure that those files are available from a public file server and can be downloaded locally whenever necessary. 
 
-Following our experience with users, for the creation of plots, the Makie module [@danisch:2021] (along with `GeoMakie` for the maps) was selected to replce `PyPlot` (along with `Cartopy` [@Cartopy:2010] for the maps), which is based on the Python Matplotlib module [@hunter:2007]. Indeed, the import of PyPlot in the notebooks often generated errors on user's machines, due to the sensitivity to the operating system and the pre-existing Python installation(s).
+Following our experience with users, for the creation of plots, the `Makie` module [@danisch:2021] (along with `GeoMakie` for the maps) was selected to replace `PyPlot` along with `Cartopy` [@Cartopy:2010] for the maps, which is based on the Python `Matplotlib` module [@hunter:2007]. Indeed, the import of PyPlot in the notebooks often generated errors on user machines, due to the sensitivity to the operating system and the pre-existing Python installation(s).
 
 ## Users and applications
 
-The user community mainly consists of scientists, data analysists and experts. This diversity implies that the content has to be comprehensive and tailored to ensure users without any prior experience with Julia or Jupyter are able to run and modify the notebooks. 
+The user community mainly consists of scientists, data analysts and experts. This diversity implies that the content has to be comprehensive and tailored to ensure users without any prior experience with Julia or Jupyter are able to run and modify the notebooks. 
 
 Among the applications, we highlight de EMODnet products [@Webb:2025]. 
 Other recent applications include the creation of climatologies and gridded fields for sea surface height [@Doglioni:2023]
@@ -93,7 +93,7 @@ temperature and salinity [@Shahzadi:2021] and nutrients [@Belgacem:2021].
 
 # Acknowledgements
 
-We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innnovation FAIR-EASE project (grant agreement No. 101058785, DOI: [10.3030/101058785](https://doi.org/10.3030/101058785)), Blue-Cloud 2026 (grant agreement No. 101094227, DOI: [10.3030/101094227](https://doi.org/10.3030/101094227)), IRISCC (grant agreement No. 101131261, DOI: [10.3030/101131261](https://doi.org/10.3030/101131261)) and AQUARIUS (grant agreement No. 101130915, DOI: [10.3030/101130915](https://doi.org/10.3030/101130915)).
+We acknowledge contributions from European Union's Horizon 2020 SeaDataCloud project (grant agreement No. 730960), from Horizon Europe research and innovation FAIR-EASE project (grant agreement No. 101058785, DOI: [10.3030/101058785](https://doi.org/10.3030/101058785)), Blue-Cloud 2026 (grant agreement No. 101094227, DOI: [10.3030/101094227](https://doi.org/10.3030/101094227)), IRISCC (grant agreement No. 101131261, DOI: [10.3030/101131261](https://doi.org/10.3030/101131261)) and AQUARIUS (grant agreement No. 101130915, DOI: [10.3030/101130915](https://doi.org/10.3030/101130915)).
 
 We wish to acknowledge the participants of the different offerings of the DIVA workshops, as their feedback was essential to build and improve the content of the training sessions.
 
