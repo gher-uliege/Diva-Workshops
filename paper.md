@@ -27,7 +27,7 @@ bibliography: paper.bib
 
 # Summary
 
-The DIVA-workshops project consists of a set of Jupyter notebooks, focused on creation of gridded fields from in-situ observations using `DIVAnd`. `DIVAnd` is a software tool, written in Julia, which performs interpolation in an arbitrary number of dimensions. 
+The DIVA-workshops project consists of a set of Jupyter notebooks, focused on the creation of gridded fields from in-situ observations using `DIVAnd`. `DIVAnd` is a software tool, written in Julia, which performs interpolation in an arbitrary number of dimensions. 
 
 The notebooks address the different stages of oceanographic climatology generation: data reading and preparation, extraction of the topography and creation of a land-sea mask, setting of the spatial resolution and the time periods, estimation of the analysis parameters, analysis and creation of the metadata.
 
