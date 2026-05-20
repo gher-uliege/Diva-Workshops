@@ -60,13 +60,13 @@ The first DIVA workshop was organized in Liège, Belgium, in 2006, as part of th
 
 Taking advantage of the Jupyter interface [@kluyver:2016] and the transition to Julia for the new version of DIVAnd, a set of notebooks was created as the primary resource for the user training. The first `DIVAnd` workshop took place in April 2018 in Liège. Since then, other training events were organised and the training material is regularly used as the basis for the creation of gridded products for EMODnet Chemistry [@giorgetti:2018]. The choice of the Jupyter notebooks format was motivated by the interactivity and the step-by-step, documented approach. 
 
-Participant feedback is particularly valuable. It not only guides the development of new functionalities in the `DIVAnd` source code, but also the creation of new notebooks describing specific workflows (for instance the consideration of geostrophy) or the use of particular functions (for instance the use of an advection constrain in the interpolation). 
+Participant feedback is particularly valuable. It not only guides the development of new functionalities in the `DIVAnd` source code, but also the creation of new notebooks describing specific workflows (for instance the consideration of geostrophy) or the use of particular functions (for instance the use of an advection constraint in the interpolation). 
 
 ## Goal of the module
 
 The goal of the training material module is twofold:           
 1. to provide users with a basic knowledge of Julia, meaning they are not only capable of reading the code presented in the notebooks, but also able install new modules, write basic functions for processing or create basic plots.               
-2. to ensure that users are to able to create their own products (i.e. climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.          
+2. to ensure that users are able to create their own products (i.e., climatologies) by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.          
 
 Julia syntax is similar to other widespread languages, for instance MATLAB, yet some peculiarities have to be explained to make sure users can take advantage of its full functionality. 
 
