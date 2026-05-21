@@ -6,7 +6,8 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/gher-uliege/Diva-Workshops)
 [![DOI](https://zenodo.org/badge/108153788.svg)](https://zenodo.org/badge/latestdoi/108153788)      
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/gher-uliege/Diva-Workshops) ![GitHub contributors](https://img.shields.io/github/contributors/gher-uliege/Diva-Workshops) ![GitHub last commit](https://img.shields.io/github/last-commit/gher-uliege/Diva-Workshops)     
-[![Static Badge](https://img.shields.io/badge/Project-FAIR--EASE-blue)](https://www.fairease.eu/) [![Static Badge](https://img.shields.io/badge/Project-SeaDataCloud-blue)](https://www.seadatanet.org) [![Static Badge](https://img.shields.io/badge/Project-IRISCC-blue)](https://www.iriscc.eu/) [![Static Badge](https://img.shields.io/badge/Project-AQUARIUS-blue)](https://aquarius-ri.eu/)
+[![Static Badge](https://img.shields.io/badge/Project-FAIR--EASE-blue)](https://www.fairease.eu/) [![Static Badge](https://img.shields.io/badge/Project-SeaDataCloud-blue)](https://www.seadatanet.org) [![Static Badge](https://img.shields.io/badge/Project-IRISCC-blue)](https://www.iriscc.eu/) [![Static Badge](https://img.shields.io/badge/Project-AQUARIUS-blue)](https://aquarius-ri.eu/)       
+[![DOI](https://jose.theoj.org/papers/10.21105/jose.00278/status.svg)](https://doi.org/10.21105/jose.00278)
 
 ## Objective
 
