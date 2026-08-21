@@ -9,26 +9,108 @@
 [![Static Badge](https://img.shields.io/badge/Project-FAIR--EASE-blue)](https://www.fairease.eu/) [![Static Badge](https://img.shields.io/badge/Project-SeaDataCloud-blue)](https://www.seadatanet.org) [![Static Badge](https://img.shields.io/badge/Project-IRISCC-blue)](https://www.iriscc.eu/) [![Static Badge](https://img.shields.io/badge/Project-AQUARIUS-blue)](https://aquarius-ri.eu/)       
 [![DOI](https://jose.theoj.org/papers/10.21105/jose.00278/status.svg)](https://doi.org/10.21105/jose.00278)
 
-## Objective
+## ⚡ Getting Started in 5 minutes
+
+1. Download or clone the repository.
+2. Install Julia and Jupyter.
+3. Run Jupyter and open one of the notebooks, for instance [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb).
+
+Please cite our article if this material helps you in your research or your teaching activities"
+
+> Troupin et al., (2026). DIVAnd training: producing ocean climatologies with Jupyter notebooks. _Journal of Open Source Education_, **9(99)**, 278, https://doi.org/10.21105/jose.00278
+
+<details>
+<summary>BibTeX entry</summary>
+
+​```bibtex
+@article{Troupin2026,
+  doi = {10.21105/jose.00278},
+  url = {https://doi.org/10.21105/jose.00278},
+  year = {2026},
+  publisher = {The Open Journal},
+  volume = {9},
+  number = {99},
+  pages = {278},
+  author = {Charles Troupin and Alexander Barth and Jean-Marie Beckers},
+  title = {DIVAnd training: producing ocean climatologies with Jupyter notebooks},
+  journal = {Journal of Open Source Education}
+}
+​```
+</details>
+
+## 🎯 Objectives
 
 The goal of the training material module, made up of [Jupyter](https://jupyter.org/) notebooks, is twofold: 
-1. provide the users with a basic knowledge of Julia, meaning they are capable of reading the code presented in the notebooks, but also install new modules, write basic functions for processing or create basic plots. 
-2. endure that the users to able to create their own products (i.e. climatologies) using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool, by combining their own datasets with those from other sources (for instance the World Ocean Database) and setting the analysis parameters according to their region of interest.
+- [x] provide the users with a basic knowledge of Julia, meaning they are capable of reading the code presented in the notebooks and installing new modules, writing  functions for processing or creating plots. 
+- [x] ensure that users are able to create their own products (i.e. climatologies) using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool, by combining their own datasets with those from other sources (for instance the [World Ocean Database](https://www.ncei.noaa.gov/products/world-ocean-database)) and setting the analysis parameters according to their region of interest.
 
-More information about `DIVAnd` is available in the package [documentation](https://gher-uliege.github.io/DIVAnd.jl/stable/).
+ℹ️ More information about `DIVAnd` is available in the package [documentation](https://gher-uliege.github.io/DIVAnd.jl/stable/).
 
-### Content
 
-The notebooks are organised into 4 categories, according to their main objectives and following the "Instructional design" described in the associated paper in JOSE.    
-The different notebook folders can be covered independently, depending on the experise of the users.       
-Suggestions for the number of sessions and time to be dedicated for each category are provide below.
+## 🔧 Installation
+
+### ⚙️ System requirements
+
+The notebooks can be run on various OS, yet most of the tests were carried out on machine running under Linux. 
+
+Participants to the training sessions are generally advised to work with a laptop with:
+- 16 GB RAM memory and
+- sufficient free disk space to manage oceanographic datasets.
+- Data files necessary to prepare products or climatologies.
+
+
+### Julia 
+
+Julia language can be installed using `juliaup`, as detailed in the [Download](https://julialang.org/downloads/) section of Julia.
+
+### Jupyter
+
+Jupyter has to be installed in order to have a notebook interface. It can be installed and launched (in Julia) with the following command in the Pkg REPL      
+(Enter the Pkg REPL by pressing `]` from the Julia session):
+```julia
+(@v1.11) pkg> add IJulia
+```
+
+### The notebooks 
+
+To get the notebooks on your computer you can either:
+1. Download a [zipped archive](https://github.com/gher-uliege/Diva-Workshops/archive/master.zip) and uncompress it [for any user].
+2. Clone the whole directory: `git clone git@github.com:gher-uliege/Diva-Workshops.git` (for git users).
+> [!NOTE] 
+> The notebooks will get dependencies via the file `Project.toml`. This is why all the notebooks start with the commands
+```julia
+import Pkg
+Pkg.activate("../..")
+Pkg.instantiate()
+```
+
+The Jupyter session is started with:
+```julia
+using IJulia
+notebook()
+```
+
+> [!IMPORTANT]
+> A notebook in [Pluto](https://plutojl.org/), `3-09-full-analysis.jl`, was recently added to the repository. To run it, you have to execute:
+```julia
+import Pluto
+Pluto.run()
+```
+then you have to open the file `3-09-full-analysis.jl` in your browser.
+
+
+## Content
+
+The notebooks are organised into 4 categories, according to their main objectives and following the "Instructional design" described in the [associated paper](https://jose.theoj.org/papers/10.21105/jose.00278) in the _Journal of Open Source Education_.    
+The different notebook folders can be covered independently, depending on the user expertise.       
+Suggestions for the number of sessions and time to be dedicated for each category are provided below.
 
 | Folder | Content | Recommended duration |
 |:-------------------|:----------------------:|----------------|
-[1-Intro](./notebooks/1-Intro/) | Know the basics commands in Julia, read/write netCDF files and create different types of plots (scatter, histograms, maps, ...) | 2 hours |
-[2-Preprocessing](./notebooks/2-Preprocessing) | Learn about the input file preparation: observations (download and reading), bathymetry and mask, time periods, ... | 4 hours |
-[3-Analysis](./notebooks/3-Analysis/) | Perform different types of analysis, optimise the analysis parameters and work with different coordinate systems | 2 sessions of 4 hours   |
-[4-AdvancedTopics](./notebooks/4-AdvancedTopics/) | Discover more complex types of analysis, using for instance advection or inequality constraints. | 4 hours  |
+| [1-Intro](./notebooks/1-Intro/) | Know the basics commands in Julia, read/write netCDF files and create different types of plots (scatter, histograms, maps, ...) | 2 hours |
+| [2-Preprocessing](./notebooks/2-Preprocessing) | Learn about the input file preparation: observations (download and reading), bathymetry and mask, time periods, ... | 4 hours |
+| [3-Analysis](./notebooks/3-Analysis/) | Perform different types of analysis, optimise the analysis parameters and work with different coordinate systems | 2 sessions of 4 hours   |
+| [4-AdvancedTopics](./notebooks/4-AdvancedTopics/) | Discover more complex types of analysis, using for instance advection or inequality constraints. | 4 hours  |
 
 <details>
 
@@ -80,7 +162,7 @@ Suggestions for the number of sessions and time to be dedicated for each categor
 [4-19-optim-observations-locations-game.ipynb](https://github.com/gher-uliege/Diva-Workshops/blob/main/notebooks/4-AdvancedTopics/4-19-optim-observations-locations-game.ipynb)          
 </details>
 
-### How to use or adopt the notebooks?
+## How to use or adapt the notebooks?
 
 Different paths can be taken, depending on your experience with Julia and with `DIVAnd`.   
 First follow the instructions for the installation, then decide from where to start according to your experience or your audience.      
@@ -92,27 +174,12 @@ First follow the instructions for the installation, then decide from where to st
 |         No          |           Yes          | Check the [1-Intro](./notebooks/1-Intro/) notebooks to get familiar with Julia, then play with the [analysis](./notebooks/3-Analysis/3-09-full-analysis.ipynb)             |
 |         Yes         |           Yes          | Use the notebook [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb) as a starting point for your analysis, then play with the [4-AdvancedTopics](./notebooks/4-AdvancedTopics/) |
 
-#### 🚀 Fast start
-
-If you had to use only one notebook, it should be this one: [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb)
-
-### How to contribute?
+## How to contribute?
 
 Please refer to the instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Installation
+## Troubleshooting
 
-### Julia 
-
-Julia language can be installed using `juliaup`, as detailed in the [Download](https://julialang.org/downloads/) section of Julia.
-
-### Jupyter
-
-Jupyter has to be installed in order to have a notebook interface. It can be installed and launched (in Julia) with the following command in the Pkg REPL      
-(Enter the Pkg REPL by pressing `]` from the Julia session):
-```julia
-(@v1.11) pkg> add IJulia
-```
 > [!WARNING]
 > After an update of the Julia version, one can face an error message related to the Kernel:<br>
 `LoadError: ArgumentError: Package IJulia ... is required but does not seem to be installed` <br>
@@ -121,31 +188,3 @@ This can be solved with the command:
 using IJulia
 installkernel("Julia")
 ```
-
-### The notebooks 
-
-To get the notebooks on your computer you can either:
-1. Download a [zipped archive](https://github.com/gher-uliege/Diva-Workshops/archive/master.zip) and uncompress it [for any user].
-2. Clone the whole directory: `git clone git@github.com:gher-uliege/Diva-Workshops.git` (for git users).
-> [!NOTE] 
-> The notebooks will get dependencies via the file `Project.toml`. This is why all the notebooks start with the commands
-```julia
-import Pkg
-Pkg.activate("../..")
-Pkg.instantiate()
-```
-
-The Jupyter session is started with:
-```julia
-using IJulia
-notebook()
-```
-
-> [!IMPORTANT]
-> A notebook in [Pluto](https://plutojl.org/), `3-09-full-analysis.jl`, was recently added to the repository. To run it, you have to execute:
-```julia
-import Pluto
-Pluto.run()
-```
-then you have to open the file `3-09-full-analysis.jl` in your browser.
-
