@@ -18,7 +18,9 @@
 2. Install Julia and Jupyter.
 3. Run Jupyter and open one of the notebooks, for instance [3-09-full-analysis.ipynb](./notebooks/3-Analysis/3-09-full-analysis.ipynb).
 
-Please cite our article if this material helps you in your research or your teaching activities"
+## 📝 Citation 
+
+If this material helps you in your research or your teaching activities, please cite: 
 
 > Troupin et al., (2026). DIVAnd training: producing ocean climatologies with Jupyter notebooks. _Journal of Open Source Education_, **9(99)**, 278, https://doi.org/10.21105/jose.00278
 
@@ -46,9 +48,6 @@ Please cite our article if this material helps you in your research or your teac
 The goal of the training material module, made up of [Jupyter](https://jupyter.org/) notebooks, is twofold: 
 - [x] provide the users with a basic knowledge of Julia, meaning they are capable of reading the code presented in the notebooks and installing new modules, writing  functions for processing or creating plots. 
 - [x] ensure that users are able to create their own products (i.e. climatologies) using the [`DIVAnd`](https://github.com/gher-uliege/divand.jl) software tool, by combining their own datasets with those from other sources (for instance the [World Ocean Database](https://www.ncei.noaa.gov/products/world-ocean-database)) and setting the analysis parameters according to their region of interest.
-
-ℹ️ More information about `DIVAnd` is available in the package [documentation](https://gher-uliege.github.io/DIVAnd.jl/stable/).
-
 
 ## 🔧 Installation
 
